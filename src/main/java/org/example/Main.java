@@ -11,14 +11,14 @@ public class Main {
 
     public static void main(String[] args) {
         // Create the datasource used by all the DAOs
-        BasicDataSource dataSource = new BasicDataSource();
-        dataSource.setUrl("jdbc:postgresql://localhost:5432/createDatabase");
-        dataSource.setUsername("postgres");
-        dataSource.setPassword("postgres1");
+        BasicDataSource basicDataSource = new BasicDataSource();
+        basicDataSource.setUrl("jdbc:postgresql://localhost:5432/createDatabase");
+        basicDataSource.setUsername("postgres");
+        basicDataSource.setPassword("postgres1");
 
         // Create the DAOs needed by the controller
-        UserDao userDao = new JdbcUserDao(dataSource);
-        GameDao gameDao = null;
+        UserDao userDao = new JdbcUserDao(basicDataSource);
+        GameDao gameDao = new JdbcGameDao(basicDataSource);
         BacklogEntry backlogEntryDao = null;
 
 
