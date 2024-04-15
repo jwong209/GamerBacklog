@@ -2,6 +2,7 @@ DROP TABLE IF EXISTS "user" CASCADE;
 DROP TABLE IF EXISTS game CASCADE;
 DROP TABLE IF EXISTS backlog CASCADE;
 DROP TABLE IF EXISTS game_backlog;
+DROP TABLE IF EXISTS user_game;
 
 CREATE TABLE "user" (
 	user_id SERIAL PRIMARY KEY,
@@ -17,7 +18,7 @@ CREATE TABLE game (
 	summary TEXT,
 	platforms TEXT,
 	genres VARCHAR(255),
-	rating INTEGER,
+	rating VARCHAR(5),
 	plays VARCHAR(255),
 	playing VARCHAR(255),
 	backlogs VARCHAR(255),
@@ -35,11 +36,20 @@ CREATE TABLE backlog (
 );
 
 CREATE TABLE game_backlog (
-    game_backlog_id SERIAL PRIMARY KEY,
     backlog_id INTEGER,
     game_id INTEGER,
+    PRIMARY KEY (backlog_id, game_id),
     FOREIGN KEY (backlog_id) REFERENCES backlog (backlog_id),
     FOREIGN KEY (game_id) REFERENCES game (game_id)
+);
+
+CREATE TABLE user_game (
+    user_id INTEGER,
+    game_id INTEGER,
+    PRIMARY KEY (user_id, game_id),
+    FOREIGN KEY (user_id) REFERENCES "user" (user_id),
+    FOREIGN KEY (game_id) REFERENCES game (game_id)
+
 );
 
 INSERT INTO "user" (username, password)
@@ -53,3 +63,7 @@ VALUES
 	(1, 'Finished prologue only', 5),
 	(2, 'Unplayed', 2),
 	(3, 'Tried the demo only', 4);
+
+
+
+

@@ -40,10 +40,121 @@ public class JdbcGameDao implements GameDao{
         List<Game> games = new ArrayList<>();
 
         String sql = "SELECT game_id, title, release_date, developers, summary, platforms, genres, rating, plays, playing, backlogs, wishlist, lists, reviews " +
-                "FROM game";
+                "FROM game;";
 
         SqlRowSet results = jdbcTemplate.queryForRowSet(sql);
         while (results.next()) {
+            games.add(mapRowToGame(results));
+        }
+
+        return games;
+    }
+
+    @Override
+    public List<Game> searchGamesByPlatformGenreRatingTitle(String platform, String genre, String rating, String title) {
+        List<Game> games = new ArrayList<>();
+        platform = '%' + platform + '%';
+        genre = '%' + genre + '%';
+        title = '%' + title + '%';
+        rating = rating + '%';
+
+        String sql = "SELECT game_id, title, release_date, developers, summary, platforms, genres, rating, plays, playing, backlogs, wishlist, lists, reviews " +
+                "FROM game " +
+                "WHERE platforms ILIKE ? " +
+                "AND genres ILIKE ? " +
+                "AND rating LIKE ? " +
+                "AND title ILIKE ?;";
+
+        SqlRowSet results = jdbcTemplate.queryForRowSet(sql, platform, genre, rating, title);
+        while(results.next()) {
+            games.add(mapRowToGame(results));
+        }
+
+        return games;
+    }
+
+    @Override
+    public List<Game> searchGamesByTitle(String title) {
+        List<Game> games = new ArrayList<>();
+        title = '%' + title + '%';
+
+        String sql = "SELECT game_id, title, release_date, developers, summary, platforms, genres, rating, plays, playing, backlogs, wishlist, lists, reviews " +
+                "FROM game " +
+                "WHERE title ILIKE ?;";
+
+        SqlRowSet results = jdbcTemplate.queryForRowSet(sql, title);
+        while(results.next()) {
+            games.add(mapRowToGame(results));
+        }
+
+        return games;
+    }
+
+    @Override
+    public List<Game> searchGamesByTitleRating(String title, String rating) {
+        List<Game> games = new ArrayList<>();
+        title = '%' + title + '%';
+        rating = rating + '%';
+
+        String sql = "SELECT game_id, title, release_date, developers, summary, platforms, genres, rating, plays, playing, backlogs, wishlist, lists, reviews " +
+                "FROM game " +
+                "WHERE title ILIKE ? " +
+                "AND rating LIKE ?" +
+                "ORDER BY title;";
+
+        SqlRowSet results = jdbcTemplate.queryForRowSet(sql, title, rating);
+        while(results.next()) {
+            games.add(mapRowToGame(results));
+        }
+
+        return games;
+    }
+
+    @Override
+    public List<Game> searchGamesByRating(String rating) {
+        List<Game> games = new ArrayList<>();
+        rating = rating + '%';
+
+        String sql = "SELECT game_id, title, release_date, developers, summary, platforms, genres, rating, plays, playing, backlogs, wishlist, lists, reviews " +
+                "FROM game " +
+                "WHERE rating LIKE ?;";
+
+        SqlRowSet results = jdbcTemplate.queryForRowSet(sql, rating);
+        while(results.next()) {
+            games.add(mapRowToGame(results));
+        }
+
+        return games;
+    }
+
+    @Override
+    public List<Game> searchGamesByPlatform(String platform) {
+        List<Game> games = new ArrayList<>();
+        platform = '%' + platform + '%';
+
+        String sql = "SELECT game_id, title, release_date, developers, summary, platforms, genres, rating, plays, playing, backlogs, wishlist, lists, reviews " +
+                "FROM game " +
+                "WHERE platforms LIKE ?;";
+
+        SqlRowSet results = jdbcTemplate.queryForRowSet(sql, platform);
+        while(results.next()) {
+            games.add(mapRowToGame(results));
+        }
+
+        return games;
+    }
+
+    @Override
+    public List<Game> searchGamesByGenre(String genre) {
+        List<Game> games = new ArrayList<>();
+        genre = '%' + genre + '%';
+
+        String sql = "SELECT game_id, title, release_date, developers, summary, platforms, genres, rating, plays, playing, backlogs, wishlist, lists, reviews " +
+                "FROM game " +
+                "WHERE genres LIKE ?;";
+
+        SqlRowSet results = jdbcTemplate.queryForRowSet(sql, genre);
+        while(results.next()) {
             games.add(mapRowToGame(results));
         }
 
@@ -149,7 +260,7 @@ public class JdbcGameDao implements GameDao{
         game.setSummary(results.getString("summary"));
         game.setPlatforms(results.getString("platforms"));
         game.setGenres(results.getString("genres"));
-        game.setRating(results.getInt("rating"));
+        game.setRating(results.getString("rating"));
         game.setPlays(results.getString("plays"));
         game.setPlaying(results.getString("playing"));
         game.setBacklogs(results.getString("backlogs"));

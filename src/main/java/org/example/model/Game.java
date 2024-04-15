@@ -1,5 +1,7 @@
 package org.example.model;
 
+import java.util.List;
+
 public class Game {
     private int gameId;
     private String title;
@@ -8,7 +10,7 @@ public class Game {
     private String summary;
     private String platforms;
     private String genres;
-    private double rating;
+    private String rating;
     private String plays;
     private String playing;
     private String backlogs;
@@ -17,10 +19,9 @@ public class Game {
     private String reviews;
 
     public Game() {
-
     }
 
-    public Game(int gameId, String title, String releaseDate, String developers, String summary, String platforms, String genres, double rating, String plays, String playing, String backlogs, String wishlist, String lists, String reviews) {
+    public Game(int gameId, String title, String releaseDate, String developers, String summary, String platforms, String genres, String rating, String plays, String playing, String backlogs, String wishlist, String lists, String reviews) {
         this.gameId = gameId;
         this.title = title;
         this.releaseDate = releaseDate;
@@ -93,11 +94,11 @@ public class Game {
         this.genres = genres;
     }
 
-    public double getRating() {
+    public String getRating() {
         return rating;
     }
 
-    public void setRating(double rating) {
+    public void setRating(String rating) {
         this.rating = rating;
     }
 
@@ -147,5 +148,11 @@ public class Game {
 
     public void setReviews(String reviews) {
         this.reviews = reviews;
+    }
+
+    @Override
+    public String toString() {
+        return String.format("%s, %s, %s, %s,%s, %s)", getTitle(), getReleaseDate(), getDevelopers(), getPlatforms(), getGenres(), getRating());
+
     }
 }

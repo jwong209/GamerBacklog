@@ -1,10 +1,15 @@
 package org.example.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class User {
 
     private int userId;
     private String userName;
     private String password;
+
+    private List<Game> collection = new ArrayList<>();
 
     public User() {
     }

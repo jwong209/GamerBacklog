@@ -40,7 +40,7 @@ public class JdbcUserDao implements UserDao{
         List<User> users = new ArrayList<>();
 
         String sql = "SELECT user_id, username, password " +
-                "FROM user";
+                "FROM public.user";
 
         SqlRowSet results = jdbcTemplate.queryForRowSet(sql);
         while (results.next()) {
