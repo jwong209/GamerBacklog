@@ -40,7 +40,7 @@ public class JdbcUserDao implements UserDao{
         List<User> users = new ArrayList<>();
 
         String sql = "SELECT user_id, username, password " +
-                "FROM public.user";
+                "FROM \"user\"";
 
         SqlRowSet results = jdbcTemplate.queryForRowSet(sql);
         while (results.next()) {
@@ -49,7 +49,23 @@ public class JdbcUserDao implements UserDao{
 
         return users;
     }
+    @Override
+    public int getUserIdByUsernamePassword(String username, String password) {
+        Integer userId = -1;  // non-existent
+        String sql = "SELECT user_id " +
+                "FROM \"user\" " +
+                "WHERE username = ? " +
+                "AND password = ?;";
+        try {
+            userId = jdbcTemplate.queryForObject(sql, Integer.class, username, password);
+        } catch (DataIntegrityViolationException e) {
+            throw new DaoException("Data integrity violation", e);
+        }
+
+        return userId;
+    }
 // ----- Create -----
+
     @Override
     public User createUser(User user) {
         User newUser = null;
@@ -68,8 +84,8 @@ public class JdbcUserDao implements UserDao{
 
         return newUser;
     }
-
 // ----- Update -----
+
     @Override
     public User updateUser(User user) {
         User updatedUser = null;
@@ -91,8 +107,8 @@ public class JdbcUserDao implements UserDao{
         }
         return updatedUser;
     }
-
 // ----- Delete -----
+
     @Override
     public int deleteUserById(int userId) {
         int numberOfRows = 0;

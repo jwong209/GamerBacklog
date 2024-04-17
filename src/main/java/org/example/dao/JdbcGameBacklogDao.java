@@ -8,36 +8,23 @@ import org.springframework.jdbc.support.rowset.SqlRowSet;
 import java.util.ArrayList;
 import java.util.List;
 
-public class JbdcUserGameDao implements UserGameDao{
+public class JdbcGameBacklogDao implements GameBacklogDao{
 
     private JdbcTemplate jdbcTemplate;
 
-    public JbdcUserGameDao(BasicDataSource basicDataSource) {
+    public JdbcGameBacklogDao(BasicDataSource basicDataSource) {
         this.jdbcTemplate = new JdbcTemplate(basicDataSource);
     }
 
     @Override
-    public void linkUserGame(int userId, int gameId) {
-        String sql = "INSERT INTO user_game (user_id, game_id) " +
-                "VALUES (?, ?)";
-        jdbcTemplate.update(sql, userId, gameId);
-    }
-
-    @Override
-    public void unlinkUserGame(int userId, int gameId) {
-        String sql = "DELETE FROM user_game " +
-                "WHERE user_id = ? AND game_id = ?;";
-        jdbcTemplate.update(sql, userId, gameId);
-    }
-
-    @Override
-    public List<Game> getAllGamesByUserId(int userId) {
+    public List<Game> getAllGamesInBacklogByUserId(int userId) {
         List<Game> games = new ArrayList<>();
 
         String sql = "SELECT g.* " +
                 "FROM game AS g " +
-                "JOIN user_game AS ug ON g.game_id = ug.game_id " +
-                "WHERE ug.user_id = ?;";
+                "JOIN game_backlog AS gb ON g.game_id = gb.game_id " +
+                "JOIN backlog AS b ON b.backlog_id = gb.backlog_id " +
+                "WHERE b.user_id = ?;";
 
         SqlRowSet results = jdbcTemplate.queryForRowSet(sql, userId);
         while (results.next()) {
@@ -45,6 +32,20 @@ public class JbdcUserGameDao implements UserGameDao{
         }
 
         return games;
+    }
+
+    @Override
+    public void linkGameBacklog(int gameId, int backlogId) {
+        String sql = "INSERT INTO game_backlog (game_id, backlog_id) " +
+                "VALUES (?, ?)";
+        jdbcTemplate.update(sql, gameId, backlogId);
+    }
+
+    @Override
+    public void unlinkGameBacklog(int gameId, int backlogId) {
+        String sql = "DELETE FROM game_backlog " +
+                "WHERE game_id = ? AND backlog_id = ?;";
+        jdbcTemplate.update(sql, gameId, backlogId);
     }
 
     private Game mapRowToGame(SqlRowSet results) {

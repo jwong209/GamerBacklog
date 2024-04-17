@@ -9,7 +9,7 @@ public class User {
     private String userName;
     private String password;
 
-    private List<Game> collection = new ArrayList<>();
+//    private List<Game> collection = new ArrayList<>();
 
     public User() {
     }

@@ -152,7 +152,8 @@ public class Game {
 
     @Override
     public String toString() {
-        return String.format("%s, %s, %s, %s,%s, %s)", getTitle(), getReleaseDate(), getDevelopers(), getPlatforms(), getGenres(), getRating());
+        return String.format("%s, %s, %s, %s,%s, %s", getTitle(), getReleaseDate(), getDevelopers(), getPlatforms(), getGenres(), getRating());
 
     }
+
 }

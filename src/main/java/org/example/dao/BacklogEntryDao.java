@@ -13,9 +13,11 @@ public interface BacklogEntryDao {
 
     List<BacklogEntry> getBacklogEntries() throws DaoException;
 
-    List<BacklogEntry> getBacklogEntryByUserId(int userId) throws DaoException;
+    List<BacklogEntry> getBacklogEntriesByUserId(int userId) throws DaoException;
 
-    BacklogEntry createBacklogEntry(BacklogEntry backlogEntry) throws DaoException;
+    int getBacklogIdByUserId(int userId);
+
+    BacklogEntry createBacklogEntry(int userId, String progress, int priority) throws DaoException;
 
     BacklogEntry updateBacklogEntry(BacklogEntry BacklogEntry) throws DaoException;
 

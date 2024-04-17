@@ -48,4 +48,10 @@ public class BacklogEntry {
     public void setPriority(int priority) {
         this.priority = priority;
     }
+
+    @Override
+    public String toString() {
+        return String.format("%s, %s, %s, %s", getBacklogId(), getUserId(), getProgress(), getPriority());
+    }
+
 }

@@ -52,7 +52,7 @@ public class JdbcBacklogEntryDao implements BacklogEntryDao{
     }
 
     @Override
-    public List<BacklogEntry> getBacklogEntryByUserId(int userId) {
+    public List<BacklogEntry> getBacklogEntriesByUserId(int userId) {
         List<BacklogEntry> backlogEntries = new ArrayList<>();
 
         String sql = "SELECT backlog_id, progress, priority " +
@@ -71,15 +71,29 @@ public class JdbcBacklogEntryDao implements BacklogEntryDao{
         return backlogEntries;
     }
 
-// ----- Create -----
     @Override
-    public BacklogEntry createBacklogEntry(BacklogEntry backlogEntry) throws DaoException {
+    public int getBacklogIdByUserId(int userId) {
+        int backlogId = -1;
+        String sql = "SELECT backlog_id " +
+                "FROM backlog " +
+                "WHERE user_id = ? " +
+                "LIMIT 1";
+
+        backlogId = jdbcTemplate.queryForObject(sql, Integer.class, userId);
+
+        return backlogId;
+    }
+
+
+    // ----- Create -----
+    @Override
+    public BacklogEntry createBacklogEntry(int userId, String progress, int priority) throws DaoException {
         BacklogEntry newBacklogEntry = null;
-        String sql = "INSERT INTO backlog (progress, priority) " +
-                "VALUES (?, ?) RETURNING backlog_id;";
+        String sql = "INSERT INTO backlog (user_id, progress, priority) " +
+                "VALUES (?, ?, ?) RETURNING backlog_id;";
 
         try {
-            Integer newBacklogEntryId = jdbcTemplate.queryForObject(sql, Integer.class, backlogEntry.getProgress(), backlogEntry.getPriority());
+            Integer newBacklogEntryId = jdbcTemplate.queryForObject(sql, Integer.class, userId, progress, priority);
 
             newBacklogEntry = getBacklogEntryById(newBacklogEntryId);
         } catch (CannotGetJdbcConnectionException e) {

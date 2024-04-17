@@ -16,27 +16,22 @@ public class GameController {
     }
 
     public List<Game> searchGameByPlatform(String platforms) {
-        List<Game> foundGames = gameDao.searchGamesByPlatform(platforms);
-        return foundGames;
+        return gameDao.searchGamesByPlatform(platforms);
     }
 
     public List<Game> searchGamesByRating(String rating) {
-        List<Game> foundGames = gameDao.searchGamesByRating(rating);
-        return foundGames;
+        return gameDao.searchGamesByRating(rating);
     }
 
     public List<Game> searchGamesByTitleRating(String title, String rating) {
-        List<Game> foundGames = gameDao.searchGamesByTitleRating(title, rating);
-        return foundGames;
+        return gameDao.searchGamesByTitleRating(title, rating);
     }
 
     public List<Game> searchGamesByGenre(String genre) {
-        List<Game> foundGames = gameDao.searchGamesByGenre(genre);
-        return foundGames;
+        return gameDao.searchGamesByGenre(genre);
     }
 
     public List<Game> searchGamesByPlatformGenreRatingTitle(String platform, String genre, String rating, String title) {
-        List<Game> foundGames = gameDao.searchGamesByPlatformGenreRatingTitle(platform, genre, rating, title);
-        return foundGames;
+        return gameDao.searchGamesByPlatformGenreRatingTitle(platform, genre, rating, title);
     }
 }
