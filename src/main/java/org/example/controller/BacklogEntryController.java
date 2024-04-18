@@ -1,8 +1,6 @@
 package org.example.controller;
 
 import org.example.dao.BacklogEntryDao;
-import org.example.dao.JdbcBacklogEntryDao;
-import org.example.exception.DaoException;
 import org.example.model.BacklogEntry;
 
 import java.util.List;

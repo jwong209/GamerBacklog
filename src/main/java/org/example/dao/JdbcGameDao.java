@@ -22,37 +22,40 @@ public class JdbcGameDao implements GameDao{
     @Override
     public Game getGameById(int gameId) {
         Game game = null;
-
         String sql = "SELECT game_id, title, release_date, developers, summary, platforms, genres, rating, plays, playing, backlogs, wishlist, lists, reviews " +
                 "FROM game " +
                 "WHERE game_id = ?;";
-
-        SqlRowSet results = jdbcTemplate.queryForRowSet(sql, gameId);
-        if (results.next()) {
-            game = mapRowToGame(results);
+        try {
+            SqlRowSet results = jdbcTemplate.queryForRowSet(sql, gameId);
+            if (results.next()) {
+                game = mapRowToGame(results);
+            }
+        }  catch (CannotGetJdbcConnectionException e) {
+            throw new DaoException("Unable to connect to server or database", e);
         }
-
         return game;
     }
 
     @Override
     public List<Game> getGames() {
         List<Game> games = new ArrayList<>();
-
         String sql = "SELECT game_id, title, release_date, developers, summary, platforms, genres, rating, plays, playing, backlogs, wishlist, lists, reviews " +
                 "FROM game;";
-
-        SqlRowSet results = jdbcTemplate.queryForRowSet(sql);
-        while (results.next()) {
-            games.add(mapRowToGame(results));
+        try {
+            SqlRowSet results = jdbcTemplate.queryForRowSet(sql);
+            while (results.next()) {
+                games.add(mapRowToGame(results));
+            }
+        }  catch (CannotGetJdbcConnectionException e) {
+            throw new DaoException("Unable to connect to server or database", e);
         }
-
         return games;
     }
 
     @Override
     public List<Game> searchGamesByPlatformGenreRatingTitle(String platform, String genre, String rating, String title) {
         List<Game> games = new ArrayList<>();
+
         platform = '%' + platform + '%';
         genre = '%' + genre + '%';
         title = '%' + title + '%';
@@ -65,9 +68,13 @@ public class JdbcGameDao implements GameDao{
                 "AND rating LIKE ? " +
                 "AND title ILIKE ?;";
 
-        SqlRowSet results = jdbcTemplate.queryForRowSet(sql, platform, genre, rating, title);
-        while(results.next()) {
-            games.add(mapRowToGame(results));
+        try {
+            SqlRowSet results = jdbcTemplate.queryForRowSet(sql, platform, genre, rating, title);
+            while(results.next()) {
+                games.add(mapRowToGame(results));
+            }
+        } catch (CannotGetJdbcConnectionException e) {
+            throw new DaoException("Unable to connect to server or database", e);
         }
 
         return games;
@@ -82,9 +89,13 @@ public class JdbcGameDao implements GameDao{
                 "FROM game " +
                 "WHERE title ILIKE ?;";
 
-        SqlRowSet results = jdbcTemplate.queryForRowSet(sql, title);
-        while(results.next()) {
-            games.add(mapRowToGame(results));
+        try {
+            SqlRowSet results = jdbcTemplate.queryForRowSet(sql, title);
+            while(results.next()) {
+                games.add(mapRowToGame(results));
+            }
+        } catch (CannotGetJdbcConnectionException e) {
+            throw new DaoException("Unable to connect to server or database", e);
         }
 
         return games;

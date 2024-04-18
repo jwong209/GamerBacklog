@@ -1,6 +1,5 @@
 package org.example.dao;
 
-import org.apache.commons.dbcp2.BasicDataSource;
 import org.example.exception.DaoException;
 import org.example.model.User;
 import org.springframework.jdbc.core.JdbcTemplate;

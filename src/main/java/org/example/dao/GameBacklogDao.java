@@ -2,7 +2,6 @@ package org.example.dao;
 
 import org.example.model.Game;
 import org.example.model.User;
-import org.springframework.jdbc.core.JdbcTemplate;
 
 import java.util.List;
 

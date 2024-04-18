@@ -2,9 +2,6 @@ package org.example.controller;
 
 import org.example.dao.GameDao;
 import org.example.model.Game;
-import org.example.model.User;
-
-import java.util.ArrayList;
 import java.util.List;
 
 public class GameController {

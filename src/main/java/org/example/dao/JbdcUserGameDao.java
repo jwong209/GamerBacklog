@@ -1,7 +1,9 @@
 package org.example.dao;
 
 import org.apache.commons.dbcp2.BasicDataSource;
+import org.example.exception.DaoException;
 import org.example.model.Game;
+import org.springframework.jdbc.CannotGetJdbcConnectionException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
 
@@ -33,17 +35,18 @@ public class JbdcUserGameDao implements UserGameDao{
     @Override
     public List<Game> getAllGamesByUserId(int userId) {
         List<Game> games = new ArrayList<>();
-
         String sql = "SELECT g.* " +
                 "FROM game AS g " +
                 "JOIN user_game AS ug ON g.game_id = ug.game_id " +
                 "WHERE ug.user_id = ?;";
-
-        SqlRowSet results = jdbcTemplate.queryForRowSet(sql, userId);
-        while (results.next()) {
-            games.add(mapRowToGame(results));
+        try {
+            SqlRowSet results = jdbcTemplate.queryForRowSet(sql, userId);
+            while (results.next()) {
+                games.add(mapRowToGame(results));
+            }
+        } catch (CannotGetJdbcConnectionException e) {
+            throw new DaoException("Unable to connect to server or database", e);
         }
-
         return games;
     }
 

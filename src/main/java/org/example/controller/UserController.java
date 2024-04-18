@@ -2,9 +2,6 @@ package org.example.controller;
 
 import org.example.View;
 import org.example.dao.UserDao;
-import org.example.model.Game;
-import org.example.model.User;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,7 +26,7 @@ public class UserController {
         if (userId == -1) {
             System.out.println("User information not found. Reenter credentials.");
         } else {
-            System.out.println("[ Login successful. Proceeding to Main Menu... ]");
+            System.out.println(">> User found. Logging in...");
         }
         return userId;
     }

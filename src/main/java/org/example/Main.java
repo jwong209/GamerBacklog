@@ -6,7 +6,6 @@ import org.apache.commons.dbcp2.BasicDataSource; // import Apache BasicDataSourc
 import org.example.model.BacklogEntry;
 import org.example.model.Game;
 import org.example.model.User;
-import org.springframework.jdbc.core.JdbcTemplate;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,7 +18,7 @@ public class Main {
         View view = new View();
 //        Scanner userInput = view.getScanner();
 
-        // Create the datasource used by all the DAOs
+    // Create the datasource used by all the DAOs
         BasicDataSource basicDataSource = new BasicDataSource();
         basicDataSource.setUrl("jdbc:postgresql://localhost:5432/createDatabase");
         basicDataSource.setUsername("postgres");
@@ -39,43 +38,64 @@ public class Main {
         UserGameController userGameController = new UserGameController(userGameDao, view, gameController);
         GameBacklogController gameBacklogController = new GameBacklogController(gameBacklogDao);
 
+        int currentUserId = 0;
 
-//       List<BacklogEntry> list = backlogEntryDao.getBacklogEntries();
-//       for (BacklogEntry backlogEntry: list) {
-//           System.out.println(backlogEntry);
-//       }
+    //Identification
+        while (true) {
+            try {
+                // prompt for 1) Login  2) Create new account
+                int loginSelection = view.displayLoginMenu();;
+
+                if (loginSelection == 1) {
+                    currentUserId = userController.authenticateUser();
+                    break;
+                } else if (loginSelection == 2) {
+                    //prompt for username
+//                    String username = ;
+                    //prompt for password
+//                    String password = ;
+                    // method to create new user in user table;   (UserController)
+
+                }
+            } catch (NumberFormatException e) {
+                System.out.print("\n[!] Invalid input. Please enter a number: ");
+            }
+        }
+
 
     //  Identification; Ask user for username & password; Search user table for user_id that matches
-        int currentUserId = userController.authenticateUser();
+//        int currentUserId = userController.authenticateUser();
 
-    // After identification, Main menu display and prompt
+    // After identification, Main menu display and prompts
         while (true) {
             try {
                 int menuSelection = view.displayMainMenu();
 
-            // Picks 1 View all games user owns (from user_game table)
+            // 1) View all games user owns (from user_game table)
                 if (menuSelection == 1) {
                     List<Game> userCollection = userGameController.getAllGamesByUserId(currentUserId);
                     System.out.println("\n[ Games owned. Found " + userCollection.size() + " games in collection. ]");
                     view.displayPaginatedGames(userCollection);
-            // Picks 2 Add game to collection (user_game)
+            // 2) Add game to collection (user_game)
                 } else if (menuSelection == 2) {
                     userGameController.searchGameAddToCollection(currentUserId);
-            // Picks 3 View all games in user's backlog
+            // 3) View all games in user's backlog
                 } else if (menuSelection == 3) {
                     List<Game> userBacklog = gameBacklogController.getAllGamesInBacklogByUserId(currentUserId);
                     view.displayPaginatedGames(userBacklog);
-            // Picks 4  Add game from collection to backlog
+            // 4)  Add game from collection to backlog
                 } else if (menuSelection == 4) {
-                // Get gameId from selected game in user's collection
+                // Get gameId from selected game in user's collection; create temporary list to paginate; use that selected Game object and retrieve the gameId which accurately mirrors the number for game_id in the tables
                     List<Game> userCollection = userGameController.getAllGamesByUserId(currentUserId);
                     view.displayPaginatedGames(userCollection);
-                    int gameId = view.promptForGameSelection();
+                    int selectedGameIndex = view.promptForGameSelection();
+                    Game selectedGame = userCollection.get(selectedGameIndex - 1);
 
-                // Get backlogId from the current user's id
-                    int backlogId = backlogEntryController.getBacklogIdByUserId(currentUserId);
-                    System.out.println("backlogId: " + backlogId);  // testing output view in console
+                    System.out.println("Selected game: " + selectedGame);
+                    int gameId = selectedGame.getGameId();
+//                    System.out.println("Selected gamedId: " + gameId);
 
+                // Prompt for extra parameters to construct BacklogEntry object
                     String progress = view.promptForProgress();
                     int priority = view.promptForPriority();
 
@@ -83,9 +103,12 @@ public class Main {
                     BacklogEntry newBacklogEntry = backlogEntryController.createBacklogEntry(currentUserId, progress, priority);
                     int newBacklogId = newBacklogEntry.getBacklogId();
 
+                    System.out.println(gameId);
+                    System.out.println(newBacklogId);
+
                 // updates game_backlog
                     gameBacklogController.linkGameBacklog(gameId, newBacklogId);
-            // Picks 0 Exit
+            // 0) Exit program
                 } else if (menuSelection == 0) {
                     System.out.println("Exiting program...");
                     break;
@@ -120,24 +143,6 @@ public class Main {
 //
 //        int selectedGameId = selectedGame.getGameId();
 //        userGameController.addGameToUserGame(currentUserId, selectedGameId);
-
-
-
-//        // Search user_game table with matches of user_id
-//        List<Game> ownedGames = userGameController.getAllGamesByUserId(currentUserId);
-
-
-
-        // Reference user_id in backlog table to get backlog_id
-
-
-        // Create backlogEntry object from userId, progress, priority
-//        String progress = view.promptForProgress();
-//
-//        int priority = view.promptForPriority();
-//        BacklogEntry newBacklogEntry = backlogEntryController.createBacklogEntry(currentUserId, progress, priority);
-//        System.out.println(newBacklogEntry);
-
 
 
 

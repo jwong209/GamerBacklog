@@ -1,7 +1,10 @@
 package org.example.dao;
 
 import org.apache.commons.dbcp2.BasicDataSource;
+import org.example.exception.DaoException;
 import org.example.model.Game;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.jdbc.CannotGetJdbcConnectionException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
 
@@ -19,18 +22,19 @@ public class JdbcGameBacklogDao implements GameBacklogDao{
     @Override
     public List<Game> getAllGamesInBacklogByUserId(int userId) {
         List<Game> games = new ArrayList<>();
-
         String sql = "SELECT g.* " +
                 "FROM game AS g " +
                 "JOIN game_backlog AS gb ON g.game_id = gb.game_id " +
                 "JOIN backlog AS b ON b.backlog_id = gb.backlog_id " +
                 "WHERE b.user_id = ?;";
-
-        SqlRowSet results = jdbcTemplate.queryForRowSet(sql, userId);
-        while (results.next()) {
-            games.add(mapRowToGame(results));
+        try {
+            SqlRowSet results = jdbcTemplate.queryForRowSet(sql, userId);
+            while (results.next()) {
+                games.add(mapRowToGame(results));
+            }
+        } catch (CannotGetJdbcConnectionException e) {
+            throw new DaoException("Unable to connect to server or database", e);
         }
-
         return games;
     }
 
@@ -38,14 +42,26 @@ public class JdbcGameBacklogDao implements GameBacklogDao{
     public void linkGameBacklog(int gameId, int backlogId) {
         String sql = "INSERT INTO game_backlog (game_id, backlog_id) " +
                 "VALUES (?, ?)";
-        jdbcTemplate.update(sql, gameId, backlogId);
+        try {
+            jdbcTemplate.update(sql, gameId, backlogId);
+        } catch (CannotGetJdbcConnectionException e) {
+            throw new DaoException("Unable to connect to server or database", e);
+        } catch (DataIntegrityViolationException e) {
+            throw new DaoException("Data integrity violation", e);
+        }
     }
 
     @Override
     public void unlinkGameBacklog(int gameId, int backlogId) {
         String sql = "DELETE FROM game_backlog " +
                 "WHERE game_id = ? AND backlog_id = ?;";
-        jdbcTemplate.update(sql, gameId, backlogId);
+        try {
+            jdbcTemplate.update(sql, gameId, backlogId);
+        } catch (CannotGetJdbcConnectionException e) {
+            throw new DaoException("Unable to connect to server or database", e);
+        } catch (DataIntegrityViolationException e) {
+            throw new DaoException("Data integrity violation", e);
+        }
     }
 
     private Game mapRowToGame(SqlRowSet results) {
