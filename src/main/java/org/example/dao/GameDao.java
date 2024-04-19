@@ -31,10 +31,6 @@ public interface GameDao {
 
     int deleteGameById(int gameId) throws DaoException;
 
-    void linkGameBacklog(int gameId, int backlogId) throws DaoException;
-
-    void unlinkGameBacklog(int gameId, int backlogId) throws DaoException;
-
     }
 
 

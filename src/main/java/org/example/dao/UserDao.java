@@ -2,7 +2,6 @@ package org.example.dao;
 
 import org.example.exception.DaoException;
 import org.example.model.User;
-import org.springframework.jdbc.core.JdbcTemplate;
 
 import java.util.List;
 
@@ -12,7 +11,7 @@ public interface UserDao {
 
     List<User> getUsers() throws DaoException;
 
-    User createUser(User user) throws DaoException;
+    User createUser(String username, String password) throws DaoException;
 
     User updateUser(User user) throws DaoException;
 

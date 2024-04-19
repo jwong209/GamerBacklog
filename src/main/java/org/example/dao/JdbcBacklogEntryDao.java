@@ -8,6 +8,7 @@ import org.springframework.jdbc.CannotGetJdbcConnectionException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
 
+import javax.sql.DataSource;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,8 +16,8 @@ public class JdbcBacklogEntryDao implements BacklogEntryDao{
 
     private JdbcTemplate jdbcTemplate;
 
-    public JdbcBacklogEntryDao(BasicDataSource basicDataSource) {
-        this.jdbcTemplate = new JdbcTemplate(basicDataSource);
+    public JdbcBacklogEntryDao(DataSource dataSource) {
+        this.jdbcTemplate = new JdbcTemplate(dataSource);
     }
 
 // ----- Read -----

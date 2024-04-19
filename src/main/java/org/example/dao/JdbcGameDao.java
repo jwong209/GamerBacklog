@@ -8,19 +8,20 @@ import org.springframework.jdbc.CannotGetJdbcConnectionException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
 
+import javax.sql.DataSource;
 import java.util.ArrayList;
 import java.util.List;
 
 public class JdbcGameDao implements GameDao{
     private JdbcTemplate jdbcTemplate;
 
-    public JdbcGameDao(BasicDataSource basicDataSource) {
-        this.jdbcTemplate = new JdbcTemplate(basicDataSource);
+    public JdbcGameDao(DataSource dataSource) {
+        this.jdbcTemplate = new JdbcTemplate(dataSource);
     }
 
 // ----- Read -----
     @Override
-    public Game getGameById(int gameId) {
+    public Game getGameById(int gameId) throws DaoException {
         Game game = null;
         String sql = "SELECT game_id, title, release_date, developers, summary, platforms, genres, rating, plays, playing, backlogs, wishlist, lists, reviews " +
                 "FROM game " +
@@ -37,7 +38,7 @@ public class JdbcGameDao implements GameDao{
     }
 
     @Override
-    public List<Game> getGames() {
+    public List<Game> getGames() throws DaoException {
         List<Game> games = new ArrayList<>();
         String sql = "SELECT game_id, title, release_date, developers, summary, platforms, genres, rating, plays, playing, backlogs, wishlist, lists, reviews " +
                 "FROM game;";
@@ -53,7 +54,7 @@ public class JdbcGameDao implements GameDao{
     }
 
     @Override
-    public List<Game> searchGamesByPlatformGenreRatingTitle(String platform, String genre, String rating, String title) {
+    public List<Game> searchGamesByPlatformGenreRatingTitle(String platform, String genre, String rating, String title) throws DaoException {
         List<Game> games = new ArrayList<>();
 
         platform = '%' + platform + '%';
@@ -194,19 +195,6 @@ public class JdbcGameDao implements GameDao{
     }
 
 
-    @Override
-    public void linkGameBacklog(int gameId, int backlogId) throws DaoException {
-        String sql = "INSERT INTO game_backlog (game_id, backlog_id) VALUES (?, ?);";
-
-        try {
-            jdbcTemplate.update(sql, gameId, backlogId);
-        } catch (CannotGetJdbcConnectionException e) {
-            throw new DaoException("Unable to connect to server or database", e);
-        } catch (DataIntegrityViolationException e) {
-            throw new DaoException("Data integrity violation", e);
-        }
-    }
-
 // ----- Update -----
     @Override
     public Game updateGame(Game game) {
@@ -250,17 +238,6 @@ public class JdbcGameDao implements GameDao{
         return numberOfRows;
     }
 
-    @Override
-    public void unlinkGameBacklog(int gameId, int backlogId) throws DaoException {
-        String sql = "DELETE FROM game_backlog WHERE game_id = ? AND backlog_id = ?;";
-        try {
-            jdbcTemplate.update(sql, gameId, backlogId);
-        } catch (CannotGetJdbcConnectionException e) {
-            throw new DaoException("Unable to connect to server or database", e);
-        } catch (DataIntegrityViolationException e) {
-            throw new DaoException("Data integrity violation", e);
-        }
-    }
 
     private Game mapRowToGame(SqlRowSet results) {
         Game game = new Game();

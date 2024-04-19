@@ -8,6 +8,7 @@ import org.springframework.jdbc.CannotGetJdbcConnectionException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
 
+import javax.sql.DataSource;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,8 +16,8 @@ public class JdbcGameBacklogDao implements GameBacklogDao{
 
     private JdbcTemplate jdbcTemplate;
 
-    public JdbcGameBacklogDao(BasicDataSource basicDataSource) {
-        this.jdbcTemplate = new JdbcTemplate(basicDataSource);
+    public JdbcGameBacklogDao(DataSource dataSource) {
+        this.jdbcTemplate = new JdbcTemplate(dataSource);
     }
 
     @Override
@@ -39,7 +40,7 @@ public class JdbcGameBacklogDao implements GameBacklogDao{
     }
 
     @Override
-    public void linkGameBacklog(int gameId, int backlogId) {
+    public void linkGameBacklog(int gameId, int backlogId) throws DaoException {
         String sql = "INSERT INTO game_backlog (game_id, backlog_id) " +
                 "VALUES (?, ?)";
         try {
@@ -52,7 +53,7 @@ public class JdbcGameBacklogDao implements GameBacklogDao{
     }
 
     @Override
-    public void unlinkGameBacklog(int gameId, int backlogId) {
+    public void unlinkGameBacklog(int gameId, int backlogId) throws DaoException {
         String sql = "DELETE FROM game_backlog " +
                 "WHERE game_id = ? AND backlog_id = ?;";
         try {

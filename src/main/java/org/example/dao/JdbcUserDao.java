@@ -8,6 +8,7 @@ import org.springframework.jdbc.CannotGetJdbcConnectionException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
 
+import javax.sql.DataSource;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,8 +16,8 @@ public class JdbcUserDao implements UserDao{
 
     private JdbcTemplate jdbcTemplate;
 
-    public JdbcUserDao(BasicDataSource basicDataSource) {
-        this.jdbcTemplate = new JdbcTemplate(basicDataSource);
+    public JdbcUserDao(DataSource dataSource) {
+        this.jdbcTemplate = new JdbcTemplate(dataSource);
     }
 
 // ----- Read -----
@@ -25,7 +26,7 @@ public class JdbcUserDao implements UserDao{
         User user = null;
 
         String sql = "SELECT user_id, username, password " +
-                "FROM user " +
+                "FROM \"user\" " +
                 "WHERE user_id = ?";
 
         SqlRowSet results = jdbcTemplate.queryForRowSet(sql, userId);
@@ -65,19 +66,16 @@ public class JdbcUserDao implements UserDao{
         return userId;
     }
 // ----- Create -----
-
     @Override
-    public User createUser(User user) {
+    public User createUser(String username, String password) throws DaoException {
         User newUser = null;
-        String sql = "INSERT INTO user (username, password) " +
+        String sql = "INSERT INTO \"user\" (username, password) " +
                 "VALUES (?, ?) RETURNING user_id;";
 
         try {
-            Integer newUserId = jdbcTemplate.queryForObject(sql, Integer.class, user.getUserName(), user.getPassword());
+            Integer newUserId = jdbcTemplate.queryForObject(sql, Integer.class, username, password);
 
             newUser = getUserById(newUserId);
-        } catch (CannotGetJdbcConnectionException e) {
-            throw new DaoException("Unable to connect to server or database", e);
         } catch (DataIntegrityViolationException e) {
             throw new DaoException("Data integrity violation", e);
         }
@@ -87,9 +85,9 @@ public class JdbcUserDao implements UserDao{
 // ----- Update -----
 
     @Override
-    public User updateUser(User user) {
+    public User updateUser(User user) throws DaoException {
         User updatedUser = null;
-        String sql = "UPDATE user SET username = ?, password = ? " +
+        String sql = "UPDATE \"user\" SET username = ?, password = ? " +
                 "WHERE user_id = ?;";
 
         try {
@@ -110,13 +108,17 @@ public class JdbcUserDao implements UserDao{
 // ----- Delete -----
 
     @Override
-    public int deleteUserById(int userId) {
+    public int deleteUserById(int userId) throws DaoException {
         int numberOfRows = 0;
+        String gameBacklogSql = "DELETE FROM game_backlog WHERE backlog_id IN (SELECT backlog_id FROM backlog WHERE user_id = ?);";
         String userBacklogSql = "DELETE FROM backlog WHERE user_id = ?;";
-        String userSql = "DELETE FROM user WHERE user_id = ?;";
+        String userGamerSql = "DELETE FROM user_game WHERE user_id = ?;";
+        String userSql = "DELETE FROM \"user\" WHERE user_id = ?;";
 
         try {
+            numberOfRows += jdbcTemplate.update(gameBacklogSql, userId);
             numberOfRows += jdbcTemplate.update(userBacklogSql, userId);
+            numberOfRows += jdbcTemplate.update(userGamerSql, userId);
             numberOfRows += jdbcTemplate.update(userSql, userId);
         } catch (CannotGetJdbcConnectionException e) {
             throw new DaoException("Unable to connect to server or database", e);

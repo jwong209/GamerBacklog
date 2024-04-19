@@ -15,7 +15,7 @@ import java.util.Scanner;
 public class Main {
 
     public static void main(String[] args) {
-        View view = new View();
+        View view = new View();                  // how to employ Singleton?
 //        Scanner userInput = view.getScanner();
 
     // Create the datasource used by all the DAOs
@@ -40,7 +40,7 @@ public class Main {
 
         int currentUserId = 0;
 
-    //Identification
+    // Identification; Ask user for username & password; Search user table for user_id that matches
         while (true) {
             try {
                 // prompt for 1) Login  2) Create new account
@@ -61,10 +61,6 @@ public class Main {
                 System.out.print("\n[!] Invalid input. Please enter a number: ");
             }
         }
-
-
-    //  Identification; Ask user for username & password; Search user table for user_id that matches
-//        int currentUserId = userController.authenticateUser();
 
     // After identification, Main menu display and prompts
         while (true) {
