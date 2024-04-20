@@ -18,24 +18,12 @@ public class View {
         return View.scanner;
     }
 
-    public int displayMainMenu() {
-        System.out.println("\nMain Menu");
-        System.out.println("1. View games in COLLECTION");
-        System.out.println("2. Add game to COLLECTION");
-        System.out.println("3. View games in BACKLOG");
-        System.out.println("4. Add game from COLLECTION to BACKLOG");
-        System.out.println("0. Exit");
-        System.out.print("Please enter a number: ");
-
-        int menuSelection = Integer.parseInt(scanner.nextLine());
-        return menuSelection;
-    }
-
     public int displayLoginMenu() {
-        System.out.println("\n[ Login or Make new account ]");
+        System.out.println("\n[ Login or Create new account ]");
+        System.out.println("-----------------------------------------------------");
         System.out.println("1. Login");
         System.out.println("2. Create new account");
-        System.out.println("Please enter a number: ");
+        System.out.print("Please enter a number: ");
 
         int loginSelection = Integer.parseInt(scanner.nextLine());
         return loginSelection;
@@ -53,15 +41,28 @@ public class View {
         return username;
     }
 
-    public String promptForPlatform() {
-        System.out.println("\n[Platform selection]");
+    public int displayMainMenu() {
+        System.out.println("\n[ Main Menu ]");
         System.out.println("-----------------------------------------------------");
-        System.out.println("Nintendo | SNES | Nintendo 64 | Nintendo GameCube | Wii | Wii U");
+        System.out.println("1. View games in COLLECTION");
+        System.out.println("2. Add game to COLLECTION");
+        System.out.println("3. View games in BACKLOG");
+        System.out.println("4. Add game from COLLECTION to BACKLOG");
+        System.out.println("0. Exit");
+        System.out.print("Please enter a number: ");
+
+        int menuSelection = Integer.parseInt(scanner.nextLine());
+        return menuSelection;
+    }
+
+    public String promptForPlatform() {
+        System.out.println("\n[ Search by Platform ]");
+        System.out.println("-----------------------------------------------------");
+        System.out.println("FAMICOM | Nintendo | Super Famicom |SNES | Nintendo 64 | Nintendo GameCube | Wii | Wii U | Nintendo Switch");
         System.out.println("Game Boy | Game Boy Color | Game Boy Advance | Nintendo DS | Nintendo 3DS");
-        System.out.println("Sega Master System | Dreamcast |");
-        System.out.println("Sega Game Gear");
+        System.out.println("Sega Master System | Sega Game Gear | Sega Mega Drive/Genesis | Sega CD | Sega 32X | Sega Saturn | Dreamcast |");
         System.out.println("Windows PC | PC DOS | Mac | Linux | Android | iOS | OnLive Game System | Arcade | Amiga | AmigaCD32 | 3DO Interactive Multiplayer");
-        System.out.println("Playstation | Playstation 2 | Playstation 3 | Playstation 4 | Playstation 5");
+        System.out.println("Playstation | Playstation 2 | Playstation 3 | Playstation 4 | Playstation VR | Playstation 5");
         System.out.println("Playstation Portable | Playstation Vita");
         System.out.println("Xbox | Xbox 360 | Xbox One | Xbox Series");
         System.out.print("Enter a platform: ");
@@ -70,16 +71,17 @@ public class View {
     }
 
     public String promptForGenre() {
-        System.out.println("\n[Genre selection]");
+        System.out.println("\n[ Search by Genre ]");
         System.out.println("-----------------------------------------------------");
-        System.out.println("Adventure | Fighting | Puzzle | Shooter | Platform | Sport | Brawler | Indie | Strategy | Visual Novel | Point-and-Click | Simulator | Racing | Tactical");
+        System.out.println("Adventure | Fighting | Puzzle | Shooter | Platform | Sport | Brawler | Indie");
+        System.out.println("Strategy | Visual Novel | Point-and-Click | Simulator | Racing | Tactical | Quiz/Trivia");
         System.out.print("Enter a genre: ");
         String genre = scanner.nextLine();
         return genre;
     }
 
     public String promptForRating() {
-        System.out.println("\n[Game Review Score]");
+        System.out.println("\n[ Search by Game Review Score ]");
         System.out.println("-----------------------------------------------------");
         System.out.println("Lowest (1) - Highest (5)");
         System.out.print("Enter a rating between 1 and 5 [Lowest (1) - Highest (5)]: ");
@@ -88,9 +90,9 @@ public class View {
     }
 
     public String promptForTitle() {
-        System.out.println("\n[Title]");
+        System.out.println("\n[ Search by Title ]");
         System.out.println("-----------------------------------------------------");
-        System.out.print("Enter title of the game or press 'Enter' key for no title preference: ");
+        System.out.print("Enter title: ");
         String title = scanner.nextLine();
         return title;
     }
@@ -102,14 +104,14 @@ public class View {
     }
 
     public String promptForProgress() {
-        System.out.println("Provide a brief description of your place in the the game.");
+        System.out.println("\nProvide a brief description of your place in the the game.");
         System.out.print("Enter progress: ");
         String input = scanner.nextLine();
         return input;
     }
 
     public int promptForPriority() {
-        System.out.println("Rate the priority of completing this game compared to others in your BACKLOG.");
+        System.out.println("\nRate the priority of completing this game compared to others in your BACKLOG.");
         System.out.print("Enter priority [Lowest (1) - Highest (5)]: ");
         int priority =  Integer.parseInt(scanner.nextLine());
         return priority;
@@ -128,7 +130,7 @@ public class View {
             }
 
             if (endIndex < games.size()) {
-                System.out.print("\nEnter 'n' for , 'p' for previous page, 's' to stop and make a selection: ");
+                System.out.print("\nEnter 'n' for next page, 'p' for previous page, 's' to stop and make a selection: ");
                 String input = scanner.nextLine();
 
                 if (input.equalsIgnoreCase("n")) {
@@ -141,7 +143,7 @@ public class View {
                     System.out.println("Invalid input: Please enter 'n', 'p', or 's'.");
                 }
             } else {
-                System.out.println("No more games to display.");
+                System.out.println("End of list.");
                 break;
             }
         }

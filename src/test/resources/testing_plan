@@ -10,6 +10,7 @@ Method: getUserById(int userId)
 Method: getUsers()
 
 - Expected return: Method returns all users from database. Number of expected users is 3
+-
 
 ----------------------------
 Method: createUser()

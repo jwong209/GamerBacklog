@@ -12,6 +12,10 @@ public class GameController {
         this.gameDao = gameDao;
     }
 
+    public Game getGameById(int gameId) {
+        return gameDao.getGameById(gameId);
+    }
+
     public List<Game> searchGameByPlatform(String platforms) {
         return gameDao.searchGamesByPlatform(platforms);
     }

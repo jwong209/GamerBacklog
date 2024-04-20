@@ -51,7 +51,7 @@ public class JdbcUserDao implements UserDao{
         return users;
     }
     @Override
-    public int getUserIdByUsernamePassword(String username, String password) {
+    public int getUserIdByUsernamePassword(String username, String password) throws DaoException {
         Integer userId = -1;  // non-existent
         String sql = "SELECT user_id " +
                 "FROM \"user\" " +
@@ -59,8 +59,8 @@ public class JdbcUserDao implements UserDao{
                 "AND password = ?;";
         try {
             userId = jdbcTemplate.queryForObject(sql, Integer.class, username, password);
-        } catch (DataIntegrityViolationException e) {
-            throw new DaoException("Data integrity violation", e);
+        } catch (CannotGetJdbcConnectionException e) {
+            throw new DaoException("Unable to connect to server or database", e);
         }
 
         return userId;

@@ -36,7 +36,7 @@ public class UserGameController {
 
         //  Search game by criteria
         List<Game> games = gameController.searchGamesByPlatformGenreRatingTitle(platform, genre, rating, title);
-        System.out.println("Search found " + games.size() + " results.");
+        System.out.println("\n>> Search found " + games.size() + " results.");
 
         // Paginate search results for user selection
         view.displayPaginatedGames(games);
@@ -44,7 +44,7 @@ public class UserGameController {
         int selectedGameIndex = view.promptForGameSelection();
         Game selectedGame = games.get(selectedGameIndex - 1);
 
-        System.out.println(selectedGame);
+        System.out.println("Game selected: " + selectedGame);
 
         int selectedGameId = selectedGame.getGameId();
         addGameToUserGame(currentUserId, selectedGameId);
