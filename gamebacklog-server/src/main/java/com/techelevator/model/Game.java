@@ -1,22 +1,22 @@
 package com.techelevator.model;
 
-import java.util.List;
-
 public class Game {
     private int id;
     private String name;
-    private String release;
+    private String released;
     private Double rating;
+    private int metacritic;
     private int playtime;
 
     public Game() {
     }
 
-    public Game(int id, String name, String release, Double rating, int playtime) {
+    public Game(int id, String name, String released, Double rating, int metacritic, int playtime) {
         this.id = id;
         this.name = name;
-        this.release = release;
+        this.released = released;
         this.rating = rating;
+        this.metacritic = metacritic;
         this.playtime = playtime;
     }
 
@@ -36,12 +36,12 @@ public class Game {
         this.name = name;
     }
 
-    public String getRelease() {
-        return release;
+    public String getReleased() {
+        return released;
     }
 
-    public void setRelease(String release) {
-        this.release = release;
+    public void setReleased(String released) {
+        this.released = released;
     }
 
     public Double getRating() {
@@ -52,6 +52,14 @@ public class Game {
         this.rating = rating;
     }
 
+    public int getMetacritic() {
+        return metacritic;
+    }
+
+    public void setMetacritic(int metacritic) {
+        this.metacritic = metacritic;
+    }
+
     public int getPlaytime() {
         return playtime;
     }
@@ -59,5 +67,4 @@ public class Game {
     public void setPlaytime(int playtime) {
         this.playtime = playtime;
     }
-
 }
