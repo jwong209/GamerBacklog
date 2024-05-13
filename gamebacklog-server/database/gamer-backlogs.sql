@@ -3,8 +3,8 @@ BEGIN TRANSACTION;
 DROP TABLE IF EXISTS "user" CASCADE;
 DROP TABLE IF EXISTS collection CASCADE;
 DROP TABLE IF EXISTS backlog CASCADE;
-DROP TABLE IF EXISTS game_backlog;
-DROP TABLE IF EXISTS user_game;
+DROP TABLE IF EXISTS backlog_game;
+DROP TABLE IF EXISTS collection_game;
 
 
 CREATE TABLE "user" (
@@ -15,30 +15,30 @@ CREATE TABLE "user" (
 
 CREATE TABLE collection (
 	collection_id SERIAL PRIMARY KEY,
-	user_id INTEGER,
+	user_id INTEGER UNIQUE,
 	FOREIGN KEY (user_id) REFERENCES "user" (user_id)
 );
 
 CREATE TABLE backlog (
 	backlog_id SERIAL PRIMARY KEY,
-	user_id INTEGER,
+	user_id INTEGER UNIQUE,
 	progress VARCHAR(255),
 	priority INTEGER CHECK (priority BETWEEN 1 AND 5),
 	FOREIGN KEY (user_id) REFERENCES "user" (user_id)
 );
 
-CREATE TABLE game_backlog (
+CREATE TABLE backlog_game (
     backlog_id INTEGER,
     game_id INTEGER,
     PRIMARY KEY (backlog_id, game_id),
     FOREIGN KEY (backlog_id) REFERENCES backlog (backlog_id)
 );
 
-CREATE TABLE user_game (
-    user_id INTEGER,
+CREATE TABLE collection_game (
+    collection_id INTEGER,
     game_id INTEGER,
-    PRIMARY KEY (user_id, game_id),
-    FOREIGN KEY (user_id) REFERENCES "user" (user_id)
+    PRIMARY KEY (collection_id, game_id),
+    FOREIGN KEY (collection_id) REFERENCES collection (collection_id)
 );
 
 INSERT INTO "user" (username, password)
