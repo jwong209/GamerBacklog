@@ -15,7 +15,7 @@ public class GameService {
 
     private RestTemplate restTemplate = new RestTemplate();
     public String API_BASE_URL = "https://api.rawg.io/api/games";
-    public String apiKey = "2f0c16d9b65a4c3989230cf9e37c6dee";
+    public String apiKey = "";
 
 
     public Game getById(@PathVariable int gameId) {
