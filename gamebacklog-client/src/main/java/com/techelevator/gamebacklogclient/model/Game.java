@@ -1,6 +1,7 @@
-package org.example.model;
+package com.techelevator.gamebacklogclient.model;
 
 public class Game {
+
     private int id;
     private String name;
     private String released;
@@ -67,4 +68,5 @@ public class Game {
     public void setPlaytime(int playtime) {
         this.playtime = playtime;
     }
+
 }

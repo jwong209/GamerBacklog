@@ -1,8 +1,6 @@
 package com.techelevator.model;
 
-public class Game {
-    private int id;
-    private String name;
+public class Game extends RawgEntity {
     private String released;
     private Double rating;
     private int metacritic;
@@ -11,29 +9,12 @@ public class Game {
     public Game() {
     }
 
-    public Game(int id, String name, String released, Double rating, int metacritic, int playtime) {
-        this.id = id;
-        this.name = name;
+    public Game(int id, String slug, String name, String released, Double rating, int metacritic, int playtime) {
+        super(id, slug, name);
         this.released = released;
         this.rating = rating;
         this.metacritic = metacritic;
         this.playtime = playtime;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public String getReleased() {

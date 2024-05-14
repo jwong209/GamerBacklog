@@ -1,4 +1,4 @@
-package org.example.util;
+package com.techelevator.gamebacklogclient.util;
 
 
 import java.math.BigDecimal;

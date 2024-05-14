@@ -1,9 +1,8 @@
-package org.example.service;
+package com.techelevator.gamebacklogclient.service;
 
-
-import org.example.model.AuthenticatedUser;
-import org.example.model.UserCredentials;
-import org.example.util.BasicLogger;
+import com.techelevator.gamebacklogclient.model.AuthenticatedUser;
+import com.techelevator.gamebacklogclient.model.UserCredentials;
+import com.techelevator.gamebacklogclient.util.BasicLogger;
 import org.springframework.http.*;
 import org.springframework.web.client.ResourceAccessException;
 import org.springframework.web.client.RestClientResponseException;
@@ -15,6 +14,7 @@ import org.springframework.web.client.RestTemplate;
  * By encapsulating this logic into a separate class, it becomes easier to manage, maintain, and
  * test the interactions with the server REST API separate from the other application logic.
  **/
+
 public class AuthenticationService {
 
     private final String API_BASE_URL;

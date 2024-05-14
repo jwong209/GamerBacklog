@@ -1,4 +1,4 @@
-package org.example.model;
+package com.techelevator.gamebacklogclient.model;
 
 
 /**

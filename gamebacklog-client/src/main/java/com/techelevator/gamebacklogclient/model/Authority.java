@@ -1,5 +1,4 @@
-package org.example.model;
-
+package com.techelevator.gamebacklogclient.model;
 
 import java.util.Objects;
 
@@ -8,6 +7,7 @@ import java.util.Objects;
  *
  * Contains the name of the role. Note that this begins with "ROLE_" in all caps.
  */
+
 public class Authority {
 
     // Constant representing the Authority object for the Admin user role for this application.
@@ -38,6 +38,7 @@ public class Authority {
      * Note that it is a best practice to ensure that `equals` and `hashcode` are consistent by overriding
      * both methods and having them use the same properties to check equality and generate the hash.
      */
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {

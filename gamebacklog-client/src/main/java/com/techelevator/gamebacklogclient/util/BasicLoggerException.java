@@ -1,4 +1,4 @@
-package org.example.util;
+package com.techelevator.gamebacklogclient.util;
 
 
 /**
@@ -8,7 +8,7 @@ package org.example.util;
  * Note that by extending RuntimeException, there is no need to use try/catch blocks throughout
  * the code everywhere that we write to the application log file.
  */
-public class BasicLoggerException {
+public class BasicLoggerException extends RuntimeException {
 
     public BasicLoggerException(String message) {
         super(message);

@@ -1,4 +1,4 @@
-package org.example.util;
+package com.techelevator.gamebacklogclient.util;
 
 
 import java.math.BigDecimal;
@@ -42,4 +42,5 @@ public interface BasicConsole {
     Double promptForDouble(String prompt);
     BigDecimal promptForBigDecimal(String prompt);
     LocalDate promptForLocalDate(String prompt);
+
 }

@@ -24,7 +24,7 @@ public class GameService {
         return response;
     }
 
-    public ApiResponse searchGames(String name) {
+    public ApiResponse searchGames(String name, String platforms, String genres, String metacritic) {
 
         String adjustedUrl = API_BASE_URL + "?key=" + apiKey;
         ApiResponse apiResponse = null;
@@ -32,15 +32,15 @@ public class GameService {
         if(!name.isEmpty()) {
             adjustedUrl += "&search=" + name;
         }
-//        if (!platforms.isEmpty()) {
-//            adjustedUrl += "&platforms=" + platforms;
-//        }
-//        if (!genres.isEmpty()) {
-//            adjustedUrl += "&genres=" + genres;
-//        }
-//        if (!metacritic.isEmpty()) {
-//            adjustedUrl += "&metacritic=" + metacritic;
-//        }
+        if (!platforms.isEmpty()) {
+            adjustedUrl += "&platforms=" + platforms;
+        }
+        if (!genres.isEmpty()) {
+            adjustedUrl += "&genres=" + genres;
+        }
+        if (!metacritic.isEmpty()) {
+            adjustedUrl += "&metacritic=" + metacritic;
+        }
 
         apiResponse = restTemplate.getForObject(adjustedUrl, ApiResponse.class);
         return apiResponse;
