@@ -37,6 +37,9 @@ public class User {
       this.authorities = authorities;
    }
 
+   public User(String username, String password, String role) {
+   }
+
    //   public User(int id, String username, String password, String authorities, String name, String address, String city, String stateCode, String ZIP) {
 //      this.id = id;
 //      this.username = username;
@@ -50,9 +53,9 @@ public class User {
 //      this.activated = true;
 //   }
 
-   public User(String username, String password, String authorities, String name, String address, String city, String stateCode, String ZIP) {
-      this(0, username, password, authorities, name, address, city, stateCode, ZIP);
-   }
+//   public User(String username, String password, String authorities, String name, String address, String city, String stateCode, String ZIP) {
+//      this(0, username, password, authorities, name, address, city, stateCode, ZIP);
+//   }
 
    public int getId() {
       return id;
@@ -114,45 +117,45 @@ public class User {
       }
    }
 
-   public String getName() {
-      return name;
-   }
-
-   public void setName(String name) {
-      this.name = name;
-   }
-
-   public String getAddress() {
-      return address;
-   }
-
-   public void setAddress(String address) {
-      this.address = address;
-   }
-
-   public String getCity() {
-      return city;
-   }
-
-   public void setCity(String city) {
-      this.city = city;
-   }
-
-   public String getStateCode() {
-      return stateCode;
-   }
-
-   public void setStateCode(String stateCode) {
-      this.stateCode = stateCode;
-   }
-
-   public String getZIP() {
-      return ZIP;
-   }
-
-   public void setZIP(String ZIP) {
-      this.ZIP = ZIP;
-   }
+//   public String getName() {
+//      return name;
+//   }
+//
+//   public void setName(String name) {
+//      this.name = name;
+//   }
+//
+//   public String getAddress() {
+//      return address;
+//   }
+//
+//   public void setAddress(String address) {
+//      this.address = address;
+//   }
+//
+//   public String getCity() {
+//      return city;
+//   }
+//
+//   public void setCity(String city) {
+//      this.city = city;
+//   }
+//
+//   public String getStateCode() {
+//      return stateCode;
+//   }
+//
+//   public void setStateCode(String stateCode) {
+//      this.stateCode = stateCode;
+//   }
+//
+//   public String getZIP() {
+//      return ZIP;
+//   }
+//
+//   public void setZIP(String ZIP) {
+//      this.ZIP = ZIP;
+//   }
 
    @Override
    public boolean equals(Object o) {
@@ -163,11 +166,11 @@ public class User {
               activated == user.activated &&
               Objects.equals(username, user.username) &&
               Objects.equals(password, user.password) &&
-              Objects.equals(name, user.name) &&
-              Objects.equals(address, user.address) &&
-              Objects.equals(city, user.city) &&
-              Objects.equals(stateCode, user.stateCode) &&
-              Objects.equals(ZIP, user.ZIP) &&
+//              Objects.equals(name, user.name) &&
+//              Objects.equals(address, user.address) &&
+//              Objects.equals(city, user.city) &&
+//              Objects.equals(stateCode, user.stateCode) &&
+//              Objects.equals(ZIP, user.ZIP) &&
               Objects.equals(authorities, user.authorities);
    }
 
@@ -181,11 +184,11 @@ public class User {
       return "User{" +
               "id=" + id +
               ", username='" + username + '\'' +
-              ", name='" + name + '\'' +
-              ", address='" + address + '\'' +
-              ", city='" + city + '\'' +
-              ", state='" + stateCode + '\'' +
-              ", zip='" + ZIP + '\'' +
+//              ", name='" + name + '\'' +
+//              ", address='" + address + '\'' +
+//              ", city='" + city + '\'' +
+//              ", state='" + stateCode + '\'' +
+//              ", zip='" + ZIP + '\'' +
               ", activated=" + activated +
               ", authorities=" + authorities +
               '}';

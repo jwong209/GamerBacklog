@@ -60,8 +60,7 @@ public class AuthenticationController {
     public User register(@Valid @RequestBody RegisterUserDto newUser) {
         try {
             User user = userDao.createUser(
-                    new User(newUser.getUsername(),newUser.getPassword(), newUser.getRole(), newUser.getName(), newUser.getAddress(), newUser.getCity(), newUser.getStateCode(), newUser.getZIP())
-            );
+                    new User(newUser.getUsername(),newUser.getPassword(), newUser.getRole()));
             return user;
         }
         catch (DaoException e) {

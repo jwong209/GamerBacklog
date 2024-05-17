@@ -61,7 +61,9 @@ public class JdbcUserDao implements UserDao {
             username = "";
         }
         User user = null;
-        String sql = "SELECT * FROM users WHERE username = LOWER(TRIM(?))";
+//        String sql = "SELECT * FROM app_user WHERE username = LOWER(TRIM(?))";
+        String sql = "SELECT * FROM app_user WHERE username = TRIM(?)";
+
         try {
             SqlRowSet results = jdbcTemplate.queryForRowSet(sql, username);
             if (results.next()) {
@@ -77,7 +79,7 @@ public class JdbcUserDao implements UserDao {
     @Override
     public User createUser(User newUser) {
         User user = null;
-        String insertUserSql = "INSERT INTO users (username,password_hash,role,name,address,city,state_code,zip) values (LOWER(TRIM(?)),?,?,?,?,?,?,?) RETURNING user_id";
+        String insertUserSql = "INSERT INTO app_user (username,password_hash,role) values (LOWER(TRIM(?)),?,?) RETURNING user_id";
         if (newUser.getPassword() == null) {
             throw new DaoException("User cannot be created with null password");
         }
@@ -85,8 +87,7 @@ public class JdbcUserDao implements UserDao {
             String password_hash = new BCryptPasswordEncoder().encode(newUser.getPassword());
 
             int userId = jdbcTemplate.queryForObject(insertUserSql, int.class,
-                    newUser.getUsername(), password_hash, newUser.getAuthoritiesString(), newUser.getName(), newUser.getAddress(),
-                    newUser.getCity(), newUser.getStateCode(), newUser.getZIP());
+                    newUser.getUsername(), password_hash, newUser.getAuthoritiesString());
             user =  getUserById(userId);
         }
         catch (CannotGetJdbcConnectionException e) {
@@ -104,11 +105,11 @@ public class JdbcUserDao implements UserDao {
         user.setUsername(rs.getString("username"));
         user.setPassword(rs.getString("password_hash"));
         user.setAuthorities(Objects.requireNonNull(rs.getString("role")));
-        user.setName(rs.getString("name"));
-        user.setAddress(rs.getString("address"));
-        user.setCity(rs.getString("city"));
-        user.setStateCode(rs.getString("state_code"));
-        user.setZIP(rs.getString("zip"));
+//        user.setName(rs.getString("name"));
+//        user.setAddress(rs.getString("address"));
+//        user.setCity(rs.getString("city"));
+//        user.setStateCode(rs.getString("state_code"));
+//        user.setZIP(rs.getString("zip"));
         user.setActivated(true);
         return user;
     }

@@ -19,6 +19,15 @@ public class GameService {
         this.API_BASE_URL = url;
     }
 
+    /**
+     * This method is used by the controller to update the authToken following the user login.
+     *
+     * @param authToken - credential token for the currently logged-in user.
+     */
+    public void setAuthToken(String authToken) {
+        this.authToken = authToken;
+    }
+
     public Game getGameById(int gameId) {
         try {
             ResponseEntity<Game> response = restTemplate.exchange(API_BASE_URL + "/games/" + gameId,
@@ -40,15 +49,6 @@ public class GameService {
             BasicLogger.log(e.getMessage());
         }
         return games;
-    }
-
-    /**
-     * This method is used by the controller to update the authToken following the user login.
-     *
-     * @param authToken - credential token for the currently logged-in user.
-     */
-    public void setAuthToken(String authToken) {
-        this.authToken = authToken;
     }
 
 
