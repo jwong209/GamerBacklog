@@ -2,22 +2,14 @@ package com.techelevator.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import java.util.ArrayList;
 import java.util.List;
 
-public class ApiResponse {
+public class ApiResponseGenre {
+
     private int count;
 
     @JsonProperty("results")
-    private List<Game> results;
-
-    public List<Game> getResults() {
-        return results;
-    }
-
-    public void setResults(List<Game> results) {
-        this.results = results;
-    }
+    private List<Genre> results;
 
     public int getCount() {
         return count;
@@ -27,6 +19,11 @@ public class ApiResponse {
         this.count = count;
     }
 
+    public List<Genre> getResults() {
+        return results;
+    }
 
-
+    public void setResults(List<Genre> results) {
+        this.results = results;
+    }
 }

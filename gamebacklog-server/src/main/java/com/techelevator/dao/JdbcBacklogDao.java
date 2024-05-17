@@ -58,13 +58,13 @@ public class JdbcBacklogDao implements BacklogDao{
 
 // ----- Create -----
     @Override
-    public Backlog createBacklog(int userId, String progress, int priority) throws DaoException {
+    public Backlog createBacklog(int userId) throws DaoException {
         Backlog newBacklog = null;
-        String sql = "INSERT INTO backlog (user_id, progress, priority) " +
-                "VALUES (?, ?, ?) RETURNING backlog_id;";
+        String sql = "INSERT INTO backlog (user_id) " +
+                "VALUES (?) RETURNING backlog_id;";
 
         try {
-            Integer newBacklogId = jdbcTemplate.queryForObject(sql, Integer.class, userId, progress, priority);
+            Integer newBacklogId = jdbcTemplate.queryForObject(sql, Integer.class, userId);
             newBacklog = getBacklogById(newBacklogId);
         } catch (CannotGetJdbcConnectionException e) {
             throw new DaoException("Unable to connect to database", e);

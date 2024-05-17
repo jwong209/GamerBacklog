@@ -12,7 +12,7 @@ public interface BacklogDao {
 
     List<Backlog> getBacklogsByUserId(int userId) throws DaoException;
 
-    Backlog createBacklog(int userId, String progress, int priority) throws DaoException;
+    Backlog createBacklog(int userId) throws DaoException;
 
     Backlog updateBacklog(Backlog backlog) throws DaoException;
 

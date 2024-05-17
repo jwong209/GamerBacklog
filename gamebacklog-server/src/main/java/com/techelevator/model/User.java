@@ -16,11 +16,11 @@ public class User {
 
    private int id;
    private String username;
-   private String name;
-   private String address;
-   private String city;
-   private String stateCode;
-   private String ZIP;
+//   private String name;
+//   private String address;
+//   private String city;
+//   private String stateCode;
+//   private String ZIP;
    @JsonIgnore
    private String password;
    @JsonIgnore
@@ -29,19 +29,26 @@ public class User {
 
    public User() { }
 
-
-   public User(int id, String username, String password, String authorities, String name, String address, String city, String stateCode, String ZIP) {
+   public User(int id, String username, String password, boolean activated, Set<Authority> authorities) {
       this.id = id;
       this.username = username;
       this.password = password;
-      if(authorities != null) this.setAuthorities(authorities);
-      this.name = name;
-      this.address = address;
-      this.city = city;
-      this.stateCode = stateCode;
-      this.ZIP = ZIP;
-      this.activated = true;
+      this.activated = activated;
+      this.authorities = authorities;
    }
+
+   //   public User(int id, String username, String password, String authorities, String name, String address, String city, String stateCode, String ZIP) {
+//      this.id = id;
+//      this.username = username;
+//      this.password = password;
+//      if(authorities != null) this.setAuthorities(authorities);
+//      this.name = name;
+//      this.address = address;
+//      this.city = city;
+//      this.stateCode = stateCode;
+//      this.ZIP = ZIP;
+//      this.activated = true;
+//   }
 
    public User(String username, String password, String authorities, String name, String address, String city, String stateCode, String ZIP) {
       this(0, username, password, authorities, name, address, city, stateCode, ZIP);

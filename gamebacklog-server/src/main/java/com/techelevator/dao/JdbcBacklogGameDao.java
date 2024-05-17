@@ -36,7 +36,7 @@ public class JdbcBacklogGameDao implements BacklogGameDao{
         List<Integer> gameIds = new ArrayList<>();
 
         String sql = "SELECT bg.game_id FROM backlog_game AS bg " +
-                "JOIN backlog AS b ON bg.game_id = b.game_id " +
+                "JOIN backlog AS b ON bg.backlog_id = b.backlog_id " +
                 "WHERE user_id = ?;";
         SqlRowSet results = jdbcTemplate.queryForRowSet(sql, userId);
 

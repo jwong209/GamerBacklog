@@ -1,9 +1,7 @@
 package com.techelevator.service;
 
-import com.techelevator.model.ApiResponse;
+import com.techelevator.model.ApiResponseGame;
 import com.techelevator.model.Game;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.client.RestTemplate;
@@ -15,19 +13,19 @@ public class GameService {
 
     private RestTemplate restTemplate = new RestTemplate();
     public String API_BASE_URL = "https://api.rawg.io/api/games";
-    public String apiKey = "";
+    public final String RAWG_API_KEY = System.getenv("RAWG_API_KEY");
 
 
     public Game getById(@PathVariable int gameId) {
-        String url = API_BASE_URL + "/" + gameId + "?key=" + apiKey;
+        String url = API_BASE_URL + "/" + gameId + "?key=" + RAWG_API_KEY;
         Game response = restTemplate.getForObject(url, Game.class);
         return response;
     }
 
-    public ApiResponse searchGames(String name, String platforms, String genres, String metacritic) {
+    public List<Game> searchGames(String name, String platforms, String genres, String metacritic) {
 
-        String adjustedUrl = API_BASE_URL + "?key=" + apiKey;
-        ApiResponse apiResponse = null;
+        String adjustedUrl = API_BASE_URL + "?key=" + RAWG_API_KEY;
+        ApiResponseGame apiResponse = null;
 
         if(!name.isEmpty()) {
             adjustedUrl += "&search=" + name;
@@ -42,7 +40,16 @@ public class GameService {
             adjustedUrl += "&metacritic=" + metacritic;
         }
 
-        apiResponse = restTemplate.getForObject(adjustedUrl, ApiResponse.class);
-        return apiResponse;
+        apiResponse = restTemplate.getForObject(adjustedUrl, ApiResponseGame.class);
+//        ParameterizedTypeReference<List<Game>> gameTypeRef = new ParameterizedTypeReference<List<Game>>() {};
+//
+//        ResponseEntity<List<Game>> responseEntity = restTemplate.exchange(adjustedUrl, HttpMethod.GET, null, gameTypeRef);
+//        List<Game> games = responseEntity.getBody();
+//
+//        ApiResponse<List<Game>> apiResponse = new ApiResponse<>();
+//        apiResponse.setResults(games);
+        List<Game> games = apiResponse.getResults();
+
+        return games;
     }
 }
