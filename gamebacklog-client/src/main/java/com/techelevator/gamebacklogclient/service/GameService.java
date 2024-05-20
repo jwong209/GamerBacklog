@@ -52,9 +52,6 @@ public class GameService {
     }
 
 
-
-
-
     /**
      * Helper method to create the HTTP Entity containing the auth information to send to the server REST API.
      *

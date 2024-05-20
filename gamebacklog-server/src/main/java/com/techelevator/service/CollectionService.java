@@ -44,17 +44,6 @@ public class CollectionService {
         return results;
     }
 
-    public List<Game> getGamesInCollection(List<Integer> gameIds) {
-        List<Game> games = new ArrayList<>();
-
-        for (int gameId: gameIds) {
-
-        }
-
-        return games;
-    }
-
-
     /*
      * Helper method to get the User object from the Principal.
      */

@@ -1,0 +1,22 @@
+2024-05-20T00:03:46.4949404 500 : "{"timestamp":"2024-05-20T07:03:46.487+00:00","status":500,"error":"Internal Server Error","message":"502 Bad Gateway: \"error code: 502\"","path":"/collections/current-games"}"
+2024-05-20T00:03:46.4949404 An Exception occurred
+java.lang.NullPointerException: Cannot invoke "java.util.List.size()" because "userCollection" is null
+	at com.techelevator.gamebacklogclient.controller.CollectionController.getGamesInCollection(CollectionController.java:29)
+	at com.techelevator.gamebacklogclient.controller.BacklogAdminController.run(BacklogAdminController.java:50)
+	at com.techelevator.gamebacklogclient.Application.main(Application.java:17)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at org.springframework.boot.devtools.restart.RestartLauncher.run(RestartLauncher.java:50)
+2024-05-20T00:36:08.716555 500 : "{"timestamp":"2024-05-20T07:36:08.710+00:00","status":500,"error":"Internal Server Error","message":"502 Bad Gateway: \"error code: 502\"","path":"/collections/current-games"}"
+2024-05-20T00:36:08.716555 An Exception occurred
+java.lang.NullPointerException: Cannot invoke "java.util.List.size()" because "userCollection" is null
+	at com.techelevator.gamebacklogclient.controller.CollectionController.getGamesInCollection(CollectionController.java:29)
+	at com.techelevator.gamebacklogclient.controller.BacklogAdminController.run(BacklogAdminController.java:50)
+	at com.techelevator.gamebacklogclient.Application.main(Application.java:17)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at org.springframework.boot.devtools.restart.RestartLauncher.run(RestartLauncher.java:50)

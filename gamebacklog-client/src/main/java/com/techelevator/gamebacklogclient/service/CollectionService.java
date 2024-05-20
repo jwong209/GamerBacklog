@@ -3,13 +3,12 @@ package com.techelevator.gamebacklogclient.service;
 import com.techelevator.gamebacklogclient.model.Collection;
 import com.techelevator.gamebacklogclient.model.Game;
 import com.techelevator.gamebacklogclient.util.BasicLogger;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.MediaType;
+import org.springframework.http.*;
 import org.springframework.web.client.ResourceAccessException;
 import org.springframework.web.client.RestClientResponseException;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.Arrays;
 import java.util.List;
 
 public class CollectionService {
@@ -42,6 +41,17 @@ public class CollectionService {
             restTemplate.postForObject(url, entity, Collection.class);
         } catch (RestClientResponseException | ResourceAccessException e) {
             BasicLogger.log(e.getMessage());
+        }
+    }
+
+    public List<Game> getGamesInCollection() {
+        try {
+            String url = API_BASE_URL + "/collections/current-games";
+            ResponseEntity<Game[]> response = restTemplate.exchange(url, HttpMethod.GET, makeAuthEntity(), Game[].class);
+            return Arrays.asList(response.getBody());
+        } catch (RestClientResponseException | ResourceAccessException e) {
+            BasicLogger.log(e.getMessage());
+            return null;
         }
     }
 

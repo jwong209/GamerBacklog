@@ -37,11 +37,6 @@ public class CollectionController {
         collectionGameDao.linkCollectionGame(collectionId, gameId);
     }
 
-//    @RequestMapping(path = "/current-games", method = RequestMethod.GET)
-////    public List<Integer> getGameIdsInCollection(Principal principal) {
-////        return collectionService.getGameIdsInCollection(principal);
-////    }
-
     @RequestMapping(path = "/current-games", method = RequestMethod.GET)
     public List<Game> getGamesInCollection(Principal principal) {
         List<Game> games = new ArrayList<>();

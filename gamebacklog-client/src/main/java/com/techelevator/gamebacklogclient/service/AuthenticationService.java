@@ -27,6 +27,7 @@ public class AuthenticationService {
      *
      * @param url Base URL for the server REST API
      */
+
     public AuthenticationService(String url) {
         this.API_BASE_URL = url;
     }
