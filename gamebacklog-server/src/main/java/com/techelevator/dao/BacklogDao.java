@@ -8,6 +8,8 @@ import java.util.List;
 
 public interface BacklogDao {
 
+    int getBacklogIdByUserId(int userId) throws DaoException;
+
     Backlog getBacklogById(int backlogId) throws DaoException;
 
     List<Backlog> getBacklogsByUserId(int userId) throws DaoException;

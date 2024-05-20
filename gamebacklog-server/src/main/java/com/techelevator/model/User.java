@@ -29,18 +29,16 @@ public class User {
 
    public User() { }
 
-   public User(int id, String username, String password, boolean activated, Set<Authority> authorities) {
+   public User(int id, String username, String password, String authorities) {
       this.id = id;
       this.username = username;
       this.password = password;
-      this.activated = activated;
-      this.authorities = authorities;
+      if(authorities != null) this.setAuthorities(authorities);
+      this.activated = true;
+
    }
 
-   public User(String username, String password, String role) {
-   }
-
-   //   public User(int id, String username, String password, String authorities, String name, String address, String city, String stateCode, String ZIP) {
+//   public User(int id, String username, String password, String authorities, String name, String address, String city, String stateCode, String ZIP) {
 //      this.id = id;
 //      this.username = username;
 //      this.password = password;
@@ -51,10 +49,6 @@ public class User {
 //      this.stateCode = stateCode;
 //      this.ZIP = ZIP;
 //      this.activated = true;
-//   }
-
-//   public User(String username, String password, String authorities, String name, String address, String city, String stateCode, String ZIP) {
-//      this(0, username, password, authorities, name, address, city, stateCode, ZIP);
 //   }
 
    public int getId() {

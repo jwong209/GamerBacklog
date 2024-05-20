@@ -1,15 +1,16 @@
-package com.techelevator.model;
+package com.techelevator.gamebacklogclient.model;
 
 public class Collection {
+
     private int collectionId;
-    private int userId;
+    private int gameId;
 
     public Collection() {
     }
 
     public Collection(int collectionId, int gameId) {
         this.collectionId = collectionId;
-        this.userId = gameId;
+        this.gameId = gameId;
     }
 
     public int getCollectionId() {
@@ -20,11 +21,11 @@ public class Collection {
         this.collectionId = collectionId;
     }
 
-    public int getUserId() {
-        return userId;
+    public int getGameId() {
+        return gameId;
     }
 
-    public void setUserId(int userId) {
-        this.userId = userId;
+    public void setGameId(int gameId) {
+        this.gameId = gameId;
     }
 }

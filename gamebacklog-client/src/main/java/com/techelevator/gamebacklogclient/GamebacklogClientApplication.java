@@ -1,6 +1,10 @@
 package com.techelevator.gamebacklogclient;
 
+import com.techelevator.gamebacklogclient.controller.BacklogAdminController;
+import com.techelevator.gamebacklogclient.model.AuthenticatedUser;
 import com.techelevator.gamebacklogclient.model.Game;
+import com.techelevator.gamebacklogclient.model.UserCredentials;
+import com.techelevator.gamebacklogclient.service.CollectionService;
 import com.techelevator.gamebacklogclient.service.GameService;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -14,16 +18,8 @@ public class GamebacklogClientApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(GamebacklogClientApplication.class, args);
 
-		GameService gameService = new GameService(API_BASE_URL);
-//		Game game = gameService.getGameById(795632);
-//		System.out.println("id: " + game.getId() + ", name: " + game.getName());
-
-		Game[] games = gameService.searchGames("Jedi Survivor", "187", "", "80");
-		for (Game game: games) {
-			System.out.println("id: " + game.getId() + ", name: " + game.getName() + ", metacritic: " + game.getMetacritic());
-		}
-
-
+		BacklogAdminController controller = new BacklogAdminController(API_BASE_URL);
+		controller.run();
 	}
 
 

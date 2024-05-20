@@ -16,6 +16,9 @@ public class GameService {
     public final String RAWG_API_KEY = System.getenv("RAWG_API_KEY");
 
 
+    public GameService() {
+    }
+
     public Game getById(@PathVariable int gameId) {
         String url = API_BASE_URL + "/" + gameId + "?key=" + RAWG_API_KEY;
         Game response = restTemplate.getForObject(url, Game.class);
@@ -41,6 +44,8 @@ public class GameService {
         }
 
         apiResponse = restTemplate.getForObject(adjustedUrl, ApiResponseGame.class);
+        List<Game> games = apiResponse.getResults();
+
 //        ParameterizedTypeReference<List<Game>> gameTypeRef = new ParameterizedTypeReference<List<Game>>() {};
 //
 //        ResponseEntity<List<Game>> responseEntity = restTemplate.exchange(adjustedUrl, HttpMethod.GET, null, gameTypeRef);
@@ -48,7 +53,6 @@ public class GameService {
 //
 //        ApiResponse<List<Game>> apiResponse = new ApiResponse<>();
 //        apiResponse.setResults(games);
-        List<Game> games = apiResponse.getResults();
 
         return games;
     }

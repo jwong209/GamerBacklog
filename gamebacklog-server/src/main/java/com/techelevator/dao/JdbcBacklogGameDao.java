@@ -19,7 +19,7 @@ public class JdbcBacklogGameDao implements BacklogGameDao{
 
     @Override
     public void linkBacklogGame(int backlogId, int gameId) {
-        String sql = "INSERT INTO backlog_game () " +
+        String sql = "INSERT INTO backlog_game (backlog_id, game_id) " +
                 "VALUES (?, ?);";
         jdbcTemplate.update(sql, backlogId, gameId);
     }

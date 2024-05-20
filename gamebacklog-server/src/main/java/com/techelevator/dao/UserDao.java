@@ -11,5 +11,7 @@ public interface UserDao {
 
     User getUserByUsername(String username);
 
-    User createUser(User newUser);
+//    User createUser(User newUser);
+
+    User createUser(String username, String password, String role);
 }

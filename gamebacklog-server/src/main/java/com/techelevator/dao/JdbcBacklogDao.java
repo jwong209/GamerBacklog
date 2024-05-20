@@ -22,6 +22,26 @@ public class JdbcBacklogDao implements BacklogDao{
 
 // ----- Read -----
     @Override
+    public int getBacklogIdByUserId(int userId) throws DaoException {
+        Backlog backlog = null;
+
+        String sql = "SELECT * FROM backlog " +
+                "WHERE user_id = ?;";
+
+        try {
+            SqlRowSet results = jdbcTemplate.queryForRowSet(sql, userId);
+            if (results.next()) {
+                backlog = mapRowToBacklog(results);
+            }
+        } catch (CannotGetJdbcConnectionException e) {
+            throw new DaoException("Unable to connect to server or database", e);
+        }
+
+        int backlogId = backlog.getBacklogId();
+        return backlogId;
+    }
+
+    @Override
     public Backlog getBacklogById(int backlogId) {
         Backlog backlog = null;
 
@@ -122,8 +142,8 @@ public class JdbcBacklogDao implements BacklogDao{
         Backlog backlog = new Backlog();
         backlog.setBacklogId(results.getInt("backlog_id"));
         backlog.setUserId(results.getInt("user_id"));
-        backlog.setProgress(results.getString("progress"));
-        backlog.setPriority(results.getInt("priority"));
+//        backlog.setProgress(results.getString("progress"));
+//        backlog.setPriority(results.getInt("priority"));
         return backlog;
     }
 }

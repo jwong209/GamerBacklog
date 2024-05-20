@@ -57,15 +57,27 @@ public class AuthenticationController {
 
     @ResponseStatus(HttpStatus.CREATED)
     @RequestMapping(path = "/register", method = RequestMethod.POST)
-    public User register(@Valid @RequestBody RegisterUserDto newUser) {
+    public void register(@Valid @RequestBody RegisterUserDto newUser) {
+//        try {
+//            User user = userDao.createUser(
+//                    new User(newUser.getUsername(),newUser.getPassword(), newUser.getRole()));
+//            return user;
+//        }
+//        catch (DaoException e) {
+//            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "DAO error - " + e.getMessage());
+//        }
+
         try {
-            User user = userDao.createUser(
-                    new User(newUser.getUsername(),newUser.getPassword(), newUser.getRole()));
-            return user;
+            if (userDao.getUserByUsername(newUser.getUsername()) != null) {
+                throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "User Already Exists.");
+            } else {
+                userDao.createUser(newUser.getUsername(),newUser.getPassword(), newUser.getRole());
+            }
         }
         catch (DaoException e) {
-            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "DAO error - " + e.getMessage());
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
         }
+
     }
 
 }

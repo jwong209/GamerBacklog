@@ -25,7 +25,7 @@ public class JdbcUserDao implements UserDao {
     @Override
     public User getUserById(int userId) {
         User user = null;
-        String sql = "SELECT * FROM users WHERE user_id = ?";
+        String sql = "SELECT * FROM app_user WHERE user_id = ?";
         try {
             SqlRowSet results = jdbcTemplate.queryForRowSet(sql, userId);
             if (results.next()) {
@@ -77,26 +77,45 @@ public class JdbcUserDao implements UserDao {
     }
 
     @Override
-    public User createUser(User newUser) {
-        User user = null;
-        String insertUserSql = "INSERT INTO app_user (username,password_hash,role) values (LOWER(TRIM(?)),?,?) RETURNING user_id";
-        if (newUser.getPassword() == null) {
-            throw new DaoException("User cannot be created with null password");
-        }
-        try {
-            String password_hash = new BCryptPasswordEncoder().encode(newUser.getPassword());
+    public User createUser(String username, String password, String role) {
+//        User user = null;
+//        String insertUserSql = "INSERT INTO app_user (username,password_hash,role) values (LOWER(TRIM(?)),?,?) RETURNING user_id";
 
-            int userId = jdbcTemplate.queryForObject(insertUserSql, int.class,
-                    newUser.getUsername(), password_hash, newUser.getAuthoritiesString());
-            user =  getUserById(userId);
-        }
-        catch (CannotGetJdbcConnectionException e) {
+//        if (newUser.getPassword() == null) {
+//            throw new DaoException("User cannot be created with null password");
+//        }
+//        try {
+//            String password_hash = new BCryptPasswordEncoder().encode(newUser.getPassword());
+//
+//            int userId = jdbcTemplate.queryForObject(insertUserSql, int.class,
+//                    newUser.getUsername(), password_hash, newUser.getAuthoritiesString());
+//            user =  getUserById(userId);
+//        }
+//        catch (CannotGetJdbcConnectionException e) {
+//            throw new DaoException("Unable to connect to server or database", e);
+//        }
+//        catch (DataIntegrityViolationException e) {
+//            throw new DaoException("Data integrity violation", e);
+//        }
+//        return user;
+        User newUser = null;
+
+        String insertUserSql = "INSERT INTO app_user (username,password_hash,role) VALUES (TRIM(?), ?, ?) RETURNING user_id";
+
+        String password_hash = new BCryptPasswordEncoder().encode(password);
+        String ssRole = role.toUpperCase().startsWith("ROLE_") ? role.toUpperCase() : "ROLE_" + role.toUpperCase();
+
+        try {
+            int userId = jdbcTemplate.queryForObject(insertUserSql, int.class, username, password_hash, ssRole);
+            newUser = getUserById(userId);
+        } catch (CannotGetJdbcConnectionException e) {
             throw new DaoException("Unable to connect to server or database", e);
-        }
-        catch (DataIntegrityViolationException e) {
+        } catch (DataIntegrityViolationException e) {
             throw new DaoException("Data integrity violation", e);
         }
-        return user;
+
+        return newUser;
+
     }
 
     private User mapRowToUser(SqlRowSet rs) {
