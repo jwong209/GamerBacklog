@@ -34,11 +34,6 @@ public class BacklogController {
         return backlogService.getBacklogIdByUserId(principal);
     }
 
-    @RequestMapping(path = "/{backlogId}/games/{gameId}", method = RequestMethod.POST)
-    public void addGameToBacklog(@PathVariable int backlogId, @PathVariable int gameId) {
-        backlogGameDao.linkBacklogGame(backlogId, gameId);
-    }
-
     @RequestMapping(path = "/current-games", method = RequestMethod.GET)
     public List<Game> getGamesInBacklog(Principal principal) {
         List<Game> games = new ArrayList<>();
@@ -50,6 +45,11 @@ public class BacklogController {
         }
 
         return games;
+    }
+
+    @RequestMapping(path = "/{backlogId}/games/{gameId}", method = RequestMethod.POST)
+    public void addGameToBacklog(@PathVariable int backlogId, @PathVariable int gameId) {
+        backlogGameDao.linkBacklogGame(backlogId, gameId);
     }
 
 

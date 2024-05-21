@@ -1,11 +1,13 @@
 package com.techelevator.gamebacklogclient.controller;
 
 import com.techelevator.gamebacklogclient.View;
+import com.techelevator.gamebacklogclient.model.Collection;
 import com.techelevator.gamebacklogclient.model.Game;
 import com.techelevator.gamebacklogclient.model.Genre;
 import com.techelevator.gamebacklogclient.model.Platform;
 import com.techelevator.gamebacklogclient.service.CollectionService;
 import com.techelevator.gamebacklogclient.service.GameService;
+import com.techelevator.gamebacklogclient.service.GenreService;
 import com.techelevator.gamebacklogclient.service.PlatformService;
 
 import java.util.Arrays;
@@ -16,12 +18,14 @@ public class CollectionController {
     private View view;
     private CollectionService collectionService;
     private PlatformService platformService;
+    private GenreService genreService;
     private GameService gameService;
 
-    public CollectionController(View view, CollectionService collectionService, PlatformService platformService, GameService gameService) {
+    public CollectionController(View view, CollectionService collectionService, PlatformService platformService, GenreService genreService, GameService gameService) {
         this.view = view;
         this.collectionService = collectionService;
         this.platformService = platformService;
+        this.genreService = genreService;
         this.gameService = gameService;
     }
 
@@ -31,9 +35,9 @@ public class CollectionController {
         view.displayGamesList(userCollection);
     }
 
-    public void searchAndAddGameToCollection() {
-    // Search for games
-        String name = view.promptForTitle();
+    public void searchForGame() {
+    // Title prompt
+        String name = view.promptForString("Enter a title: ");
 
     // Platform selection
         Platform[] platformsArray = platformService.getPlatforms();
@@ -41,27 +45,30 @@ public class CollectionController {
         System.out.println("\nPlatform list size: " + platformList.size());
         view.displayPlatformList(platformList);
 
-    // Make a selection from platforms
-        String platforms = "";
+        String platforms = view.promptForString("Enter number of platform: ");
 
-    // Display genres
+    // Genre selection
+        Genre[] genresArray = genreService.getGenres();
+        List<Genre> genreList = Arrays.asList(genresArray);
+        System.out.println("\nGenre list size: " + genreList.size());
+        view.displayGenreList(genreList);
 
-    //  Make selection from genres
-        String genres = "";
+        String genres = view.promptForString("Enter number of genre: ");
 
-    // Select a metacritic score
-        String metacritic = "";
+    // Metacritic prompt
+        String metacritic = view.promptForString("Enter metacritic score: ");
 
-    // User name, platforms, genres, metacritic to do game search on external API
-
-        Game[] games = gameService.searchGames(name, platforms, genres, metacritic);
-
-    // Display games list from the game search and make selection
-
-
-    // Use collectionId and gameId to add to database
-
-
-//        collectionService.addGameToCollection();
+    // User name, platforms, genres, metacritic to do game search on external API, display games list
+        Game[] gamesArray = gameService.searchGames(name, platforms, genres, metacritic);
+        List<Game> gameList = Arrays.asList(gamesArray);
+        view.displayGamesList(gameList);
     }
+
+    public void addGameToCollection(int gameId) {
+        int collectionId = collectionService.getCollectionId();
+        System.out.println("Collection id: " + collectionId);
+
+        collectionService.addGameToCollection(collectionId, gameId);
+    }
+
 }

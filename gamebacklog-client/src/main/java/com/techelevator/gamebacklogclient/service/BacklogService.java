@@ -1,10 +1,10 @@
 package com.techelevator.gamebacklogclient.service;
 
-import com.techelevator.gamebacklogclient.model.Collection;
+import com.techelevator.gamebacklogclient.View;
+import com.techelevator.gamebacklogclient.model.Backlog;
 import com.techelevator.gamebacklogclient.model.Game;
 import com.techelevator.gamebacklogclient.util.BasicLogger;
 import org.springframework.http.*;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.client.ResourceAccessException;
 import org.springframework.web.client.RestClientResponseException;
 import org.springframework.web.client.RestTemplate;
@@ -12,14 +12,14 @@ import org.springframework.web.client.RestTemplate;
 import java.util.Arrays;
 import java.util.List;
 
-public class CollectionService {
+public class BacklogService {
 
     private final String API_BASE_URL;
     private final RestTemplate restTemplate = new RestTemplate();
     private String authToken = null;
 
-    public CollectionService(String url) {
-        this.API_BASE_URL = url;
+    public BacklogService(String apiBaseUrl) {
+        API_BASE_URL = apiBaseUrl;
     }
 
     /**
@@ -31,15 +31,15 @@ public class CollectionService {
         this.authToken = authToken;
     }
 
-    public int getCollectionId() {
-        String url = API_BASE_URL + "/collections/current-collection-id";
+    public int getBacklogId() {
+        String url = API_BASE_URL + "/backlogs/current-backlog-id";
         ResponseEntity<Integer> response = restTemplate.exchange(url, HttpMethod.GET, makeAuthEntity(), Integer.class);
         return response.getBody();
     }
 
-    public List<Game> getGamesInCollection() {
+    public List<Game> getGamesInBacklog() {
         try {
-            String url = API_BASE_URL + "/collections/current-games";
+            String url = API_BASE_URL + "/backlogs/current-games";
             ResponseEntity<Game[]> response = restTemplate.exchange(url, HttpMethod.GET, makeAuthEntity(), Game[].class);
             return Arrays.asList(response.getBody());
         } catch (RestClientResponseException | ResourceAccessException e) {
@@ -48,14 +48,14 @@ public class CollectionService {
         }
     }
 
-    public void addGameToCollection(int collectionId, int gameId) {
+    public void addGameToBacklog(int backlogId, int gameId) {
         try {
-            Collection newCollection = new Collection();
-            newCollection.setCollectionId(collectionId);
-            newCollection.setGameId(gameId);
+            Backlog newBacklog = new Backlog();
+            newBacklog.setBacklogId(backlogId);
+            newBacklog.setGameId(gameId);
 
-            HttpEntity<Collection> entity = makeCollectionEntity(newCollection);
-            String url = API_BASE_URL + "/collections/" + collectionId + "/games/" + gameId;
+            HttpEntity<Backlog> entity = makeBacklogEntity(newBacklog);
+            String url = API_BASE_URL + "/backlogs/" + backlogId + "/games/" + gameId;
 
             restTemplate.postForObject(url, entity, Void.class);
         } catch (RestClientResponseException | ResourceAccessException e) {
@@ -69,14 +69,14 @@ public class CollectionService {
      *
      * This is used when the request needs to have a body containing the data, for example a POST or PUT.
      *
-     * @param collection the tag information
+     * @param backlog the tag information
      * @return HttpEntity containing the tag data and auth information
      */
-    private HttpEntity<Collection> makeCollectionEntity(Collection collection) {
+    private HttpEntity<Backlog> makeBacklogEntity(Backlog backlog) {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
         headers.setBearerAuth(authToken);
-        return new HttpEntity<>(collection, headers);
+        return new HttpEntity<>(backlog, headers);
     }
 
     /**

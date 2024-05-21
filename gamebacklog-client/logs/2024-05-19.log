@@ -3,7 +3,7 @@
 2024-05-19T21:50:30.4438401 401 : [no body]
 2024-05-19T22:40:28.2046661 An Exception occurred
 java.lang.NullPointerException: Cannot invoke "com.techelevator.gamebacklogclient.controller.CollectionController.getGamesInCollection()" because "this.collectionController" is null
-	at com.techelevator.gamebacklogclient.controller.BacklogAdminController.run(BacklogAdminController.java:46)
+	at com.techelevator.gamebacklogclient.controller.BacklogAppController.run(BacklogAdminController.java:46)
 	at com.techelevator.gamebacklogclient.Application.main(Application.java:17)
 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
@@ -12,7 +12,7 @@ java.lang.NullPointerException: Cannot invoke "com.techelevator.gamebacklogclien
 	at org.springframework.boot.devtools.restart.RestartLauncher.run(RestartLauncher.java:50)
 2024-05-19T22:42:20.1272305 An Exception occurred
 java.lang.NullPointerException: Cannot invoke "com.techelevator.gamebacklogclient.controller.CollectionController.getGamesInCollection()" because "this.collectionController" is null
-	at com.techelevator.gamebacklogclient.controller.BacklogAdminController.run(BacklogAdminController.java:46)
+	at com.techelevator.gamebacklogclient.controller.BacklogAppController.run(BacklogAdminController.java:46)
 	at com.techelevator.gamebacklogclient.Application.main(Application.java:17)
 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
@@ -29,7 +29,7 @@ java.util.IllegalFormatConversionException: f != java.lang.String
 	at java.base/java.io.PrintStream.printf(PrintStream.java:1105)
 	at com.techelevator.gamebacklogclient.View.displayGamesList(View.java:57)
 	at com.techelevator.gamebacklogclient.controller.CollectionController.getGamesInCollection(CollectionController.java:30)
-	at com.techelevator.gamebacklogclient.controller.BacklogAdminController.run(BacklogAdminController.java:50)
+	at com.techelevator.gamebacklogclient.controller.BacklogAppController.run(BacklogAdminController.java:50)
 	at com.techelevator.gamebacklogclient.Application.main(Application.java:17)
 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
@@ -46,7 +46,7 @@ java.util.IllegalFormatConversionException: f != java.lang.String
 	at java.base/java.io.PrintStream.printf(PrintStream.java:1105)
 	at com.techelevator.gamebacklogclient.View.displayGamesList(View.java:57)
 	at com.techelevator.gamebacklogclient.controller.CollectionController.getGamesInCollection(CollectionController.java:30)
-	at com.techelevator.gamebacklogclient.controller.BacklogAdminController.run(BacklogAdminController.java:50)
+	at com.techelevator.gamebacklogclient.controller.BacklogAppController.run(BacklogAdminController.java:50)
 	at com.techelevator.gamebacklogclient.Application.main(Application.java:17)
 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
@@ -63,7 +63,7 @@ java.util.IllegalFormatConversionException: f != java.lang.String
 	at java.base/java.io.PrintStream.printf(PrintStream.java:1105)
 	at com.techelevator.gamebacklogclient.View.displayGamesList(View.java:57)
 	at com.techelevator.gamebacklogclient.controller.CollectionController.getGamesInCollection(CollectionController.java:30)
-	at com.techelevator.gamebacklogclient.controller.BacklogAdminController.run(BacklogAdminController.java:50)
+	at com.techelevator.gamebacklogclient.controller.BacklogAppController.run(BacklogAdminController.java:50)
 	at com.techelevator.gamebacklogclient.Application.main(Application.java:17)
 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
@@ -80,7 +80,7 @@ java.util.IllegalFormatConversionException: g != java.lang.String
 	at java.base/java.io.PrintStream.printf(PrintStream.java:1105)
 	at com.techelevator.gamebacklogclient.View.displayGamesList(View.java:57)
 	at com.techelevator.gamebacklogclient.controller.CollectionController.getGamesInCollection(CollectionController.java:30)
-	at com.techelevator.gamebacklogclient.controller.BacklogAdminController.run(BacklogAdminController.java:50)
+	at com.techelevator.gamebacklogclient.controller.BacklogAppController.run(BacklogAdminController.java:50)
 	at com.techelevator.gamebacklogclient.Application.main(Application.java:17)
 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)

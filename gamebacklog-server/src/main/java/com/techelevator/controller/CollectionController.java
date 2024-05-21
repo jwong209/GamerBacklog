@@ -32,11 +32,6 @@ public class CollectionController {
         return collectionService.getCollectionIdByUserId(principal);
     }
 
-    @RequestMapping(path = "/{collectionId}/games/{gameId}", method = RequestMethod.POST)
-    public void addGameToCollection(@PathVariable int collectionId, @PathVariable int gameId) {
-        collectionGameDao.linkCollectionGame(collectionId, gameId);
-    }
-
     @RequestMapping(path = "/current-games", method = RequestMethod.GET)
     public List<Game> getGamesInCollection(Principal principal) {
         List<Game> games = new ArrayList<>();
@@ -48,6 +43,11 @@ public class CollectionController {
         }
 
         return games;
+    }
+
+    @RequestMapping(path = "/{collectionId}/games/{gameId}", method = RequestMethod.POST)
+    public void addGameToCollection(@PathVariable int collectionId, @PathVariable int gameId) {
+        collectionGameDao.linkCollectionGame(collectionId, gameId);
     }
 
 

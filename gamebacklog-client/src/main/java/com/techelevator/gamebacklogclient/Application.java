@@ -1,6 +1,6 @@
 package com.techelevator.gamebacklogclient;
 
-import com.techelevator.gamebacklogclient.controller.BacklogAdminController;
+import com.techelevator.gamebacklogclient.controller.BacklogAppController;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
@@ -13,7 +13,7 @@ public class Application {
 	public static void main(String[] args) {
 		SpringApplication.run(Application.class, args);
 
-		BacklogAdminController controller = new BacklogAdminController(API_BASE_URL);
+		BacklogAppController controller = new BacklogAppController(API_BASE_URL);
 		controller.run();
 	}
 
