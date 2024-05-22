@@ -34,8 +34,8 @@ public class GameController {
 
     @PreAuthorize("permitAll")
     @RequestMapping(path = "", method = RequestMethod.GET)
-    public List<Game> searchGames(@RequestParam(defaultValue = "") String name, @RequestParam(defaultValue = "") String platforms, @RequestParam(defaultValue = "") String genres, @RequestParam(defaultValue = "") String metacritic) {
-        return gameService.searchGames(name, platforms, genres, metacritic);
+    public List<Game> searchGames(@RequestParam(defaultValue = "") String name, @RequestParam(defaultValue = "") String platforms, @RequestParam(defaultValue = "") String genres, @RequestParam(defaultValue = "") String metacritic, @RequestParam(defaultValue = "") String page) {
+        return gameService.searchGames(name, platforms, genres, metacritic, page);
     }
 
 }

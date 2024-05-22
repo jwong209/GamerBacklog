@@ -26,6 +26,9 @@ public class GameController {
     }
 
     public void searchForGame() {
+        int currentPage = 1;
+        boolean continueSearch = true;
+
         // Title prompt
         String name = view.promptForString("Enter a title: ");
 
@@ -48,10 +51,32 @@ public class GameController {
         // Metacritic prompt
         String metacritic = view.promptForString("Enter metacritic score: ");
 
+        // Page conversion (int --> string)
+        String currentPageString = Integer.toString(currentPage);
+
         // User name, platforms, genres, metacritic to do game search on external API, display games list
-        Game[] gamesArray = gameService.searchGames(name, platforms, genres, metacritic);
-        List<Game> gameList = Arrays.asList(gamesArray);
+        List<Game> gameList = gameService.searchGames(name, platforms, genres, metacritic, currentPageString);
         view.displayGamesList(gameList);
+
+        while (continueSearch) {
+
+            view.displayGameSearchContinue();
+            int continueSelection = view.promptForInt("Enter a number to proceed: ");
+
+            if (continueSelection == 1) {
+                currentPage++;
+                System.out.println("Displaying page " + currentPage);
+                currentPageString = Integer.toString(currentPage);
+
+                gameList = gameService.searchGames(name, platforms, genres, metacritic, currentPageString);
+                view.displayGamesList(gameList);
+            } else if (continueSelection == 2) {
+                continueSearch = false;
+            }
+        }
+
     }
+
+
 
 }

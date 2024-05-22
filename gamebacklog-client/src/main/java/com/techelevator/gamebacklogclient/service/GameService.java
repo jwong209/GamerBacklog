@@ -7,6 +7,8 @@ import org.springframework.web.client.ResourceAccessException;
 import org.springframework.web.client.RestClientResponseException;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class GameService {
@@ -39,16 +41,20 @@ public class GameService {
         }
     }
 
-    public Game[] searchGames(String name, String platforms, String genres, String metacritic) {
+    public List<Game> searchGames(String name, String platforms, String genres, String metacritic, String page) {
         Game[] games = null;
+        List<Game> gameList = new ArrayList<>();
+
         try {
-            String query = "?name=" + name + "@platforms=" + platforms + "&genres=" + genres + "&metacritic=" + metacritic;
+            String query = "?name=" + name + "@platforms=" + platforms + "&genres=" + genres + "&metacritic=" + metacritic + "&page=" + page;
             ResponseEntity<Game[]> response = restTemplate.exchange(API_BASE_URL + "/games" + query, HttpMethod.GET, makeAuthEntity(), Game[].class);
             games = response.getBody();
+            gameList = Arrays.asList(games);
         } catch (RestClientResponseException | ResourceAccessException e) {
             BasicLogger.log(e.getMessage());
         }
-        return games;
+
+        return gameList;
     }
 
 

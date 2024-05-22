@@ -11,6 +11,10 @@ import java.util.Scanner;
 public class View {
 
     private static Scanner input = new Scanner(System.in);
+    private final String FOREGROUND_DEFAULT = (char) 27 + "[39m";
+    private final String FOREGROUND_RED = (char) 27 + "[31m";
+    private final String FOREGROUND_GREEN = (char) 27 + "[32m";
+    private final String FOREGROUND_BLUE = (char) 27 + "[34m";
 
     public UserCredentials promptForCredentials() {
         System.out.println("Please login.");
@@ -36,15 +40,16 @@ public class View {
         System.out.println("1. Browse GAME LIBRARY");
         System.out.println("2. Manage COLLECTION");
         System.out.println("3. Manage BACKLOG");
-        System.out.println("0. Exit");
+        System.out.println("0. Exit program");
     }
 
     public void displayCollectionMenu() {
-        System.out.println("\n[ COLLECTION Menu ]");
+        System.out.println(FOREGROUND_GREEN + "\n[ COLLECTION Menu ]" + FOREGROUND_DEFAULT);
         System.out.println("-----------------------------------------------------");
         System.out.println("1. View all games in COLLECTION");
         System.out.println("2. Search GAME LIBRARY and add a game to COLLECTION");
-        System.out.println("0. Exit");
+        System.out.println("3. Remove game from COLLECTION");
+        System.out.println("0. Back to Main Menu");
     }
 
     public void displayBacklogMenu() {
@@ -52,19 +57,29 @@ public class View {
         System.out.println("-----------------------------------------------------");
         System.out.println("1. View all games in BACKLOG");
         System.out.println("2. Browse COLLECTION and add game to BACKLOG");
-        System.out.println("0. Exit");
+        System.out.println("3. Remove game from BACKLOG");
+        System.out.println("0. Back to Main Menu");
+    }
+
+    public void displayCompletedMenu() {
+        System.out.println("\n[ Completed Menu ]");
+        System.out.println("-----------------------------------------------------");
+        System.out.println("1. View all COMPLETED games");
+        System.out.println("2. Remove game from COMPLETED");
+        System.out.println("0. Back to Main Menu");
     }
 
     public void displayGamesList(List<Game> gamesList) {
         int idSize = 10;
-        int titleSize = 40;
+        int titleSize = 60;
         int releaseSize = 14;
         int ratingSize = 15;
         int metacriticSize = 12;
         int playtimeSize = 9;
 
+        System.out.println("");
         System.out.printf("%-" + idSize + "s%-" + titleSize + "s%-" + releaseSize + "s%-" + ratingSize + "s%-" + metacriticSize + "s%-" + playtimeSize + "s\n", "ID", "TITLE", "RELEASE DATE", "USER SCORE", "METACRITIC", "PLAYTIME");
-        System.out.println("--------------------------------------------------------------------------------------------------------");
+        System.out.println("----------------------------------------------------------------------------------------------------------------------------");
 
         for (Game game: gamesList) {
             System.out.printf("%-" + idSize + "d%-" + titleSize + "s%-" + releaseSize + "s%-" + ratingSize + ".2f%-" + metacriticSize + "d%-" + playtimeSize + "d\n",
@@ -76,6 +91,11 @@ public class View {
                     game.getPlaytime()
                     );
         }
+    }
+
+    public void displayGameSearchContinue() {
+        System.out.println("\n1. Next page");
+        System.out.println("2. End search");
     }
 
     public void displayPlatformList(List<Platform> platformList) {

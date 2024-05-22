@@ -26,7 +26,7 @@ public class GameService {
         return response;
     }
 
-    public List<Game> searchGames(String name, String platforms, String genres, String metacritic) {
+    public List<Game> searchGames(String name, String platforms, String genres, String metacritic, String page) {
 
         String adjustedUrl = API_BASE_URL + "?key=" + RAWG_API_KEY;
         ApiResponseGame apiResponse = null;
@@ -43,17 +43,12 @@ public class GameService {
         if (!metacritic.isEmpty()) {
             adjustedUrl += "&metacritic=" + metacritic;
         }
+        if (!page.isEmpty()) {
+            adjustedUrl += "&page=" + page;
+        }
 
         apiResponse = restTemplate.getForObject(adjustedUrl, ApiResponseGame.class);
         List<Game> games = apiResponse.getResults();
-
-//        ParameterizedTypeReference<List<Game>> gameTypeRef = new ParameterizedTypeReference<List<Game>>() {};
-//
-//        ResponseEntity<List<Game>> responseEntity = restTemplate.exchange(adjustedUrl, HttpMethod.GET, null, gameTypeRef);
-//        List<Game> games = responseEntity.getBody();
-//
-//        ApiResponse<List<Game>> apiResponse = new ApiResponse<>();
-//        apiResponse.setResults(games);
 
         return games;
     }

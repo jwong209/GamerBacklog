@@ -1,0 +1,86 @@
+2024-05-22T12:03:16.5846923 500 : "{"timestamp":"2024-05-22T19:03:16.573+00:00","status":500,"error":"Internal Server Error","message":"502 Bad Gateway: \"error code: 502\"","path":"/platforms"}"
+2024-05-22T12:03:16.5856922 An Exception occurred
+java.lang.NullPointerException
+	at java.base/java.util.Objects.requireNonNull(Objects.java:209)
+	at java.base/java.util.Arrays$ArrayList.<init>(Arrays.java:4137)
+	at java.base/java.util.Arrays.asList(Arrays.java:4122)
+	at com.techelevator.gamebacklogclient.controller.GameController.searchForGame(GameController.java:38)
+	at com.techelevator.gamebacklogclient.controller.BacklogAppController.run(BacklogAppController.java:48)
+	at com.techelevator.gamebacklogclient.Application.main(Application.java:17)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at org.springframework.boot.devtools.restart.RestartLauncher.run(RestartLauncher.java:50)
+2024-05-22T12:16:55.4691341 500 : "{"timestamp":"2024-05-22T19:16:55.457+00:00","status":500,"error":"Internal Server Error","message":"502 Bad Gateway: \"error code: 502\"","path":"/platforms"}"
+2024-05-22T12:16:55.4701348 An Exception occurred
+java.lang.NullPointerException
+	at java.base/java.util.Objects.requireNonNull(Objects.java:209)
+	at java.base/java.util.Arrays$ArrayList.<init>(Arrays.java:4137)
+	at java.base/java.util.Arrays.asList(Arrays.java:4122)
+	at com.techelevator.gamebacklogclient.controller.GameController.searchForGame(GameController.java:37)
+	at com.techelevator.gamebacklogclient.controller.BacklogAppController.run(BacklogAppController.java:48)
+	at com.techelevator.gamebacklogclient.Application.main(Application.java:17)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at org.springframework.boot.devtools.restart.RestartLauncher.run(RestartLauncher.java:50)
+2024-05-22T12:18:37.9813686 500 : "{"timestamp":"2024-05-22T19:18:37.975+00:00","status":500,"error":"Internal Server Error","message":"502 Bad Gateway: \"error code: 502\"","path":"/platforms"}"
+2024-05-22T12:18:37.9823747 An Exception occurred
+java.lang.NullPointerException
+	at java.base/java.util.Objects.requireNonNull(Objects.java:209)
+	at java.base/java.util.Arrays$ArrayList.<init>(Arrays.java:4137)
+	at java.base/java.util.Arrays.asList(Arrays.java:4122)
+	at com.techelevator.gamebacklogclient.controller.GameController.searchForGame(GameController.java:37)
+	at com.techelevator.gamebacklogclient.controller.BacklogAppController.run(BacklogAppController.java:48)
+	at com.techelevator.gamebacklogclient.Application.main(Application.java:17)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at org.springframework.boot.devtools.restart.RestartLauncher.run(RestartLauncher.java:50)
+2024-05-22T12:48:17.3726809 500 : "{"timestamp":"2024-05-22T19:48:17.364+00:00","status":500,"error":"Internal Server Error","message":"502 Bad Gateway: \"error code: 502\"","path":"/platforms"}"
+2024-05-22T12:48:17.3726809 An Exception occurred
+java.lang.NullPointerException
+	at java.base/java.util.Objects.requireNonNull(Objects.java:209)
+	at java.base/java.util.Arrays$ArrayList.<init>(Arrays.java:4137)
+	at java.base/java.util.Arrays.asList(Arrays.java:4122)
+	at com.techelevator.gamebacklogclient.controller.GameController.searchForGame(GameController.java:37)
+	at com.techelevator.gamebacklogclient.controller.BacklogAppController.showCollectionSubmenu(BacklogAppController.java:100)
+	at com.techelevator.gamebacklogclient.controller.BacklogAppController.run(BacklogAppController.java:50)
+	at com.techelevator.gamebacklogclient.Application.main(Application.java:17)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at org.springframework.boot.devtools.restart.RestartLauncher.run(RestartLauncher.java:50)
+2024-05-22T12:49:03.620188 500 : "{"timestamp":"2024-05-22T19:49:03.616+00:00","status":500,"error":"Internal Server Error","message":"502 Bad Gateway: \"error code: 502\"","path":"/games"}"
+2024-05-22T12:49:16.6139749 An Exception occurred
+java.lang.NumberFormatException: For input string: ""
+	at java.base/java.lang.NumberFormatException.forInputString(NumberFormatException.java:67)
+	at java.base/java.lang.Integer.parseInt(Integer.java:678)
+	at java.base/java.lang.Integer.parseInt(Integer.java:786)
+	at com.techelevator.gamebacklogclient.View.promptForInt(View.java:33)
+	at com.techelevator.gamebacklogclient.controller.BacklogAppController.showCollectionSubmenu(BacklogAppController.java:101)
+	at com.techelevator.gamebacklogclient.controller.BacklogAppController.run(BacklogAppController.java:50)
+	at com.techelevator.gamebacklogclient.Application.main(Application.java:17)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at org.springframework.boot.devtools.restart.RestartLauncher.run(RestartLauncher.java:50)
+2024-05-22T12:51:26.0799294 500 : "{"timestamp":"2024-05-22T19:51:26.073+00:00","status":500,"error":"Internal Server Error","message":"502 Bad Gateway: \"error code: 502\"","path":"/genres"}"
+2024-05-22T12:51:26.0799294 An Exception occurred
+java.lang.NullPointerException
+	at java.base/java.util.Objects.requireNonNull(Objects.java:209)
+	at java.base/java.util.Arrays$ArrayList.<init>(Arrays.java:4137)
+	at java.base/java.util.Arrays.asList(Arrays.java:4122)
+	at com.techelevator.gamebacklogclient.controller.GameController.searchForGame(GameController.java:45)
+	at com.techelevator.gamebacklogclient.controller.BacklogAppController.run(BacklogAppController.java:48)
+	at com.techelevator.gamebacklogclient.Application.main(Application.java:17)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at org.springframework.boot.devtools.restart.RestartLauncher.run(RestartLauncher.java:50)

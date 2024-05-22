@@ -50,6 +50,8 @@ public class BacklogAppController {
                         showCollectionSubmenu();
                     } else if (menuSelection == 3) {        // 3) Manage backlog
                         showBacklogSubmenu();
+                    } else if (menuSelection == 4) {        // 4) Manage completed
+                        showCompletedSubmenu();
                     } else if (menuSelection == 0) {      // 0) Exit program
                         System.out.println("Exiting program...");
                         finished = true;
@@ -124,6 +126,30 @@ public class BacklogAppController {
                 backlogController.addGameToBacklog(gameId);
                 System.out.println("Game with id (" + gameId + ") was added to BACKLOG.");
             } else if (subMenuSelection == 3) { // delete game from backlog
+
+            } else if (subMenuSelection == 0) { // exit to main menu
+                showSubMenu = false;
+            }
+        }
+    }
+
+    public void showCompletedSubmenu() {
+        boolean showSubMenu = true;
+        while (showSubMenu) {
+            view.displayCompletedMenu();
+
+            int gameId = 0;
+            int subMenuSelection = view.promptForInt("Enter a number: ");
+
+            if (subMenuSelection == 1) { // view games
+
+            } else if (subMenuSelection == 2) { // add game
+                System.out.println("\n>> Displaying COMPLETED games...");
+
+                gameId = view.promptForInt("Enter game's id: ");
+
+                System.out.println("Game with id (" + gameId + ") was added to BACKLOG.");
+            } else if (subMenuSelection == 3) { // delete game
 
             } else if (subMenuSelection == 0) { // exit to main menu
                 showSubMenu = false;
