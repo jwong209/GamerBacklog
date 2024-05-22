@@ -3,12 +3,13 @@ package com.techelevator.service;
 import com.techelevator.model.ApiResponseGame;
 import com.techelevator.model.Game;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
 
-@Component
+@Service
 public class GameService {
 
     private RestTemplate restTemplate = new RestTemplate();

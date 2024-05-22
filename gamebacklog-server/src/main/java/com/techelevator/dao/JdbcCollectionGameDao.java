@@ -1,15 +1,19 @@
 package com.techelevator.dao;
 
+import com.techelevator.exception.DaoException;
 import com.techelevator.model.Game;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.jdbc.CannotGetJdbcConnectionException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
 import javax.sql.DataSource;
 import java.util.ArrayList;
 import java.util.List;
 
-@Component
+@Repository
 public class JdbcCollectionGameDao implements CollectionGameDao{
     private final JdbcTemplate jdbcTemplate;
 
@@ -21,14 +25,28 @@ public class JdbcCollectionGameDao implements CollectionGameDao{
     public void linkCollectionGame(int collectionId, int gameId) {
         String sql = "INSERT INTO collection_game (collection_id, game_id) " +
                 "VALUES (?, ?);";
-        jdbcTemplate.update(sql, collectionId, gameId);
+
+        try {
+            jdbcTemplate.update(sql, collectionId, gameId);
+        } catch (CannotGetJdbcConnectionException e) {
+            throw new DaoException("Unable to connect to server or database", e);
+        } catch (DataIntegrityViolationException e) {
+            throw new DaoException("Data integrity violation", e);
+        }
     }
 
     @Override
     public void unlinkCollectionGame(int collectionId, int gameId) {
         String sql = "DELETE FROM collection_game " +
                 "WHERE collection_id = ? AND game_id = ?;";
-        jdbcTemplate.update(sql, collectionId, gameId);
+
+        try {
+            jdbcTemplate.update(sql, collectionId, gameId);
+        } catch (CannotGetJdbcConnectionException e) {
+            throw new DaoException("Unable to connect to server or database", e);
+        } catch (DataIntegrityViolationException e) {
+            throw new DaoException("Data integrity violation", e);
+        }
     }
 
     @Override
@@ -38,14 +56,17 @@ public class JdbcCollectionGameDao implements CollectionGameDao{
         String sql = "SELECT cg.game_id FROM collection_game AS cg " +
                 "JOIN collection AS c ON cg.collection_id = c.collection_id " +
                 "WHERE user_id = ?;";
-        SqlRowSet results = jdbcTemplate.queryForRowSet(sql, userId);
 
-        while (results.next()) {
-            gameIds.add(results.getInt("game_id"));
+        try {
+            SqlRowSet results = jdbcTemplate.queryForRowSet(sql, userId);
+            while (results.next()) {
+                gameIds.add(results.getInt("game_id"));
+            }
+        } catch (CannotGetJdbcConnectionException e) {
+            throw new DaoException("Unable to connect to server or database", e);
         }
 
         return gameIds;
     }
-
 
 }

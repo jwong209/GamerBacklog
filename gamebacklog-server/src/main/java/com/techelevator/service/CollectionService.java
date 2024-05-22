@@ -7,12 +7,13 @@ import com.techelevator.dao.UserDao;
 import com.techelevator.model.Game;
 import com.techelevator.model.User;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 
-@Component
+@Service
 public class CollectionService {
 
     private final CollectionDao collectionDao;
@@ -44,6 +45,14 @@ public class CollectionService {
         return results;
     }
 
+    public void addGameToCollection(int collectionId, int gameId, Principal principal) {
+        User user = getUser(principal);
+        if (user != null) {
+            collectionGameDao.linkCollectionGame(collectionId, gameId);
+        }
+    }
+
+
     /*
      * Helper method to get the User object from the Principal.
      */
@@ -52,7 +61,5 @@ public class CollectionService {
         User user = userDao.getUserByUsername(username);
         return user;
     }
-
-
 
 }

@@ -12,10 +12,6 @@ public class View {
 
     private static Scanner input = new Scanner(System.in);
 
-    public View() {
-        View.input = new Scanner(System.in);
-    }
-
     public UserCredentials promptForCredentials() {
         System.out.println("Please login.");
         String username = promptForString("Username: ");
@@ -37,10 +33,25 @@ public class View {
     public void displayMainMenu() {
         System.out.println("\n[ Main Menu ]");
         System.out.println("-----------------------------------------------------");
+        System.out.println("1. Browse GAME LIBRARY");
+        System.out.println("2. Manage COLLECTION");
+        System.out.println("3. Manage BACKLOG");
+        System.out.println("0. Exit");
+    }
+
+    public void displayCollectionMenu() {
+        System.out.println("\n[ COLLECTION Menu ]");
+        System.out.println("-----------------------------------------------------");
         System.out.println("1. View all games in COLLECTION");
-        System.out.println("2. Search and Add game to COLLECTION");
-        System.out.println("3. View all games in BACKLOG");
-        System.out.println("4. Add game from COLLECTION to BACKLOG");
+        System.out.println("2. Search GAME LIBRARY and add a game to COLLECTION");
+        System.out.println("0. Exit");
+    }
+
+    public void displayBacklogMenu() {
+        System.out.println("\n[ BACKLOG Menu ]");
+        System.out.println("-----------------------------------------------------");
+        System.out.println("1. View all games in BACKLOG");
+        System.out.println("2. Browse COLLECTION and add game to BACKLOG");
         System.out.println("0. Exit");
     }
 

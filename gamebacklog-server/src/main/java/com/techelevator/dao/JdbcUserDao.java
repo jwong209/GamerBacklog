@@ -12,8 +12,9 @@ import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 import com.techelevator.model.User;
+import org.springframework.stereotype.Repository;
 
-@Component
+@Repository
 public class JdbcUserDao implements UserDao {
 
     private final JdbcTemplate jdbcTemplate;

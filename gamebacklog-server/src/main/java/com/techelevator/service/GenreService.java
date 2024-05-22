@@ -4,11 +4,12 @@ package com.techelevator.service;
 import com.techelevator.model.ApiResponseGenre;
 import com.techelevator.model.Genre;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
 
-@Component
+@Service
 public class GenreService {
 
     private RestTemplate restTemplate = new RestTemplate();

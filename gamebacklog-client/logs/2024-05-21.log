@@ -1,0 +1,33 @@
+2024-05-21T16:13:54.9739128 500 : "{"timestamp":"2024-05-21T23:13:54.962+00:00","status":500,"error":"Internal Server Error","message":"502 Bad Gateway: \"error code: 502\"","path":"/collections/current-games"}"
+2024-05-21T16:13:54.9749138 An Exception occurred
+java.lang.NullPointerException: Cannot invoke "java.util.List.size()" because "userCollection" is null
+	at com.techelevator.gamebacklogclient.controller.CollectionController.getGamesInCollection(CollectionController.java:34)
+	at com.techelevator.gamebacklogclient.controller.BacklogAppController.run(BacklogAppController.java:46)
+	at com.techelevator.gamebacklogclient.Application.main(Application.java:17)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at org.springframework.boot.devtools.restart.RestartLauncher.run(RestartLauncher.java:50)
+2024-05-21T16:14:18.2828627 500 : "{"timestamp":"2024-05-21T23:14:18.270+00:00","status":500,"error":"Internal Server Error","message":"502 Bad Gateway: \"error code: 502\"","path":"/collections/current-games"}"
+2024-05-21T16:14:18.2828627 An Exception occurred
+java.lang.NullPointerException: Cannot invoke "java.util.List.size()" because "userCollection" is null
+	at com.techelevator.gamebacklogclient.controller.CollectionController.getGamesInCollection(CollectionController.java:34)
+	at com.techelevator.gamebacklogclient.controller.BacklogAppController.run(BacklogAppController.java:46)
+	at com.techelevator.gamebacklogclient.Application.main(Application.java:17)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at org.springframework.boot.devtools.restart.RestartLauncher.run(RestartLauncher.java:50)
+2024-05-21T16:16:20.3195032 500 : "{"timestamp":"2024-05-21T23:16:20.312+00:00","status":500,"error":"Internal Server Error","message":"502 Bad Gateway: \"error code: 502\"","path":"/collections/current-games"}"
+2024-05-21T16:16:20.320503 An Exception occurred
+java.lang.NullPointerException: Cannot invoke "java.util.List.size()" because "userCollection" is null
+	at com.techelevator.gamebacklogclient.controller.CollectionController.getGamesInCollection(CollectionController.java:34)
+	at com.techelevator.gamebacklogclient.controller.BacklogAppController.run(BacklogAppController.java:46)
+	at com.techelevator.gamebacklogclient.Application.main(Application.java:17)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at org.springframework.boot.devtools.restart.RestartLauncher.run(RestartLauncher.java:50)

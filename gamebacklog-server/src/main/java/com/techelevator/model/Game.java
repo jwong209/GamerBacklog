@@ -1,7 +1,10 @@
 package com.techelevator.model;
 
+import jakarta.validation.constraints.NotBlank;
+
 public class Game {
     private int id;
+    @NotBlank( message = "The field 'name' is required.")
     private String name;
     private String released;
     private Double rating;

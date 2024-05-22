@@ -2,11 +2,14 @@ package com.techelevator.controller;
 
 
 import com.techelevator.dao.CollectionGameDao;
+import com.techelevator.exception.DaoException;
 import com.techelevator.model.Game;
 import com.techelevator.service.CollectionService;
 import com.techelevator.service.GameService;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.security.Principal;
 import java.util.ArrayList;
@@ -29,25 +32,40 @@ public class CollectionController {
 
     @RequestMapping(path = "/current-collection-id", method = RequestMethod.GET)
     public int getCollectionId(Principal principal) {
-        return collectionService.getCollectionIdByUserId(principal);
+        try {
+            return collectionService.getCollectionIdByUserId(principal);
+
+        } catch (DaoException e) {
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
+        }
     }
 
     @RequestMapping(path = "/current-games", method = RequestMethod.GET)
     public List<Game> getGamesInCollection(Principal principal) {
         List<Game> games = new ArrayList<>();
-        List<Integer> gameIds = collectionService.getGameIdsInCollection(principal);
 
-        for (int id: gameIds) {
-            Game game = gameService.getById(id);
-            games.add(game);
+        try {
+            List<Integer> gameIds = collectionService.getGameIdsInCollection(principal);
+
+            for (int id: gameIds) {
+                Game game = gameService.getById(id);
+                games.add(game);
+            }
+        } catch (DaoException e) {
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
         }
 
         return games;
     }
 
+    @ResponseStatus(HttpStatus.CREATED)
     @RequestMapping(path = "/{collectionId}/games/{gameId}", method = RequestMethod.POST)
-    public void addGameToCollection(@PathVariable int collectionId, @PathVariable int gameId) {
-        collectionGameDao.linkCollectionGame(collectionId, gameId);
+    public void addGameToCollection(@PathVariable int collectionId, @PathVariable int gameId, Principal principal) {
+        try {
+            collectionService.addGameToCollection(collectionId, gameId, principal);
+        } catch (DaoException e) {
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
+        }
     }
 
 

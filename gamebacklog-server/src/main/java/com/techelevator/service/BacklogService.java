@@ -6,12 +6,13 @@ import com.techelevator.dao.BacklogGameDao;
 import com.techelevator.dao.UserDao;
 import com.techelevator.model.User;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 
-@Component
+@Service
 public class BacklogService {
 
     private final BacklogDao backlogDao;
@@ -46,6 +47,13 @@ public class BacklogService {
         return results;
     }
 
+    public void addGameToBacklog(int backlogId, int gameId, Principal principal) {
+        User user = getUser(principal);
+        if (user != null) {
+            backlogGameDao.linkBacklogGame(backlogId, gameId);
+        }
+    }
+
 
 
     /*
@@ -56,4 +64,5 @@ public class BacklogService {
         User user = userDao.getUserByUsername(username);
         return user;
     }
+
 }

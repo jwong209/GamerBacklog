@@ -7,12 +7,13 @@ import org.springframework.jdbc.CannotGetJdbcConnectionException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
 import javax.sql.DataSource;
 import java.util.ArrayList;
 import java.util.List;
 
-@Component
+@Repository
 public class JdbcBacklogDao implements BacklogDao{
     private final JdbcTemplate jdbcTemplate;
 
@@ -136,7 +137,6 @@ public class JdbcBacklogDao implements BacklogDao{
         return numberOfRows;
 
     }
-
 
     private Backlog mapRowToBacklog(SqlRowSet results) {
         Backlog backlog = new Backlog();
