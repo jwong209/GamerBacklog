@@ -11,7 +11,7 @@ public class Application {
 
 
 	public static void main(String[] args) {
-		SpringApplication.run(Application.class, args);
+//		SpringApplication.run(Application.class, args);
 
 		BacklogAppController controller = new BacklogAppController(API_BASE_URL);
 		controller.run();

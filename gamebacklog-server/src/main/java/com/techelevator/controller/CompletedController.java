@@ -1,10 +1,10 @@
 package com.techelevator.controller;
 
-import com.techelevator.dao.BacklogGameDao;
+
 import com.techelevator.exception.DaoException;
-import com.techelevator.model.BacklogGame;
+import com.techelevator.model.CompletedGame;
 import com.techelevator.model.Game;
-import com.techelevator.service.BacklogService;
+import com.techelevator.service.CompletedService;
 import com.techelevator.service.GameService;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -17,37 +17,25 @@ import java.util.List;
 
 @RestController
 @PreAuthorize("isAuthenticated()")
-@RequestMapping( path = "/backlogs" )
-public class BacklogController {
+@RequestMapping( path = "/completed" )
+public class CompletedController {
 
-    private final BacklogGameDao backlogGameDao;
-    private final BacklogService backlogService;
+    private final CompletedService completedService;
     private final GameService gameService;
 
-    public BacklogController(BacklogGameDao backlogGameDao, BacklogService backlogService, GameService gameService) {
-        this.backlogGameDao = backlogGameDao;
-        this.backlogService = backlogService;
+    public CompletedController(CompletedService completedService, GameService gameService) {
+        this.completedService = completedService;
         this.gameService = gameService;
     }
 
-    @RequestMapping(path = "/current-backlog-id", method = RequestMethod.GET)
-    public int getBacklogId(Principal principal) {
-        try {
-            return backlogService.getBacklogIdByUserId(principal);
-
-        } catch (DaoException e) {
-            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
-        }
-    }
-
     @RequestMapping(path = "/current-games", method = RequestMethod.GET)
-    public List<Game> getGamesInBacklog(Principal principal) {
+    public List<Game> getGamesInCompleted(Principal principal) {
         List<Game> games = new ArrayList<>();
 
         try {
-            List<Integer> gameIds = backlogService.getGameIdsInBacklog(principal);
+            List<Integer> gameIds = completedService.getGameIdsInCompleted(principal);
 
-            for (int id: gameIds) {
+            for (int id : gameIds) {
                 Game game = gameService.getById(id);
                 games.add(game);
             }
@@ -60,13 +48,12 @@ public class BacklogController {
 
     @ResponseStatus(HttpStatus.CREATED)
     @RequestMapping(path = "/current", method = RequestMethod.POST)
-    public void addGameToBacklog(@RequestBody BacklogGame backlogGame, Principal principal) {
+    public void addGameToCompleted(@RequestBody CompletedGame completedGame, Principal principal) {
         try {
-            backlogService.addGameToBacklog(backlogGame, principal);
+            completedService.addGameToCompleted(completedGame, principal);
         } catch (DaoException e) {
             throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
         }
     }
-
 
 }

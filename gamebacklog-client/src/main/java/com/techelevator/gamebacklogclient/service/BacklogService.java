@@ -2,6 +2,7 @@ package com.techelevator.gamebacklogclient.service;
 
 import com.techelevator.gamebacklogclient.View;
 import com.techelevator.gamebacklogclient.model.Backlog;
+import com.techelevator.gamebacklogclient.model.BacklogGame;
 import com.techelevator.gamebacklogclient.model.Game;
 import com.techelevator.gamebacklogclient.util.BasicLogger;
 import org.springframework.http.*;
@@ -48,14 +49,10 @@ public class BacklogService {
         }
     }
 
-    public void addGameToBacklog(int backlogId, int gameId) {
+    public void addGameToBacklog(BacklogGame backlogGame) {
         try {
-            Backlog newBacklog = new Backlog();
-            newBacklog.setBacklogId(backlogId);
-            newBacklog.setGameId(gameId);
-
-            HttpEntity<Backlog> entity = makeBacklogEntity(newBacklog);
-            String url = API_BASE_URL + "/backlogs/" + backlogId + "/games/" + gameId;
+            HttpEntity<BacklogGame> entity = makeBacklogEntity(backlogGame);
+            String url = API_BASE_URL + "/backlogs/current";
 
             restTemplate.postForObject(url, entity, Void.class);
         } catch (RestClientResponseException | ResourceAccessException e) {
@@ -69,14 +66,14 @@ public class BacklogService {
      *
      * This is used when the request needs to have a body containing the data, for example a POST or PUT.
      *
-     * @param backlog the tag information
+     * @param backlogGame the tag information
      * @return HttpEntity containing the tag data and auth information
      */
-    private HttpEntity<Backlog> makeBacklogEntity(Backlog backlog) {
+    private HttpEntity<BacklogGame> makeBacklogEntity(BacklogGame backlogGame) {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
         headers.setBearerAuth(authToken);
-        return new HttpEntity<>(backlog, headers);
+        return new HttpEntity<>(backlogGame, headers);
     }
 
     /**

@@ -34,7 +34,6 @@ public class CollectionController {
     public int getCollectionId(Principal principal) {
         try {
             return collectionService.getCollectionIdByUserId(principal);
-
         } catch (DaoException e) {
             throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
         }

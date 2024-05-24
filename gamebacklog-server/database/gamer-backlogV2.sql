@@ -49,7 +49,7 @@ CREATE TABLE completed_game (
     completion_date DATE,
     total_playtime INTERVAL,
     PRIMARY KEY (user_id, game_id),
-    FOREIGN KEY (user_id) REFERENCES app_user (user_id),
+    FOREIGN KEY (user_id) REFERENCES app_user (user_id)
 );
 
 INSERT INTO app_user (username, password_hash, role) VALUES

@@ -4,6 +4,7 @@ package com.techelevator.service;
 import com.techelevator.dao.BacklogDao;
 import com.techelevator.dao.BacklogGameDao;
 import com.techelevator.dao.UserDao;
+import com.techelevator.model.BacklogGame;
 import com.techelevator.model.User;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
@@ -47,10 +48,10 @@ public class BacklogService {
         return results;
     }
 
-    public void addGameToBacklog(int backlogId, int gameId, Principal principal) {
+    public void addGameToBacklog(BacklogGame backlogGame, Principal principal) {
         User user = getUser(principal);
         if (user != null) {
-            backlogGameDao.linkBacklogGame(backlogId, gameId);
+            backlogGameDao.linkBacklogGame(backlogGame);
         }
     }
 

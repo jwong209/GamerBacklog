@@ -123,7 +123,9 @@ public class BacklogAppController {
                 System.out.println("\n>> Displaying games from COLLECTION...");
                 collectionController.getGamesInCollection();
                 gameId = view.promptForInt("Enter game's id: ");
-                backlogController.addGameToBacklog(gameId);
+                int priority = view.promptForInt("Enter priority [Lowest (1) - Highest (5)]: ");
+                String progress = view.promptForString("Enter progress: ");
+                backlogController.addGameToBacklog(gameId, priority, progress);
                 System.out.println("Game with id (" + gameId + ") was added to BACKLOG.");
             } else if (subMenuSelection == 3) { // delete game from backlog
 

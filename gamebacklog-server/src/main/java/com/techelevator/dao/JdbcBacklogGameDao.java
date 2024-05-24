@@ -1,6 +1,7 @@
 package com.techelevator.dao;
 
 import com.techelevator.exception.DaoException;
+import com.techelevator.model.BacklogGame;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.jdbc.CannotGetJdbcConnectionException;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -22,12 +23,17 @@ public class JdbcBacklogGameDao implements BacklogGameDao{
     }
 
     @Override
-    public void linkBacklogGame(int backlogId, int gameId) {
-        String sql = "INSERT INTO backlog_game (backlog_id, game_id) " +
-                "VALUES (?, ?);";
+    public void linkBacklogGame(BacklogGame backlogGame) {
+        int backlogId = backlogGame.getBacklogId();
+        int gameId = backlogGame.getGameId();
+        int priority = backlogGame.getPriority();
+        String progress = backlogGame.getProgress();
+
+        String sql = "INSERT INTO backlog_game (backlog_id, game_id, priority, progress) " +
+                "VALUES (?, ?, ?, ?);";
 
         try {
-            jdbcTemplate.update(sql, backlogId, gameId);
+            jdbcTemplate.update(sql, backlogId, gameId, priority, progress);
         } catch (CannotGetJdbcConnectionException e) {
             throw new DaoException("Unable to connect to server or database", e);
         } catch (DataIntegrityViolationException e) {

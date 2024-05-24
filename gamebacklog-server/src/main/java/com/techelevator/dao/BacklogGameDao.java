@@ -1,12 +1,15 @@
 package com.techelevator.dao;
 
+import com.techelevator.model.BacklogGame;
+
 import java.util.List;
 
 public interface BacklogGameDao {
 
-    void linkBacklogGame(int backlog_id, int game_id);
+    void linkBacklogGame(BacklogGame backlogGame);
 
     void unlinkBacklogGame(int backlog_id, int game_id);
 
     List<Integer> getGameIdsInBacklog(int userId);
+
 }

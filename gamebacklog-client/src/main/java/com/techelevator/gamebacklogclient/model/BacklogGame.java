@@ -1,6 +1,7 @@
-package com.techelevator.model;
+package com.techelevator.gamebacklogclient.model;
 
 public class BacklogGame {
+
     private int backlogId;
     private int gameId;
     private int priority;

@@ -3,17 +3,17 @@ package com.techelevator.model;
 import java.time.Duration;
 import java.time.LocalDate;
 
-public class Completed {
+public class CompletedGame {
 
     private int userId;
     private int gameId;
     private LocalDate completionDate;
     private Duration totalPlaytime;
 
-    public Completed() {
+    public CompletedGame() {
     }
 
-    public Completed(int userId, int gameId, LocalDate completionDate, Duration totalPlaytime) {
+    public CompletedGame(int userId, int gameId, LocalDate completionDate, Duration totalPlaytime) {
         this.userId = userId;
         this.gameId = gameId;
         this.completionDate = completionDate;

@@ -1,6 +1,7 @@
 package com.techelevator.gamebacklogclient.controller;
 
 import com.techelevator.gamebacklogclient.View;
+import com.techelevator.gamebacklogclient.model.BacklogGame;
 import com.techelevator.gamebacklogclient.model.Game;
 import com.techelevator.gamebacklogclient.service.BacklogService;
 
@@ -22,11 +23,13 @@ public class BacklogController {
         view.displayGamesList(userBacklog);
     }
 
-    public void addGameToBacklog(int gameId) {
+    public void addGameToBacklog(int gameId, int priority, String progress) {
         int backlogId = backlogService.getBacklogId();
         System.out.println("Backlog id: " + backlogId);
 
-        backlogService.addGameToBacklog(backlogId, gameId);
+        BacklogGame backlogGame = new BacklogGame(backlogId, gameId, priority, progress);
+
+        backlogService.addGameToBacklog(backlogGame);
     }
 
 }
