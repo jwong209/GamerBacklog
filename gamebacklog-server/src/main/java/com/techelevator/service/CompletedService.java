@@ -44,6 +44,17 @@ public class CompletedService {
 
     }
 
+//    public boolean removeGameFromCompleted(CompletedGame completedGame, Principal principal) {
+//        boolean gameRemoved = false;
+//
+//
+//
+//        User user = getUser(principal);
+//        if (user != null) {
+//            completedGameDao.deleteGameFromCompleted(completedGame);
+//        }
+//    }
+
     /*
      * Helper method to get the User object from the Principal.
      */

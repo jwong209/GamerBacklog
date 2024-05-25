@@ -60,6 +60,17 @@ public class BacklogService {
         }
     }
 
+    public boolean delete(int backlogId, int gameId) {
+        try {
+            String url = API_BASE_URL + "/backlogs/" + backlogId + "/games/" + gameId;
+            restTemplate.exchange(url, HttpMethod.DELETE, makeAuthEntity(), Void.class);
+            return true;
+        } catch (RestClientResponseException | ResourceAccessException e) {
+            BasicLogger.log(e.getMessage());
+            return false;
+        }
+    }
+
     /**
      * Helper method to create the HTTP Entity that bundles the collection data and the auth information together
      * to send to the server REST API.

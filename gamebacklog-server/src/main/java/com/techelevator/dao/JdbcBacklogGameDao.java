@@ -6,7 +6,6 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.jdbc.CannotGetJdbcConnectionException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 
 import javax.sql.DataSource;
@@ -42,17 +41,20 @@ public class JdbcBacklogGameDao implements BacklogGameDao{
     }
 
     @Override
-    public void unlinkBacklogGame(int backlogId, int gameId) {
+    public int unlinkBacklogGame(int backlogId, int gameId) {
+        int count;
+
         String sql = "DELETE FROM backlog_game " +
                 "WHERE backlog_id = ? AND game_id = ?;";
 
         try {
-            jdbcTemplate.update(sql, backlogId, gameId);
+            count = jdbcTemplate.update(sql, backlogId, gameId);
         } catch (CannotGetJdbcConnectionException e) {
             throw new DaoException("Unable to connect to server or database", e);
         } catch (DataIntegrityViolationException e) {
             throw new DaoException("Data integrity violation", e);
         }
+        return count;
     }
 
     @Override

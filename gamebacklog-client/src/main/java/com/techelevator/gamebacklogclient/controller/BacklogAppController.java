@@ -128,7 +128,10 @@ public class BacklogAppController {
                 backlogController.addGameToBacklog(gameId, priority, progress);
                 System.out.println("Game with id (" + gameId + ") was added to BACKLOG.");
             } else if (subMenuSelection == 3) { // delete game from backlog
-
+                System.out.println("\n>> Displaying games from BACKLOG...");
+                backlogController.getGamesInBacklog();
+                gameId = view.promptForInt("Enter game's id: ");
+                backlogController.removeGameFromBacklog(gameId);
             } else if (subMenuSelection == 0) { // exit to main menu
                 showSubMenu = false;
             }

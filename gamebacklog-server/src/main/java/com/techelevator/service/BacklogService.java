@@ -5,6 +5,7 @@ import com.techelevator.dao.BacklogDao;
 import com.techelevator.dao.BacklogGameDao;
 import com.techelevator.dao.UserDao;
 import com.techelevator.model.BacklogGame;
+import com.techelevator.model.Game;
 import com.techelevator.model.User;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
@@ -53,9 +54,20 @@ public class BacklogService {
         if (user != null) {
             backlogGameDao.linkBacklogGame(backlogGame);
         }
+
     }
 
+    public boolean removeGameFromBacklog(int backlogId, int gameId, Principal principal) {
+        boolean gameRemoved = false;
 
+        User user = getUser(principal);
+        if (user != null) {
+            int deleteCount = backlogGameDao.unlinkBacklogGame(backlogId, gameId);
+            gameRemoved = (deleteCount != 0);
+        }
+
+        return gameRemoved;
+    }
 
     /*
      * Helper method to get the User object from the Principal.

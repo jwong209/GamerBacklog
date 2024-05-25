@@ -68,5 +68,19 @@ public class BacklogController {
         }
     }
 
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @RequestMapping(path = "/{backlogId}/games/{gameId}", method = RequestMethod.DELETE)
+    public void removeGameFromBacklog(@PathVariable int backlogId, @PathVariable int gameId, Principal principal) {
+        try {
+            boolean updated = backlogService.removeGameFromBacklog(backlogId, gameId, principal);
+            if (updated == false) {
+                throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Backlog not found");
+            }
+
+        } catch (DaoException e) {
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
+        }
+    }
+
 
 }

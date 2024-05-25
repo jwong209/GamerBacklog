@@ -23,13 +23,28 @@ public class BacklogController {
         view.displayGamesList(userBacklog);
     }
 
-    public void addGameToBacklog(int gameId, int priority, String progress) {
+    public int getBacklogId() {
         int backlogId = backlogService.getBacklogId();
-        System.out.println("Backlog id: " + backlogId);
+        return backlogId;
+    }
+
+    public void addGameToBacklog(int gameId, int priority, String progress) {
+        int backlogId = getBacklogId();
 
         BacklogGame backlogGame = new BacklogGame(backlogId, gameId, priority, progress);
 
         backlogService.addGameToBacklog(backlogGame);
+    }
+
+    public void removeGameFromBacklog(int gameId) {
+        int backlogId = getBacklogId();
+        boolean successful = backlogService.delete(backlogId, gameId);
+
+        if (successful) {
+            System.out.println("Game deleted successfully.");
+        } else {
+            System.out.println("Delete failed. Check the log for more information.");
+        }
     }
 
 }

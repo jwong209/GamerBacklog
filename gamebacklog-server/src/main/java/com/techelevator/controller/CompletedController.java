@@ -56,4 +56,10 @@ public class CompletedController {
         }
     }
 
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @RequestMapping(path = "/current/games/id", method = RequestMethod.DELETE)
+    public void removeGameFromCompleted(@RequestBody CompletedGame completedGame, Principal principal) {
+//        boolean updated = completedService.removeGameFromCompleted(completedGame, principal);
+    }
+
 }
