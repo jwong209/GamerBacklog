@@ -33,14 +33,14 @@ public class BacklogService {
     }
 
     public int getBacklogId() {
-        String url = API_BASE_URL + "/backlogs/current-backlog-id";
+        String url = API_BASE_URL + "/backlogs/user/id";
         ResponseEntity<Integer> response = restTemplate.exchange(url, HttpMethod.GET, makeAuthEntity(), Integer.class);
         return response.getBody();
     }
 
     public List<Game> getGamesInBacklog() {
         try {
-            String url = API_BASE_URL + "/backlogs/current-games";
+            String url = API_BASE_URL + "/backlogs/user";
             ResponseEntity<Game[]> response = restTemplate.exchange(url, HttpMethod.GET, makeAuthEntity(), Game[].class);
             return Arrays.asList(response.getBody());
         } catch (RestClientResponseException | ResourceAccessException e) {
@@ -52,7 +52,7 @@ public class BacklogService {
     public void addGameToBacklog(BacklogGame backlogGame) {
         try {
             HttpEntity<BacklogGame> entity = makeBacklogEntity(backlogGame);
-            String url = API_BASE_URL + "/backlogs/current";
+            String url = API_BASE_URL + "/backlogs/user";
 
             restTemplate.postForObject(url, entity, Void.class);
         } catch (RestClientResponseException | ResourceAccessException e) {

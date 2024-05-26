@@ -193,7 +193,7 @@
 					"bearer": [
 						{
 							"key": "token",
-							"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzdGV2ZVJvZ2VycyIsImF1dGgiOiJST0xFX1VTRVIiLCJleHAiOjE3MTYyNDYzNjR9.YlvHhMgEK4z7giZ_ECQR4Br_OEomnvsD6e6YNesucrnwe8jLF6d7dZwWtnZSu8OcizJleeseG6kstdfi8XiKaA",
+							"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzdGV2ZVJvZ2VycyIsImF1dGgiOiJST0xFX1VTRVIiLCJleHAiOjE3MTY4NDY4Nzl9.PEYuRRYsLVBmTdCJG0pMGCgx5luwwthzHeUjlxHJZ7SBMiyw7ojPjXpIX-Uw6lDjsWADLZhnAQX0afakstNwcQ",
 							"type": "string"
 						}
 					]
@@ -201,7 +201,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8080/collections/current-games",
+					"raw": "http://localhost:8080/collections/user",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -209,7 +209,7 @@
 					"port": "8080",
 					"path": [
 						"collections",
-						"current-games"
+						"user"
 					]
 				}
 			},
@@ -243,7 +243,7 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8080/collections/current-collection-id",
+					"raw": "http://localhost:8080/collections/user/id",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -251,7 +251,8 @@
 					"port": "8080",
 					"path": [
 						"collections",
-						"current-collection-id"
+						"user",
+						"id"
 					]
 				}
 			},
@@ -272,14 +273,17 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8080/collections",
+					"raw": "http://localhost:8080/collections/3/games/28",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
 					"port": "8080",
 					"path": [
-						"collections"
+						"collections",
+						"3",
+						"games",
+						"28"
 					]
 				}
 			},
@@ -310,7 +314,7 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8080/collections/2/games/2866",
+					"raw": "http://localhost:8080/collections/3/games/8",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -318,9 +322,9 @@
 					"port": "8080",
 					"path": [
 						"collections",
-						"2",
+						"3",
 						"games",
-						"2866"
+						"8"
 					]
 				}
 			},
@@ -342,7 +346,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8080/backlogs/current-games",
+					"raw": "http://localhost:8080/backlogs/user",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -350,7 +354,7 @@
 					"port": "8080",
 					"path": [
 						"backlogs",
-						"current-games"
+						"user"
 					]
 				}
 			},
@@ -384,7 +388,7 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8080/collections/current-collection-id",
+					"raw": "http://localhost:8080/collections/user/id",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -392,7 +396,8 @@
 					"port": "8080",
 					"path": [
 						"collections",
-						"current-collection-id"
+						"user",
+						"id"
 					]
 				}
 			},
@@ -424,6 +429,37 @@
 						"2",
 						"games",
 						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "remove-game-from-backlog",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"collectionId\": 2,\r\n    \"gameId\": 2\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/backlogs/2/games/4",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"backlogs",
+						"2",
+						"games",
+						"4"
 					]
 				}
 			},

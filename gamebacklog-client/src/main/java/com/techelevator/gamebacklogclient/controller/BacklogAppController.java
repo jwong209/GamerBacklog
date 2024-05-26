@@ -44,15 +44,15 @@ public class BacklogAppController {
                     view.displayMainMenu();
 
                     int menuSelection = view.promptForInt("Please enter a number: ");
-                    if (menuSelection == 1) {               // 1) Browse games
+                    if (menuSelection == 1) {               // 1) Browse GAME LIBRARY
                         gameController.searchForGame();
-                    } else if (menuSelection == 2) {        // 2) Manage collection
+                    } else if (menuSelection == 2) {        // 2) Manage COLLECTION
                         showCollectionSubmenu();
-                    } else if (menuSelection == 3) {        // 3) Manage backlog
+                    } else if (menuSelection == 3) {        // 3) Manage BACKLOG
                         showBacklogSubmenu();
-                    } else if (menuSelection == 4) {        // 4) Manage completed
+                    } else if (menuSelection == 4) {        // 4) Manage COMPLETED
                         showCompletedSubmenu();
-                    } else if (menuSelection == 0) {      // 0) Exit program
+                    } else if (menuSelection == 0) {        // 0) Exit program
                         System.out.println("Exiting program...");
                         finished = true;
                     }
@@ -67,12 +67,8 @@ public class BacklogAppController {
 
     public void handleLogin() {
         UserCredentials credentials = view.promptForCredentials();
-
-        // Use the service to handle communication with the server
         currentUser = authService.login(credentials);
 
-        // Check for successful login (user is not null) AND admin user role (also known as an authority)
-        // Note that the view is also used to give feedback to the user
         if (currentUser == null) {
             System.out.println("Login failed.");
         } else {
@@ -93,20 +89,20 @@ public class BacklogAppController {
             int gameId = 0;
             int subMenuSelection = view.promptForInt("Enter a number: ");
 
-            if (subMenuSelection == 1) { // view games in collection
+            if (subMenuSelection == 1) {
                 System.out.println("\n>> Displaying games from COLLECTION...");
                 collectionController.getGamesInCollection();
-            } else if (subMenuSelection == 2) { // add game to collection
+            } else if (subMenuSelection == 2) {
                 gameController.searchForGame();
                 gameId = view.promptForInt("Enter game's id: ");
                 collectionController.addGameToCollection(gameId);
                 System.out.println("Game with id (" + gameId + ") was added to COLLECTION.");
-            } else if (subMenuSelection == 3) { // delete game from collection
+            } else if (subMenuSelection == 3) {
                 System.out.println("\n>> Displaying games from COLLECTION...");
                 collectionController.getGamesInCollection();
                 gameId = view.promptForInt("Enter game's id: ");
                 collectionController.removeGameFromCollection(gameId);
-            } else if (subMenuSelection == 0) { // exit to main menu
+            } else if (subMenuSelection == 0) {
                 showSubMenu = false;
             }
         }
@@ -120,10 +116,10 @@ public class BacklogAppController {
             int gameId = 0;
             int subMenuSelection = view.promptForInt("Enter a number: ");
 
-            if (subMenuSelection == 1) { // view games in backlog
+            if (subMenuSelection == 1) {
                 System.out.println("\n>> Displaying games from BACKLOG...");
                 backlogController.getGamesInBacklog();
-            } else if (subMenuSelection == 2) { // add game to backlog
+            } else if (subMenuSelection == 2) {
                 System.out.println("\n>> Displaying games from COLLECTION...");
                 collectionController.getGamesInCollection();
                 gameId = view.promptForInt("Enter game's id: ");
@@ -131,12 +127,12 @@ public class BacklogAppController {
                 String progress = view.promptForString("Enter progress: ");
                 backlogController.addGameToBacklog(gameId, priority, progress);
                 System.out.println("Game with id (" + gameId + ") was added to BACKLOG.");
-            } else if (subMenuSelection == 3) { // delete game from backlog
+            } else if (subMenuSelection == 3) {
                 System.out.println("\n>> Displaying games from BACKLOG...");
                 backlogController.getGamesInBacklog();
                 gameId = view.promptForInt("Enter game's id: ");
                 backlogController.removeGameFromBacklog(gameId);
-            } else if (subMenuSelection == 0) { // exit to main menu
+            } else if (subMenuSelection == 0) {
                 showSubMenu = false;
             }
         }

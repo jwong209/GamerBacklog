@@ -1,5 +1,7 @@
 package com.techelevator.model;
 
+import jakarta.validation.constraints.NotBlank;
+
 public class BacklogGame {
     private int backlogId;
     private int gameId;

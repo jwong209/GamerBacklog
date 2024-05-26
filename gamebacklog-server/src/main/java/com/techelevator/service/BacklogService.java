@@ -18,9 +18,7 @@ import java.util.List;
 public class BacklogService {
 
     private final BacklogDao backlogDao;
-
     private final UserDao userDao;
-
     private final BacklogGameDao backlogGameDao;
 
 

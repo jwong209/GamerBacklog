@@ -54,8 +54,6 @@ public class CollectionService {
             // userId is tied to single collectionId; so principals' userId/collectionId must match the collectionId passed into endpoint
             if (collectionId == currentCollectionId) {
                 collectionGameDao.linkCollectionGame(collectionId, gameId);
-            } else {
-                throw new AccessDeniedException("Access denied");
             }
         }
     }
@@ -70,8 +68,6 @@ public class CollectionService {
             if (collectionId == currentCollectionId) {
                 int deleteCount = collectionGameDao.unlinkCollectionGame(collectionId, gameId);
                 gameRemoved = (deleteCount != 0);
-            } else {
-                throw new AccessDeniedException("Access denied");
             }
 
         }

@@ -17,19 +17,19 @@ CREATE TABLE app_user (
 
 CREATE TABLE collection (
 	collection_id SERIAL PRIMARY KEY,
-	user_id INTEGER UNIQUE,
+	user_id INTEGER UNIQUE NOT NULL,
 	FOREIGN KEY (user_id) REFERENCES app_user (user_id)
 );
 
 CREATE TABLE backlog (
 	backlog_id SERIAL PRIMARY KEY,
-	user_id INTEGER UNIQUE,
+	user_id INTEGER UNIQUE NOT NULL,
 	FOREIGN KEY (user_id) REFERENCES app_user (user_id)
 );
 
 CREATE TABLE backlog_game (
-    backlog_id INTEGER,
-    game_id INTEGER,
+    backlog_id INTEGER NOT NULL,
+    game_id INTEGER NOT NULL,
     progress VARCHAR(255),
     priority INTEGER CHECK (priority BETWEEN 1 and 5),
     PRIMARY KEY (backlog_id, game_id),
@@ -38,14 +38,14 @@ CREATE TABLE backlog_game (
 
 CREATE TABLE collection_game (
     collection_id INTEGER,
-    game_id INTEGER,
+    game_id INTEGER NOT NULL,
     PRIMARY KEY (collection_id, game_id),
     FOREIGN KEY (collection_id) REFERENCES collection (collection_id)
 );
 
 CREATE TABLE completed_game (
-    user_id INTEGER,
-    game_id INTEGER,
+    user_id INTEGER NOT NULL,
+    game_id INTEGER NOT NULL,
     completion_date DATE,
     total_playtime INTERVAL,
     PRIMARY KEY (user_id, game_id),

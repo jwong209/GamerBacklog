@@ -2,11 +2,14 @@ package com.techelevator.controller;
 
 
 import com.techelevator.dao.CollectionGameDao;
+import com.techelevator.exception.BacklogServiceException;
+import com.techelevator.exception.CollectionServiceException;
 import com.techelevator.exception.DaoException;
 import com.techelevator.model.Game;
 import com.techelevator.service.CollectionService;
 import com.techelevator.service.GameService;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
@@ -30,7 +33,7 @@ public class CollectionController {
         this.gameService = gameService;
     }
 
-    @RequestMapping(path = "/current-collection-id", method = RequestMethod.GET)
+    @RequestMapping(path = "/user/id", method = RequestMethod.GET)
     public int getCollectionId(Principal principal) {
         try {
             return collectionService.getCollectionIdByUserId(principal);
@@ -39,7 +42,7 @@ public class CollectionController {
         }
     }
 
-    @RequestMapping(path = "/current-games", method = RequestMethod.GET)
+    @RequestMapping(path = "/user", method = RequestMethod.GET)
     public List<Game> getGamesInCollection(Principal principal) {
         List<Game> games = new ArrayList<>();
 
@@ -62,7 +65,11 @@ public class CollectionController {
     public void addGameToCollection(@PathVariable int collectionId, @PathVariable int gameId, Principal principal) {
         try {
             collectionService.addGameToCollection(collectionId, gameId, principal);
-        } catch (DaoException e) {
+        } catch (AccessDeniedException e) {
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Access denied");
+        } catch (CollectionServiceException e) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Collection not found");
+        }catch (DaoException e) {
             throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
         }
     }
@@ -74,8 +81,12 @@ public class CollectionController {
             boolean updated = collectionService.removeGameFromCollection(collectionId, gameId, principal);
 
             if (updated == false) {
-                throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Collection not found");
+                throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Unable to delete collection entry");
             }
+        } catch (AccessDeniedException e) {
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Access denied");
+        } catch (BacklogServiceException e) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Backlog not found");
         } catch (DaoException e) {
             throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
         }

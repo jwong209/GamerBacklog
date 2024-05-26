@@ -32,14 +32,14 @@ public class CollectionService {
     }
 
     public int getCollectionId() {
-        String url = API_BASE_URL + "/collections/current-collection-id";
+        String url = API_BASE_URL + "/collections/user/id";
         ResponseEntity<Integer> response = restTemplate.exchange(url, HttpMethod.GET, makeAuthEntity(), Integer.class);
         return response.getBody();
     }
 
     public List<Game> getGamesInCollection() {
         try {
-            String url = API_BASE_URL + "/collections/current-games";
+            String url = API_BASE_URL + "/collections/user";
             ResponseEntity<Game[]> response = restTemplate.exchange(url, HttpMethod.GET, makeAuthEntity(), Game[].class);
             return Arrays.asList(response.getBody());
         } catch (RestClientResponseException | ResourceAccessException e) {
