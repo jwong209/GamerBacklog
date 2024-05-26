@@ -40,6 +40,7 @@ public class View {
         System.out.println("1. Browse GAME LIBRARY");
         System.out.println("2. Manage COLLECTION");
         System.out.println("3. Manage BACKLOG");
+        System.out.println("4. Manage COMPLETED");
         System.out.println("0. Exit program");
     }
 

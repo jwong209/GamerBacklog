@@ -1,0 +1,433 @@
+{
+	"info": {
+		"_postman_id": "6ce46382-a4ba-450c-aca2-dfa63ef31324",
+		"name": "Game Backlog",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "34513064"
+	},
+	"item": [
+		{
+			"name": "login-Captain-America",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\": \"steveRogers\",\r\n    \"password\": \"password\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "login-Spider-Man",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\": \"peterParker\",\r\n    \"password\": \"password\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "register",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\": \"charlesXavier\",\r\n    \"password\": \"password\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/register",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get-game-by-id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/games/7",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"games",
+						"7"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "search-games",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/games?name=&platforms=&genres=&metatcritic=",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"games"
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": ""
+						},
+						{
+							"key": "platforms",
+							"value": ""
+						},
+						{
+							"key": "genres",
+							"value": ""
+						},
+						{
+							"key": "metatcritic",
+							"value": ""
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get-all-platforms",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/platforms",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"platforms"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get-all-genres",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/genres",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"genres"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get-all-games-in-user-collection",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzdGV2ZVJvZ2VycyIsImF1dGgiOiJST0xFX1VTRVIiLCJleHAiOjE3MTYyNDYzNjR9.YlvHhMgEK4z7giZ_ECQR4Br_OEomnvsD6e6YNesucrnwe8jLF6d7dZwWtnZSu8OcizJleeseG6kstdfi8XiKaA",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/collections/current-games",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"collections",
+						"current-games"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get-collection-id",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzdGV2ZVJvZ2VycyIsImF1dGgiOiJST0xFX1VTRVIiLCJleHAiOjE3MTYyNDY5NjJ9.H21sVxaynuLhdP48-u7-Z7X1nsLghyyWSK9Da8kCl1Mf2mfi6inD_vz_7NYsbEjYK0LoKttKCdFHms4wtjlUpA",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"collectionId\": 2,\r\n    \"gameId\": 2\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/collections/current-collection-id",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"collections",
+						"current-collection-id"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "add-game-to-collection",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"collectionId\": 2,\r\n    \"gameId\": 2\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/collections",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"collections"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "remove-game-from-collection",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJwZXRlclBhcmtlciIsImF1dGgiOiJST0xFX1VTRVIiLCJleHAiOjE3MTY3ODc2ODR9.YRbqNpV2kZGaC_gX3aAWGUmCPXiqmWdVTrDSKCocsrwGoHbl63FAz_LJ6r6epiwtW9JQo8b7IqS0S5nHvlAc9w",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"collectionId\": 2,\r\n    \"gameId\": 2\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/collections/2/games/2866",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"collections",
+						"2",
+						"games",
+						"2866"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get-all-games-in-user-backlog",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzdGV2ZVJvZ2VycyIsImF1dGgiOiJST0xFX1VTRVIiLCJleHAiOjE3MTYyNDYzNjR9.YlvHhMgEK4z7giZ_ECQR4Br_OEomnvsD6e6YNesucrnwe8jLF6d7dZwWtnZSu8OcizJleeseG6kstdfi8XiKaA",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/backlogs/current-games",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"backlogs",
+						"current-games"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get-backlog-id",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzdGV2ZVJvZ2VycyIsImF1dGgiOiJST0xFX1VTRVIiLCJleHAiOjE3MTYyNDY5NjJ9.H21sVxaynuLhdP48-u7-Z7X1nsLghyyWSK9Da8kCl1Mf2mfi6inD_vz_7NYsbEjYK0LoKttKCdFHms4wtjlUpA",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"collectionId\": 2,\r\n    \"gameId\": 2\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/collections/current-collection-id",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"collections",
+						"current-collection-id"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "add-game-to-backlog",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"collectionId\": 2,\r\n    \"gameId\": 2\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/backlogs/2/games/2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"backlogs",
+						"2",
+						"games",
+						"2"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

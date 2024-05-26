@@ -6,6 +6,7 @@ import com.techelevator.dao.CollectionGameDao;
 import com.techelevator.dao.UserDao;
 import com.techelevator.model.Game;
 import com.techelevator.model.User;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
@@ -48,10 +49,35 @@ public class CollectionService {
     public void addGameToCollection(int collectionId, int gameId, Principal principal) {
         User user = getUser(principal);
         if (user != null) {
-            collectionGameDao.linkCollectionGame(collectionId, gameId);
+            int currentCollectionId = collectionDao.getCollectionIdByUserId(user.getId());
+
+            // userId is tied to single collectionId; so principals' userId/collectionId must match the collectionId passed into endpoint
+            if (collectionId == currentCollectionId) {
+                collectionGameDao.linkCollectionGame(collectionId, gameId);
+            } else {
+                throw new AccessDeniedException("Access denied");
+            }
         }
     }
 
+    public boolean removeGameFromCollection(int collectionId, int gameId, Principal principal) {
+        boolean gameRemoved = false;
+
+        User user = getUser(principal);
+        if (user != null) {
+            int currentCollectionId = collectionDao.getCollectionIdByUserId(user.getId());
+
+            if (collectionId == currentCollectionId) {
+                int deleteCount = collectionGameDao.unlinkCollectionGame(collectionId, gameId);
+                gameRemoved = (deleteCount != 0);
+            } else {
+                throw new AccessDeniedException("Access denied");
+            }
+
+        }
+
+        return gameRemoved;
+    }
 
     /*
      * Helper method to get the User object from the Principal.

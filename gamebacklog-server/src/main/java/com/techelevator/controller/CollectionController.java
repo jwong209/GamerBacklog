@@ -67,5 +67,20 @@ public class CollectionController {
         }
     }
 
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @RequestMapping(path = "/{collectionId}/games/{gameId}", method = RequestMethod.DELETE)
+    public void removeGameFromCollection(@PathVariable int collectionId, @PathVariable int gameId, Principal principal) {
+        try {
+            boolean updated = collectionService.removeGameFromCollection(collectionId, gameId, principal);
+
+            if (updated == false) {
+                throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Collection not found");
+            }
+        } catch (DaoException e) {
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
+        }
+
+    }
+
 
 }

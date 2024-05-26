@@ -102,7 +102,10 @@ public class BacklogAppController {
                 collectionController.addGameToCollection(gameId);
                 System.out.println("Game with id (" + gameId + ") was added to COLLECTION.");
             } else if (subMenuSelection == 3) { // delete game from collection
-
+                System.out.println("\n>> Displaying games from COLLECTION...");
+                collectionController.getGamesInCollection();
+                gameId = view.promptForInt("Enter game's id: ");
+                collectionController.removeGameFromCollection(gameId);
             } else if (subMenuSelection == 0) { // exit to main menu
                 showSubMenu = false;
             }
@@ -118,6 +121,7 @@ public class BacklogAppController {
             int subMenuSelection = view.promptForInt("Enter a number: ");
 
             if (subMenuSelection == 1) { // view games in backlog
+                System.out.println("\n>> Displaying games from BACKLOG...");
                 backlogController.getGamesInBacklog();
             } else if (subMenuSelection == 2) { // add game to backlog
                 System.out.println("\n>> Displaying games from COLLECTION...");
@@ -147,12 +151,12 @@ public class BacklogAppController {
             int subMenuSelection = view.promptForInt("Enter a number: ");
 
             if (subMenuSelection == 1) { // view games
-
-            } else if (subMenuSelection == 2) { // add game
                 System.out.println("\n>> Displaying COMPLETED games...");
-
+//                completedController.getGamesInCOMPLETED();
+            } else if (subMenuSelection == 2) { // add game
+                // search for a game
                 gameId = view.promptForInt("Enter game's id: ");
-
+                // add game to completed_game table
                 System.out.println("Game with id (" + gameId + ") was added to BACKLOG.");
             } else if (subMenuSelection == 3) { // delete game
 

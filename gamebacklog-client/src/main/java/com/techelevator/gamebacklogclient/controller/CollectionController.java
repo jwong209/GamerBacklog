@@ -31,9 +31,12 @@ public class CollectionController {
 
     public void addGameToCollection(int gameId) {
         int collectionId = collectionService.getCollectionId();
-        System.out.println("Collection id: " + collectionId);
-
         collectionService.addGameToCollection(collectionId, gameId);
+    }
+
+    public void removeGameFromCollection(int gameId) {
+        int collectionId = collectionService.getCollectionId();
+        collectionService.removeGameFromCollection(collectionId,gameId);
     }
 
 }

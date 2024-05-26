@@ -36,17 +36,21 @@ public class JdbcCollectionGameDao implements CollectionGameDao{
     }
 
     @Override
-    public void unlinkCollectionGame(int collectionId, int gameId) {
+    public int unlinkCollectionGame(int collectionId, int gameId) {
+        int count;
+
         String sql = "DELETE FROM collection_game " +
                 "WHERE collection_id = ? AND game_id = ?;";
 
         try {
-            jdbcTemplate.update(sql, collectionId, gameId);
+            count = jdbcTemplate.update(sql, collectionId, gameId);
         } catch (CannotGetJdbcConnectionException e) {
             throw new DaoException("Unable to connect to server or database", e);
         } catch (DataIntegrityViolationException e) {
             throw new DaoException("Data integrity violation", e);
         }
+
+        return count;
     }
 
     @Override
