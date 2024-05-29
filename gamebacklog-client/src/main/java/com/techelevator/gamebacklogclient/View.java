@@ -15,6 +15,7 @@ public class View {
     private final String FOREGROUND_RED = (char) 27 + "[31m";
     private final String FOREGROUND_GREEN = (char) 27 + "[32m";
     private final String FOREGROUND_BLUE = (char) 27 + "[34m";
+    private final String FOREGROUND_YELLOW = (char) 27 + "[33m";
 
     public UserCredentials promptForCredentials() {
         System.out.println("Please login.");
@@ -37,15 +38,15 @@ public class View {
     public void displayMainMenu() {
         System.out.println("\n[ Main Menu ]");
         System.out.println("-----------------------------------------------------");
-        System.out.println("1. Browse GAME LIBRARY");
-        System.out.println("2. Manage COLLECTION");
-        System.out.println("3. Manage BACKLOG");
+        System.out.println("1. Browse " + FOREGROUND_GREEN + "GAME LIBRARY" + FOREGROUND_DEFAULT);
+        System.out.println("2. Manage " + FOREGROUND_YELLOW + "COLLECTION" + FOREGROUND_DEFAULT);
+        System.out.println("3. Manage " + FOREGROUND_BLUE + "BACKLOG" + FOREGROUND_DEFAULT);
         System.out.println("4. Manage COMPLETED");
         System.out.println("0. Exit program");
     }
 
     public void displayCollectionMenu() {
-        System.out.println(FOREGROUND_GREEN + "\n[ COLLECTION Menu ]" + FOREGROUND_DEFAULT);
+        System.out.println(FOREGROUND_YELLOW + "\n[ COLLECTION Menu ]" + FOREGROUND_DEFAULT);
         System.out.println("-----------------------------------------------------");
         System.out.println("1. View all games in COLLECTION");
         System.out.println("2. Search GAME LIBRARY and add a game to COLLECTION");
@@ -54,7 +55,7 @@ public class View {
     }
 
     public void displayBacklogMenu() {
-        System.out.println("\n[ BACKLOG Menu ]");
+        System.out.println(FOREGROUND_BLUE + "\n[ BACKLOG Menu ]" + FOREGROUND_DEFAULT);
         System.out.println("-----------------------------------------------------");
         System.out.println("1. View all games in BACKLOG");
         System.out.println("2. Browse COLLECTION and add game to BACKLOG");
