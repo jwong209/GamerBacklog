@@ -7,20 +7,9 @@ function toggleDarkMode() {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
 document.addEventListener("DOMContentLoaded", () => {
 
+    /* ----------------------  DARK MODE TOGGLE  ---------------------- */
     const toggleButton = document.getElementsByClassName('toggle-button')[0];
     const navbarLinks = document.getElementsByClassName('navbar-links')[0];
 
@@ -32,6 +21,17 @@ document.addEventListener("DOMContentLoaded", () => {
    darkModeButton.addEventListener('click', () => {
         toggleDarkMode();
    });
+
+   /* ----------------------  LOGIN MODAL  ---------------------- */
+    // Get the modal
+    const modal = document.getElementById('id01');
+
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = (event)=> {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }
 
 
 });

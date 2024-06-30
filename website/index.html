@@ -16,44 +16,65 @@
 
     <header>
         <nav class="navbar">
-            <div class="brand-title">Brand Name</div>
+            <div class="nav-left">
+                <div class="brand-title">
+                    <a href="#"><img src="images/site-logo.png" alt="site-logo"></a>
+                </div>
 
-            <a href="#" class="toggle-button">
-                <span class="bar"></span>
-                <span class="bar"></span>
-                <span class="bar"></span>
-            </a>
-            
-            <div class="navbar-links">
-                <ul>
-                    <li><a href="#">Home</a></li>
-                    <li><a href="#">Link 1</a></li>
-                    <li><a href="#">Link 2</a></li>
-                    <li><a href="#">Link 3</a></li>
-                </ul>
+                <a href="#" class="toggle-button">
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                </a>
+                
+                <div class="navbar-links">
+                    <ul>
+                        <li><a href="#">Collection</a></li>
+                        <li><a href="#">Backlog</a></li>
+                        <li><a href="#">About</a></li>
+                    </ul>
+                </div>
             </div>
+            
 
-            <div class="search-container">
+            <div class="nav-right">
+                <button class="primary" id="dark-toggle-button">Toggle dark</button>
+
                 <form action="/action_page.php">
                     <input type="text" placeholder="Search.." name="search">
-                    <button type="submit"><i class="fa fa-search"></i></button>
+                    <button type="submit"><i class="fa fa-search"></i></button> 
                 </form>
+
+                <!-- Button to open the modal login form -->
+                <button class="tertiary" onclick="document.getElementById('id01').style.display='block'">Login</button>
             </div>
+
+            
         </nav>
     </header>
 
     <main>
 
+        <!-------------------------------- HERO SECTION START -------------------------------->
         <section id="hero-section">
-            <div>
+            <div id="hero-img">
+                <img src="images/view-3d-video-game-controller.png" alt="">
+            </div>
+            <div id="hero-text">
                 <h1 class="press-start-2p-regular">Welcome to PlayQ</h1>
+                
+                <div>
+                    <h2>Keep track of games you own, games you wish to play, and games in your backlog.</h2>
+                    <button class="primary">Get Started</button>
+                </div>
+                
             </div>
-            <div>
-                <p>image goes here</p>
-            </div>
+            
 
         </section>
+        <!-------------------------------- HERO SECTION END -------------------------------->
 
+        <!-------------------------------- GAME-INFO START -------------------------------->
         <section id="game-info-section">
             <div class="area-heading">
                 <h2>Game Info</h2>
@@ -63,8 +84,14 @@
 
             <div id="game-card-area">
                 <div class="game-card">
-                    <h3>Game Title</h3>
-                    <p>Lorem ipsum </p>
+                    <div class="game-image"></div>
+                    <div>
+                        <p>Title: </p>
+                        <p>Platorm:  </p>
+                        <p>Genre:  </p>
+                        <p>Metacritic: </p>
+                    </div>
+                    
     
                 </div>
                 <div class="game-card">
@@ -95,18 +122,68 @@
             </div>
 
         </section>
+        <!-------------------------------- GAME-INFO END -------------------------------->
+        <section id="extra-section">
+            <div>
+                <h2>Thanks for visiting!</h2>
+            </div>
 
-        <section>
-           <button class="primary" id="dark-toggle-button">Toggle dark</button>
         </section>
         
     </main>
 
     <footer>
+        
+        <div id="footer-links">
+            <a href="#"><img src="images/site-logo.png" alt="site-logo"></a>
+            <ul>
+                <li><a href="#">Link 1</a></li>
+                <li><a href="#">Link 2</a></li>
+                <li><a href="#">Link 3</a></li>
+            </ul>
+            <ul>
+                <li><a href="#">Link 1</a></li>
+                <li><a href="#">Link 2</a></li>
+                <li><a href="#">Link 3</a></li>
+            </ul>
+        </div>
 
-        <p>©Copyright Justin Wahkwai Wong</p>
+
+        <p><span>©</span> 2024 Copyright Justin Wahkwai Wong. All rights reserved</p>
 
     </footer>
+
+
+    <!-------------------------------- MODAL LOGIN -------------------------------->
+    <div id="id01" class="modal">
+    
+        <!-- Modal Content -->
+        <form class="modal-content animate" action="/action_page.php">
+            <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">&times;</span>
+
+            <div class="image-container">
+                <!-- <img src="images/lorenzo-herrera-p0j-mE6mGo4-unsplash.jpg" alt="Avatar" class="avatar"> -->
+            </div>
+        
+            <div class="login-container">
+                <label for="uname"><b>Username</b></label>
+                <input type="text" placeholder="Enter Username" name="uname" required>
+        
+                <label for="psw"><b>Password</b></label>
+                <input type="password" placeholder="Enter Password" name="psw" required>
+        
+                <button type="submit" class="primary">Login</button>
+                <!-- <label>
+                    <input type="checkbox" checked="checked" name="remember"> Remember me
+                </label> -->
+            </div>
+        
+            <div class="final-choice-container" style="background-color:#f1f1f1">
+                <button type="button" onclick="document.getElementById('id01').style.display='none'" class="cancelbtn secondary">Cancel</button>
+                <span class="psw">Forgot <a href="#">password?</a></span>
+            </div>
+        </form>
+    </div>
 
 
 </body>
