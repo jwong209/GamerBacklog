@@ -12,6 +12,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Carme&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://kit.fontawesome.com/8a0eee8a14.js" crossorigin="anonymous"></script>
 </head>
 <body>
 
@@ -39,7 +40,10 @@
             
 
             <div class="nav-right">
-                <button class="primary" id="dark-toggle-button">Toggle dark</button>
+                <!-- <button class="primary" id="dark-toggle-button"></button> -->
+                <div class="nav-darkmode">
+                    <i class="fa-solid fa-circle-half-stroke" id="dark-toggle-button"></i>
+                </div>
 
                 <form action="/action_page.php">
                     <input type="text" placeholder="Search.." name="search">
@@ -47,7 +51,7 @@
                 </form>
 
                 <!-- Button to open the modal login form -->
-                <button class="tertiary" onclick="document.getElementById('id01').style.display='block'">Login</button>
+                <button class="tertiary" onclick="document.getElementById('login-modal').style.display='block'">Login</button>
             </div>
 
             
@@ -65,23 +69,110 @@
                 <h1 class="press-start-2p-regular">Welcome to PlayQ</h1>
                 
                 <div>
-                    <h2>Keep track of games you own, games you wish to play, and games in your backlog.</h2>
-                    <button class="primary">Get Started</button>
+                    <h2>Track the games you own, games you wish to play, and games in your backlog.</h2>
+                    <button class="primary">Sign Up</button>
                 </div>
                 
             </div>
             
 
         </section>
-        <!-------------------------------- HERO SECTION END -------------------------------->
+
+        <!-------------------------------- HOW IT WORKS SECTION  -------------------------------->
+        <section id="how-it-works-section">
+
+                <h2 id="how-it-works-header"><i class="fa-brands fa-space-awesome"></i> How it works</h2>
+            
+            <!-- <hr> -->
+            <!-- <h3>What is PlayQ?</h3> -->
+            
+
+            <div id="how-it-works-area">
+                <h2>PlayQ is a place to virtually track your game collection. Keep your backlog updated, rate the games you've played and add those upcoming to your wishlist. </h2>
+
+                <div class="how-it-works-content">
+                    
+                    <div class="how-it-works-text-container">
+                        <h3>Heading</h3>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                    </div>
+                    
+                    <div class="how-it-works-image-container">
+                        <img src="images/stylized_fun_3d_render_of_a_gaming_headset._simple_style-removebg-preview.png", alt="">
+                    </div>
+                </div>
+
+                <div class="how-it-works-content">
+                    <div class="how-it-works-image-container">
+                        <img src="images/stylized_fun_3d_render_of_a_boy_with_his_video_game_backlog._if_there_are_controllers__they_s_1-removebg-preview.png", alt="">
+                    </div>
+                    <div class="how-it-works-text-container">
+                        <h3>Heading</h3>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                    </div>
+                </div>
+
+                <div class="how-it-works-content">
+                    <div class="how-it-works-text-container">
+                        <h3>Heading</h3>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                    </div>
+                    
+                    <div class="how-it-works-image-container">
+                        <img src="images/stylized_fun_3d_render_of_a_retro_style_game_controller._directional_pad_on_left_side_and_4_b_2-removebg-preview.png", alt="">
+                    </div>
+                </div>
+            </div>
+       
+        </section>
+
+         <!-------------------------------- BROWSE GAMES START -------------------------------->
+         <section id="browse-games-section">
+
+            <div class="section-heading">
+                <h2><i class="fa-solid fa-gamepad"></i>Browse Game Library</h2>
+                <!-- <div class="section-heading-left">
+                    <button id="" class="primary">Get</button>
+                    <button id="" class="secondary">Clear</button>
+                </div> -->
+            </div>
+            <hr>
+
+            
+            <div class='button-label'>
+                <button id="btn-get-id" type="button" class="btn btn-primary">GET /posts/{id}</button>
+                <input type="text" name="" id="id-input" placeholder="id">
+            </div>
+
+            <div class="browse-output-container">
+                <ul id='returned-data-ul'>
+                <!-- My li elements with the server data goes here -->
+                </ul>
+            </div>
+
+            <div>
+                <button id="btn-get-games" type="button" class="primary">GET /games</button>
+                <input type="text" name="" id="id-input" placeholder="Type in title of game...">
+            </div>
+
+            <div class="browse-output-container">
+                <ul id='returned-game-data-ul'>
+                    <!-- My li elements with the server data goes here -->
+                  </ul>
+            </div>
+
+         </section>
+           
 
         <!-------------------------------- GAME-INFO START -------------------------------->
-        <section id="game-info-section">
+        
+        <!-- <section id="game-info-section">
             <div class="section-heading">
                 <h2>Game Info</h2>
                 <button class="secondary">Reset info</button>
             </div>
-            
+
+            <hr>
 
             <div id="game-card-area">
                 <div class="game-card">
@@ -92,7 +183,12 @@
                         <p>Genre:  </p>
                         <p>Metacritic: </p>
                     </div>
+                    <div class="game-bottom">
+                        <button class="description-button">Description</button>
+                        <i class="fa-solid fa-trash-can"></i>
+                    </div>
                 </div>
+
                 <div class="game-card">
                     <div class="game-image"></div>
                     <div class="game-data">
@@ -102,6 +198,7 @@
                         <p>Metacritic: </p>
                     </div>
                 </div>
+
                 <div class="game-card">
                     <div class="game-image"></div>
                     <div class="game-data">
@@ -115,25 +212,44 @@
                 
             </div>
 
-        </section>
-        <!-------------------------------- TESTING -------------------------------->  
+        </section> -->
+         
+         
+        <!-------------------------------- STAFF PICKS -------------------------------->  
         <section id="testing-section">
+
             <div class="section-heading">
-                <h2>Staff Top Picks</h2>
-                <div class="section-heading-left">
-                    <button id="test-button" class="primary">View picks</button>
-                    <button id="clear-results-button" class="secondary">Clear</button>
+                <h2><i class="fa-solid fa-gamepad"></i> Staff Top Picks</h2>
+                
+            </div>
+            <hr>
+
+            <h3>Looking for a game to play? Our staff (it's just me really...) has you covered. Browse all our favorite games, new and old!</h3>
+
+            <div class="game-area-heading">
+                <div>
+                    <button id="test-button" class="primary">View all picks</button>
+                    <button id="clear-results-button" class="secondary">Clear All</button>
+                </div>
+    
+                <div class="search-favorites-input">
+                    <input type="text" id="search-input" placeholder="Search by game title">
+                    <button id="search-favorites-button">Search</button>  
                 </div>
             </div>
-
             
-            <div id="tests"></div>
+            
+            <div id="tests">
+                <p id="results"></p>
+            </div>
+            
 
         </section>
-        <!-------------------------------- GAME-INFO END -------------------------------->
+
+        <!-------------------------------- THANKS FOR VISITING -------------------------------->
         <section id="extra-section">
             <div>
-                <h2>Thanks for visiting!</h2>
+                <h2 class="press-start-2p-regular">Thanks for visiting!</h2>
             </div>
 
         </section>
@@ -157,6 +273,7 @@
                     <li><h3>Information</h3></li>
                     <hr>
                     <li><a href="#">About</a></li>
+                    <li><a href="#">Contact Us</a></li>
                 </ul>
             </div>
             
@@ -169,15 +286,19 @@
     </footer>
 
 
+    
+
+
     <!-------------------------------- MODAL LOGIN -------------------------------->
-    <div id="id01" class="modal">
+    <div id="login-modal" class="modal">
     
         <!-- Modal Content -->
         <form class="modal-content animate" action="/action_page.php">
-            <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">&times;</span>
+            <span onclick="document.getElementById('login-modal').style.display='none'" class="close" title="Close Modal"><i class="fa-solid fa-xmark"></i></span>
 
             <div class="image-container">
-                <!-- <img src="images/lorenzo-herrera-p0j-mE6mGo4-unsplash.jpg" alt="Avatar" class="avatar"> -->
+                <!-- <img src="" alt="Avatar" class="avatar"> -->
+                <h1 class="press-start-2p-regular">Login</h1>
             </div>
         
             <div class="login-container">
@@ -198,6 +319,14 @@
                 <span class="psw">Forgot <a href="#">password?</a></span>
             </div>
         </form>
+    </div>
+
+    <!-------------------------------- MODAL DESCRIPTION -------------------------------->
+    <div id="description-modal-container" class="description-modal modal">
+        <div class="description-modal-content">
+            <span class="close-description">&times;</span>
+            <p id="description-text">Something here</p>
+        </div>
     </div>
 
 
