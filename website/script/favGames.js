@@ -1,4 +1,5 @@
 let gameFavorites = {
+  
   allGames: [
     {
       "id": 1,

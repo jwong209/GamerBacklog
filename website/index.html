@@ -33,7 +33,7 @@
                     <ul>
                         <li><a href="#">Collection</a></li>
                         <li><a href="#">Backlog</a></li>
-                        <li><a href="#">About</a></li>
+                        <li><a href="#">About Us</a></li>
                     </ul>
                 </div>
             </div>
@@ -46,8 +46,8 @@
                 </div>
 
                 <form action="/action_page.php">
-                    <input type="text" placeholder="Search.." name="search">
-                    <button type="submit"><i class="fa fa-search"></i></button> 
+                    <input type="text" placeholder="Search.." name="search" class="search-pair-input">
+                    <button type="submit" class="search-pair-btn"><i class="fa fa-search"></i></button> 
                 </form>
 
                 <!-- Button to open the modal login form -->
@@ -227,14 +227,14 @@
             <h3>Looking for a game to play? Our staff (it's just me really...) has you covered. Browse all our favorite games, new and old!</h3>
 
             <div class="game-area-heading">
-                <div>
-                    <button id="test-button" class="primary">View all picks</button>
-                    <button id="clear-results-button" class="secondary">Clear All</button>
+                <div class="primary-secondary-pair">
+                    <button id="test-button" class="primary">View all</button>
+                    <button id="clear-results-button" class="secondary">Clear all</button>
                 </div>
     
                 <div class="search-favorites-input">
-                    <input type="text" id="search-input" placeholder="Search by game title">
-                    <button id="search-favorites-button">Search</button>  
+                    <input type="text" id="search-input" placeholder="Search by game title" class="search-pair-input">
+                    <button id="search-favorites-button" class="search-pair-btn">Search</button>  
                 </div>
             </div>
             
@@ -328,6 +328,9 @@
             <p id="description-text">Something here</p>
         </div>
     </div>
+
+    <!-------------------------------- BACK TO TOP BUTTON -------------------------------->
+    <button id="back-to-top-button" onclick="topFunction()" title="Scroll to top"><i class="fa-solid fa-angle-up"></i></button>
 
 
 </body>

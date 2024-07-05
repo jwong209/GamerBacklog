@@ -4,6 +4,22 @@ function toggleDarkMode() {
   bodyElement.classList.toggle("dark-mode");
 }
 
+/* ----------------  BACK TO TOP  ---------------- */
+function scrollFunction() {
+  let scrollToTopButton = document.getElementById("back-to-top-button");
+
+  if (document.body.scrollTop > 1000 || document.documentElement.scrollTop > 1000) {
+    scrollToTopButton.style.display = "block";
+  } else {
+    scrollToTopButton.style.display = "none";
+  }
+}
+
+function topFunction() {
+  document.body.scrollTop = 0; // For Safari
+  document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
+}
+
 /* ----------------  Game Card Creation  ---------------- */
 const testArea = document.getElementById('tests');
 
@@ -106,7 +122,7 @@ function createCard(gameObject, container) {
     alert(gameObject.description);
   });
 
-  /* ----------------------  DELETE FAV GAME CARD  ---------------------- */
+  /* ----------------------  DELETE GAME CARD  ---------------------- */
   trashIcon.addEventListener('click', () => {
       container.removeChild(gameCard);
   });
@@ -349,8 +365,12 @@ async function genericFetch(endpointUrl, method, headers, body){
   }
 }
 
-
+ /* ------------------------------------  DOMCONTENT  ------------------------------------ */
 document.addEventListener("DOMContentLoaded", () => {
+
+  /* ----------------------  SCROLL TO TOP  ---------------------- */
+  window.onscroll = function() {scrollFunction()};
+
 
   /* ----------------------  ACCORDION TOGGLE  ---------------------- */
   const toggleButton = document.getElementsByClassName('toggle-button')[0];
@@ -378,25 +398,23 @@ document.addEventListener("DOMContentLoaded", () => {
 
   /* ----------------------  SHOW FAVORITE TOP PICKS  ---------------------- */
   const testButton = document.getElementById('test-button');
-  const testContainer = document.getElementById('tests');
 
   testButton.addEventListener('click', () => {
-    while (testContainer.children.length > 0) {
-      testContainer.removeChild(testContainer.lastElementChild);
+    while (testArea.children.length > 0) {
+      testArea.removeChild(testArea.lastElementChild);
     }
     
     gameFavorites.getGames().forEach(game => {
-        createCard(game, testContainer);
+        createCard(game, testArea);
     });
 
-    
   });
 
   /* ----------------------  CLEAR FAVORITES  ---------------------- */
   const clearResultsButton = document.getElementById('clear-results-button');
   clearResultsButton.addEventListener('click', () => {
-    while (testContainer.children.length > 0) {
-        testContainer.removeChild(testContainer.lastElementChild);
+    while (testArea.children.length > 0) {
+      testArea.removeChild(testArea.lastElementChild);
     }
     alert("Game cards successfully removed!");
   });
@@ -434,14 +452,13 @@ document.addEventListener("DOMContentLoaded", () => {
     })); */
 
     // Clear previous search results
-    const searchResultsContainer = document.getElementById('tests');
-    while (searchResultsContainer.firstChild) {
-        searchResultsContainer.removeChild(searchResultsContainer.firstChild);
+    while (testArea.firstChild) {
+      testArea.removeChild(testArea.firstChild);
     }
 
     // Create and append gameCard for each filtered game
     filteredGames.forEach(game => {
-        createCard(game, searchResultsContainer);
+        createCard(game, testArea);
     });
    
 
@@ -449,14 +466,8 @@ document.addEventListener("DOMContentLoaded", () => {
     const resultsEl = document.getElementById('results')
     // resultsEl.innerText = JSON.stringify(filteredGames);
     // resultsEl.innerText = JSON.stringify(simplifiedGames);
-    // resultsEl.innerText = JSON.stringify(simplifiedGames);
-
 
   });
-
-
-
-
 
 
   /* ----------------------  FETCH DEMO  ---------------------- */
