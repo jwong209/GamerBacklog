@@ -46,7 +46,7 @@ public class GameService {
         List<Game> gameList = new ArrayList<>();
 
         try {
-            String query = "?name=" + name + "@platforms=" + platforms + "&genres=" + genres + "&metacritic=" + metacritic + "&page=" + page;
+            String query = "?name=" + name + "&platforms=" + platforms + "&genres=" + genres + "&metacritic=" + metacritic + "&page=" + page;
             ResponseEntity<Game[]> response = restTemplate.exchange(API_BASE_URL + "/games" + query, HttpMethod.GET, makeAuthEntity(), Game[].class);
             games = response.getBody();
             gameList = Arrays.asList(games);

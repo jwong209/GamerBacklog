@@ -427,9 +427,7 @@ document.addEventListener("DOMContentLoaded", () => {
   // Search button listener & handler
   const searchFavBtn = document.getElementById('search-favorites-button');
 
-  searchFavBtn.addEventListener('click', (event) => {
-    event.preventDefault();
-
+  searchFavBtn.addEventListener('click', () => {
     // Get what the user typed into the text field
     const textEntered = document.getElementById('search-input').value.toLowerCase();
     
@@ -463,7 +461,7 @@ document.addEventListener("DOMContentLoaded", () => {
    
 
     // Display results
-    const resultsEl = document.getElementById('results')
+    // const resultsEl = document.getElementById('results')
     // resultsEl.innerText = JSON.stringify(filteredGames);
     // resultsEl.innerText = JSON.stringify(simplifiedGames);
 

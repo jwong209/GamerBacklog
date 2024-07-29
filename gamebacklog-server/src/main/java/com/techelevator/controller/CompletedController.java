@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
+@CrossOrigin
 @PreAuthorize("isAuthenticated()")
 @RequestMapping( path = "/completed" )
 public class CompletedController {

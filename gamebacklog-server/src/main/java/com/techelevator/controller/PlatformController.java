@@ -7,6 +7,7 @@ import com.techelevator.model.Platform;
 import com.techelevator.service.PlatformService;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -15,6 +16,7 @@ import org.springframework.web.server.ResponseStatusException;
 import java.util.List;
 
 @RestController
+@CrossOrigin
 @PreAuthorize("isAuthenticated()")
 @RequestMapping( path = "/platforms" )
 public class PlatformController {
