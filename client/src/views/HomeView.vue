@@ -1,121 +1,130 @@
 <template>
   <section id="hero-section">
-      <div id="hero-img">
-          <img src="../assets/img/view-3d-video-game-controller.png" alt="header-background">
+    <div id="hero-img">
+      <img src="../assets/img/view-3d-video-game-controller.png" alt="header-background">
+    </div>
+    <div id="hero-text">
+      <h1 class="press-start-2p-regular">Welcome to PlayQ</h1>
+
+      <div>
+        <h2>Track the games you own, games you wish to play, and games in your backlog.</h2>
+        <router-link v-bind:to="{ name: 'register' }"><button class="primary">Sign Up</button></router-link>
       </div>
-      <div id="hero-text">
-          <h1 class="press-start-2p-regular">Welcome to PlayQ</h1>
-
-          <div>
-              <h2>Track the games you own, games you wish to play, and games in your backlog.</h2>
-              <router-link v-bind:to="{ name: 'register' }"><button class="primary">Sign Up</button></router-link>
-          </div>
-
-      </div>
-
+    </div>
   </section>
 
   <section id="how-it-works-section">
 
-      <h2 id="how-it-works-header"><i class="fa-brands fa-space-awesome"></i> How it works</h2>
+    <h2 id="how-it-works-header"><i class="fa-brands fa-space-awesome"></i> How it works</h2>
 
-      <div id="how-it-works-area">
-          <h2>PlayQ is a place to virtually track your game collection. Keep your backlog updated, rate the games you've
-              played and add those upcoming to your wishlist. </h2>
+    <div id="how-it-works-area">
+      <h2>PlayQ is a place to virtually track your game collection. Keep your backlog updated, rate the games you've
+        played and add those upcoming to your wishlist. </h2>
 
-          <div class="how-it-works-content">
+      <div class="how-it-works-content">
 
-              <div class="how-it-works-text-container">
-                  <h3>Heading</h3>
-                  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore
-                      et dolore magna aliqua.</p>
-              </div>
+        <div class="how-it-works-text-container">
+          <h3>Heading</h3>
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore
+            et dolore magna aliqua.</p>
+        </div>
 
-              <div class="how-it-works-image-container">
-                  <img src="../images/stylized_fun_3d_render_of_a_gaming_headset._simple_style-removebg-preview.png"
-                      alt="">
-              </div>
-          </div>
-
-          <div class="how-it-works-content">
-              <div class="how-it-works-image-container">
-                  <img src="../images/stylized_fun_3d_render_of_a_boy_with_his_video_game_backlog._if_there_are_controllers__they_s_1-removebg-preview.png"
-                      alt="">
-              </div>
-              <div class="how-it-works-text-container">
-                  <h3>Heading</h3>
-                  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore
-                      et dolore magna aliqua.</p>
-              </div>
-          </div>
-
-          <div class="how-it-works-content">
-              <div class="how-it-works-text-container">
-                  <h3>Heading</h3>
-                  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore
-                      et dolore magna aliqua.</p>
-              </div>
-
-              <div class="how-it-works-image-container">
-                  <img src="../images/stylized_fun_3d_render_of_a_retro_style_game_controller._directional_pad_on_left_side_and_4_b_2-removebg-preview.png"
-                      alt="">
-              </div>
-          </div>
+        <div class="how-it-works-image-container">
+          <img src="../assets/img/stylized_fun_3d_render_of_a_gaming_headset._simple_style-removebg-preview.png" alt="">
+        </div>
       </div>
+
+      <div class="how-it-works-content">
+        <div class="how-it-works-image-container">
+          <img
+            src="../assets/img/stylized_fun_3d_render_of_a_retro_style_game_controller._directional_pad_on_left_side_and_4_b_1-removebg-preview.png"
+            alt="">
+        </div>
+        <div class="how-it-works-text-container">
+          <h3>Heading</h3>
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore
+            et dolore magna aliqua.</p>
+        </div>
+      </div>
+
+      <div class="how-it-works-content">
+        <div class="how-it-works-text-container">
+          <h3>Heading</h3>
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore
+            et dolore magna aliqua.</p>
+        </div>
+
+        <div class="how-it-works-image-container">
+          <img
+            src="../assets/img/stylized_fun_3d_render_of_a_retro_style_game_controller._directional_pad_on_left_side_and_4_b_2-removebg-preview.png"
+            alt="">
+        </div>
+      </div>
+    </div>
   </section>
 
-  <section id="browse-games-section">
+  <section>
 
-      <div class="section-heading">
-          <h2><i class="fa-solid fa-gamepad"></i>Browse Game Library</h2>
-          <!-- <div class="section-heading-left">
-            <button id="" class="primary">Get</button>
-            <button id="" class="secondary">Clear</button>
-          </div> -->
+    <div class="section-heading">
+      <h2><i class="fa-solid fa-gamepad"></i>Browse Game Library</h2>
+      <div class="section-heading-left">
+        <!-- <button id="" class="primary">Get</button> -->
+        <button id="" class="secondary" v-on:click="resetSearch">Reset</button>
       </div>
-      <hr>
+    </div>
+    <hr>
 
-      
-      <form v-on:submit.prevent="searchGames">
-        <input type="text" v-model="searchName" placeholder="Search by Name...">
-        <input type="text" v-model="searchPlatforms" placeholder="Search by Platforms...">
-        <input type="text" v-model="searchGenres" placeholder="Search by Genres...">
-        <input type="text" v-model="searchMetacritic" placeholder="Search by Metacritic Score...">
-        <button type="submit">Search</button>
-      </form>
+    <form v-on:submit.prevent="searchGames">
+      <input type="text" v-model="searchName" placeholder="Search by Name...">
+      <input type="text" v-model="searchPlatforms" placeholder="Search by Platforms...">
+      <input type="text" v-model="searchGenres" placeholder="Search by Genres...">
+      <input type="text" v-model="searchMetacritic" placeholder="Search by Metacritic Score...">
+      <button type="submit">Search</button>
+    </form>
 
-        <!-- Nav buttons -->
-        <div class="pagination">
-          <button v-on:click="previousPage" v-bind:disabled="currentPage <= 1">Previous</button>
-          <span> Page {{currentPage }} </span>
-          <button v-on:click="nextPage">Next</button>
-        </div>
-        
-   
+    <div class="display-option">
+      <i class="fa-solid fa-list"></i>
+      <i class="fa-solid fa-grip"></i>
+    </div>
 
-      <div class="browse-output-container">
-          <ul id='returned-game-data-ul' >
-              <li v-for="(game, index) in games" v-bind:game="game" :key="index">
-                Name: {{ game.name }} Released: {{ game.released}} Metacritic: {{ game.metacritic }} User Ratings: {{ game.rating }} Playtime: {{ game.playtime }}
-              </li>
-          </ul>
-      </div>
+    <div class="browse-output-container">
+      <ul id='returned-game-data-ul'>
+        <li v-for="(game, index) in games" v-bind:game="game" v-bind:key="index">
+          <hr>
+          ID: {{ game.id }} | Name: {{ game.name }} | Released: {{ game.released }} | Metacritic: {{ game.metacritic }} | User
+          Ratings: {{ game.rating }} | Playtime: {{ game.playtime }}
+        </li>
+      </ul>
+    </div>
+
+    <section class="cards-area">
+        <game-card v-for="(game, index) in games" v-bind:game="game" v-bind:key="index"/>
+    </section>
+
+    <!-- Nav buttons -->
+    <div class="pagination" v-if="games.length > 0">
+      <button v-on:click="previousPage" v-bind:disabled="currentPage <= 1"><i class="fa-solid fa-chevron-left"></i></button>
+      <span> Page {{ currentPage }} </span>
+      <button v-on:click="nextPage" v-bind:disabled="games.length == 0"><i class="fa-solid fa-chevron-right"></i></button>
+    </div>
 
   </section>
 
   <section id="extra-section">
-      <div>
-          <h2 class="press-start-2p-regular">Thanks for visiting!</h2>
-      </div>
+    <div>
+      <h2 class="press-start-2p-regular">Thanks for visiting!</h2>
+    </div>
   </section>
 </template>
 
 <script>
-import gameService from  '../services/GamesService';
+import gameService from '../services/GamesService';
+import gameCard from '../components/GameCard.vue';
 
 export default {
   data() {
     return {
+      isListVisible: true,
       games: [],
       searchName: '',
       searchPlatforms: '',
@@ -126,6 +135,7 @@ export default {
   },
 
   components: {
+    gameCard,
   },
 
   methods: {
@@ -144,21 +154,64 @@ export default {
         .catch((error) => {
           alert('Unable to fetch games');
         });
+    },
+    nextPage() {
+      this.currentPage++;
+      this.searchGames();
+    },
+    previousPage() {
+      this.currentPage--;
+      this.searchGames();
+    },
+    resetSearch() {
+      this.games = [];
+      this.searchName = '';
+      this.searchPlatforms = '';
+      this.searchGenres = '';
+      this.searchMetacritic = '',
+        this.currentPage = 1;
     }
-  }, 
-  nextPage() {
-    this.currentPage++;
-    this.searchGames();
   },
-  previousPage() {
-    this.currentPage--;
-    this.searchGames();
+
+  created() {
+    // get all Platforms
+    // get all Genres
   }
+
 }
 
 </script>
 
-<style scoped>
+<style>
+.display-option {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+.display-option i {
+  margin-right: 1rem;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+#returned-game-data-ul {
+  padding: 0;
+}
+
+#returned-game-data-ul li{
+  list-style: none;
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.pagination span {
+  margin: 0 15px;
+}
+
+
 /* ----------------------  HERO SECTION  ---------------------- */
 #hero-section {
   background-image: linear-gradient(rgba(29, 8, 97, 0.8), rgba(126, 96, 216, 0.8)), url('../assets/img/lorenzo-herrera-p0j-mE6mGo4-unsplash.jpg');
@@ -207,11 +260,21 @@ export default {
 }
 
 @keyframes shake {
-  0% {transform: rotate(0deg);}
-  20% {transform: rotate(-4deg);}
-  50% {transform: rotate(0deg);}
-  70% {transform: rotate(4deg);}
-  100% {transform: rotate(0deg);}
+  0% {
+    transform: rotate(0deg);
+  }
+  20% {
+    transform: rotate(-4deg);
+  }
+  50% {
+    transform: rotate(0deg);
+  }
+  70% {
+    transform: rotate(4deg);
+  }
+  100% {
+    transform: rotate(0deg);
+  }
 }
 
 /* ----------------------  HOW IT WORKS SECTION  ---------------------- */
@@ -286,4 +349,6 @@ export default {
   border-radius: 0;
   padding: 5rem 10rem;
 }
+
+
 </style>

@@ -25,6 +25,8 @@
 
 
                 <div class="nav-right">
+                    <div v-if="$store.state.token">Hello, {{ $store.state.user.username }}</div>
+
                     <div class="nav-darkmode">
                         <i class="fa-solid fa-circle-half-stroke" v-on:click="toggleDarkMode"></i>
                     </div>
@@ -41,6 +43,8 @@
                         </router-link>
                         <router-link v-bind:to="{ name: 'login' }" v-else>Login</router-link>
                     </button>
+
+
                 </div>
             </nav>
         </div>

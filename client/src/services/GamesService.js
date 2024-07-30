@@ -14,8 +14,7 @@ export default {
 
     getGameById(gameId) {
         return axios.get(`/games/${gameId}`);
-    }
+    },
 
     
-
 }

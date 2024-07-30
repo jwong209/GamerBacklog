@@ -112,7 +112,7 @@ button.primary, button.secondary, button.tertiary {
 
 /* ----------------------  SECTION  ---------------------- */
 section {
-  width: 70%;
+  width: 100%;
   max-width: 1440px;
   margin: 0 auto 30px auto;
   padding: 30px 35px 45px 35px;

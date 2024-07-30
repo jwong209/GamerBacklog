@@ -43,7 +43,7 @@ export default {
 
 #back-to-top-button:hover {
     background-color: #5a40ed;
-    animation: bounce 2s ease infinite;
+    animation: bounce 1.5s ease infinite;
 }
 
 @keyframes bounce {
