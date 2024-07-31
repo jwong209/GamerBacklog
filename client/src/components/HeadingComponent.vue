@@ -1,29 +1,35 @@
-<template> 
-    <div v-bind:style="{ backgroundImage: `linear-gradient(rgba(29, 8, 97, 0.8), rgba(126, 96, 216, 0.8)), url(${bgImage})` }">
-        <h1>{{ pageTitle }}</h1>
+<template>
+    <div class="outer-container"
+        v-bind:style="{ backgroundImage: `linear-gradient(rgba(29, 8, 97, 0.8), rgba(126, 96, 216, 0.8)), url(${bgImage})` }">
+        <div class="inner-container">
+            <h1 class="press-start-2p-regular">{{ pageTitle }}</h1>
+            <p> {{ pageDescription }} </p>
+        </div>
     </div>
-  
 </template>
 
 <script>
 export default {
-    props: ['pageTitle', 'bgImage']
+    props: ['pageTitle', 'bgImage', 'pageDescription']
 }
 
 </script>
 
 <style scoped>
-div {
+.outer-container {
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
     display: flex;
-    align-items: center;
+    flex-direction: column;
+    padding: 20px;
 }
 
-h1 {
-    margin-left: 10%;
+.inner-container {
+    margin-left: 15%;
+}
+
+p {
     color: white;
-}
-
-</style>
+    font-size: 1.5rem;
+}</style>

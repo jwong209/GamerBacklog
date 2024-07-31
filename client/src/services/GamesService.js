@@ -16,5 +16,13 @@ export default {
         return axios.get(`/games/${gameId}`);
     },
 
+    getPlatforms() {
+        return axios.get('/platforms');
+    },
+
+    getGenres() {
+        return axios.get('/genres');
+    },
+
     
 }

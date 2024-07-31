@@ -10,13 +10,13 @@ export default {
         return axios.get('/collections/user/id');
     },
 
-    addGametoCollection(collectionId, gamesId) {
-        return axios.post(`/collections/${collectionId}/games/${gamesId}`);
+    addGameToCollection(collectionId, gameId) {
+        return axios.post(`/collections/${collectionId}/games/${gameId}`);
     },
 
     removeGameFromCollection(collectionId, gameId) {
         return axios.delete(`/collections/${collectionId}/games/${gameId}`);
-    }
+    },
 
 
 }

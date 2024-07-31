@@ -1,26 +1,80 @@
 <template>
-
     <div class="game-card">
         <div class="game-image"></div>
         <div class="game-data">
-            <p>Title: </p>
-            <p>Platorm:  </p>
-            <p>Genre:  </p>
-            <p>Metacritic: </p>
+            <p>Title: {{ game.name }}</p>
+            <p>Released: {{ game.released }}</p>
+            <p>Platforms: </p>
+            <p>Genres: </p>
+            <p v-if="game.playtime > 0">Playtime: {{ game.playtime }} hrs</p>
+            <p v-if="game.metacritic > 0">Metacritic: {{ game.metacritic }} </p>
+
         </div>
         <div class="game-bottom">
-            <button class="description-button">Description</button>
-            <i class="fa-solid fa-trash-can"></i>
+            <button class="description-button" v-on:click="addGameToBacklog">Add Backlog</button>
+            <!-- <button class="description-button">Description</button> -->
+            <i class="fa-solid fa-trash-can" v-on:click="removeFromCollection"></i>
         </div>
     </div>
-
 </template>
 
 <script>
+import CollectionService from '../services/CollectionService';
+import BacklogService from '../services/BacklogService';
+
+export default {
+    data() {
+        return {
+            collectionId: null,
+            backlogId: null,
+            gameId: this.game.id,
+        }
+    },
+
+    props: ['game'],
+
+    methods: {
+        getCollectionId() {
+            CollectionService.getCollectionId()
+                .then((response) => {
+                    this.collectionId = response.data;
+                    console.log('This is the GameId:' + this.game.id);
+                    console.log('This is the CollectionId:' + this.collectionId);
+                })
+                .catch((error) => {
+                    alert('Unable to retrieve id');
+                });
+        },
+        removeFromCollection() {
+            CollectionService.removeGameFromCollection(this.collectionId, this.gameId)
+                .then((response) => {
+                    console.log('Successfully deleted game from collection');
+                    alert('Successfully removed game from collection');
+                })
+                .catch((error) => {
+                    alert('Unable to delete from Collection');
+                });
+        },
+        addGameToBacklog() {
+            BacklogService.addGameToBacklog(this.backlogId, this.gameId)
+                .then((response) => {
+                    alert('Successfully added game to Backlog');
+                })
+                .catch((error) => {
+                    alert('Unable to add game to Backlog');
+                });
+        },
+
+    },
+
+    created() {
+        this.getCollectionId();
+    }
+}
 
 </script>
 
-<style>
+<style scoped>
 /* ----------------------  GAME CARDS  ---------------------- */
 .game-area-heading {
     display: flex;
@@ -35,8 +89,8 @@
     border-radius: 8px;
     box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.3), 0px 11px 14px rgba(0, 0, 0, 0.1);
     background-color: rgb(255, 255, 255);
-    /* display: flex; */
-    /* column-gap: 1rem; */
+    display: flex;
+    column-gap: 1rem;
     position: relative;
 }
 
@@ -74,11 +128,25 @@
 }
 
 @keyframes shake {
-    0% {transform: rotate(0deg);}
-    20% {transform: rotate(-4deg);}
-    50% {transform: rotate(0deg);}
-    70% {transform: rotate(4deg);}
-    100% {transform: rotate(0deg);}
+    0% {
+        transform: rotate(0deg);
+    }
+
+    20% {
+        transform: rotate(-4deg);
+    }
+
+    50% {
+        transform: rotate(0deg);
+    }
+
+    70% {
+        transform: rotate(4deg);
+    }
+
+    100% {
+        transform: rotate(0deg);
+    }
 }
 
 /* ---------- Game Bottom ----------*/
@@ -97,7 +165,7 @@
     cursor: pointer;
     padding: 5px 10px;
     background-color: transparent;
-    color:purple;
+    color: purple;
     border: 1px solid purple;
 
     border-radius: 25px;
@@ -116,5 +184,4 @@
 .trash-icon:hover {
     color: orange;
 }
-
 </style>

@@ -64,118 +64,38 @@
   </section>
 
   <section>
-
-    <div class="section-heading">
-      <h2><i class="fa-solid fa-gamepad"></i>Browse Game Library</h2>
-      <div class="section-heading-left">
-        <!-- <button id="" class="primary">Get</button> -->
-        <button id="" class="secondary" v-on:click="resetSearch">Reset</button>
-      </div>
-    </div>
-    <hr>
-
-    <form v-on:submit.prevent="searchGames">
-      <input type="text" v-model="searchName" placeholder="Search by Name...">
-      <input type="text" v-model="searchPlatforms" placeholder="Search by Platforms...">
-      <input type="text" v-model="searchGenres" placeholder="Search by Genres...">
-      <input type="text" v-model="searchMetacritic" placeholder="Search by Metacritic Score...">
-      <button type="submit">Search</button>
-    </form>
-
-    <div class="display-option">
-      <i class="fa-solid fa-list"></i>
-      <i class="fa-solid fa-grip"></i>
-    </div>
-
-    <div class="browse-output-container">
-      <ul id='returned-game-data-ul'>
-        <li v-for="(game, index) in games" v-bind:game="game" v-bind:key="index">
-          <hr>
-          ID: {{ game.id }} | Name: {{ game.name }} | Released: {{ game.released }} | Metacritic: {{ game.metacritic }} | User
-          Ratings: {{ game.rating }} | Playtime: {{ game.playtime }}
-        </li>
-      </ul>
-    </div>
-
-    <section class="cards-area">
-        <game-card v-for="(game, index) in games" v-bind:game="game" v-bind:key="index"/>
-    </section>
-
-    <!-- Nav buttons -->
-    <div class="pagination" v-if="games.length > 0">
-      <button v-on:click="previousPage" v-bind:disabled="currentPage <= 1"><i class="fa-solid fa-chevron-left"></i></button>
-      <span> Page {{ currentPage }} </span>
-      <button v-on:click="nextPage" v-bind:disabled="games.length == 0"><i class="fa-solid fa-chevron-right"></i></button>
-    </div>
+    <p>filler</p>
 
   </section>
+
+  
 
   <section id="extra-section">
     <div>
       <h2 class="press-start-2p-regular">Thanks for visiting!</h2>
     </div>
   </section>
+
 </template>
 
 <script>
-import gameService from '../services/GamesService';
-import gameCard from '../components/GameCard.vue';
 
 export default {
   data() {
     return {
-      isListVisible: true,
-      games: [],
-      searchName: '',
-      searchPlatforms: '',
-      searchGenres: '',
-      searchMetacritic: '',
-      currentPage: 1,
+     
     }
   },
 
   components: {
-    gameCard,
   },
 
   methods: {
-    searchGames() {
-      const params = {
-        name: this.searchName,
-        platforms: this.searchPlatforms,
-        genres: this.searchGenres,
-        metacritic: this.searchMetacritic,
-        page: this.currentPage.toString()
-      };
-      gameService.searchGames(params)
-        .then((response) => {
-          this.games = response.data;
-        })
-        .catch((error) => {
-          alert('Unable to fetch games');
-        });
-    },
-    nextPage() {
-      this.currentPage++;
-      this.searchGames();
-    },
-    previousPage() {
-      this.currentPage--;
-      this.searchGames();
-    },
-    resetSearch() {
-      this.games = [];
-      this.searchName = '';
-      this.searchPlatforms = '';
-      this.searchGenres = '';
-      this.searchMetacritic = '',
-        this.currentPage = 1;
-    }
+   
   },
 
   created() {
-    // get all Platforms
-    // get all Genres
+   
   }
 
 }
@@ -183,35 +103,6 @@ export default {
 </script>
 
 <style>
-.display-option {
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-}
-.display-option i {
-  margin-right: 1rem;
-  font-size: 1.5rem;
-  cursor: pointer;
-}
-
-#returned-game-data-ul {
-  padding: 0;
-}
-
-#returned-game-data-ul li{
-  list-style: none;
-}
-
-.pagination {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-.pagination span {
-  margin: 0 15px;
-}
-
-
 /* ----------------------  HERO SECTION  ---------------------- */
 #hero-section {
   background-image: linear-gradient(rgba(29, 8, 97, 0.8), rgba(126, 96, 216, 0.8)), url('../assets/img/lorenzo-herrera-p0j-mE6mGo4-unsplash.jpg');
@@ -263,15 +154,19 @@ export default {
   0% {
     transform: rotate(0deg);
   }
+
   20% {
     transform: rotate(-4deg);
   }
+
   50% {
     transform: rotate(0deg);
   }
+
   70% {
     transform: rotate(4deg);
   }
+
   100% {
     transform: rotate(0deg);
   }
@@ -349,6 +244,4 @@ export default {
   border-radius: 0;
   padding: 5rem 10rem;
 }
-
-
 </style>

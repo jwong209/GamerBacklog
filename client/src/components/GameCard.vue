@@ -5,7 +5,7 @@
         <div class="game-data">
             <p>Title: {{ game.name }}</p>
             <p>Released: {{ game.released }}</p>
-            <p>Playtime: {{ game.playtime }}</p>
+            <p>Playtime: {{ game.playtime }} hrs</p>
             <p>Metacritic: {{ game.metacritic }} </p>
             <button class="description-button" v-on:click="addToCollection">Add Collection</button>
             <button class="description-button">Add Backlog</button>
@@ -42,9 +42,9 @@ export default {
                     alert('Unable to retrieve id');
                 });
         },
-        addToCollection(collectionId, gameId) {
-            CollectionService.addGametoCollection(this.collectionId, this.gameId)
-                .then(() => {
+        addToCollection() {
+            CollectionService.addGameToCollection(this.collectionId, this.gameId)
+                .then((response) => {
                     console.log('Successfully added game with id ' + this.gameId);
                     alert('Successfully added to collection');
                 }) 
@@ -78,8 +78,8 @@ export default {
     border-radius: 8px;
     box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.3), 0px 11px 14px rgba(0, 0, 0, 0.1);
     background-color: rgb(255, 255, 255);
-    /* display: flex; */
-    /* column-gap: 1rem; */
+    /* display: flex;
+    column-gap: 1rem; */
     position: relative;
 }
 

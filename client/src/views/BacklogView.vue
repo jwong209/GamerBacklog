@@ -2,10 +2,6 @@
     <heading v-bind:pageTitle="pageTitle" v-bind:bgImage="bgImage" />
 
     <section class="cards-area">
-        <backlog-game-card />
-        <backlog-game-card />
-        <backlog-game-card />
-        <backlog-game-card />
     </section>
 
     <section>
@@ -35,7 +31,7 @@ export default {
 
     components: {
         Heading,
-        BacklogGameCard,
+        
     },
 
     methods: {

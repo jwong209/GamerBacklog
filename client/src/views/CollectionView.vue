@@ -1,11 +1,5 @@
 <template>
-    <heading v-bind:pageTitle="pageTitle" v-bind:bgImage="bgImage" />
-
-    <section class="cards-area">
-        <collection-game-card />
-        <collection-game-card />
-    </section>
-
+    <heading v-bind:pageTitle="pageTitle" v-bind:bgImage="bgImage" v-bind:pageDescription="pageDescription"/>
     <section>
         <h2>Games in COLLECTION: {{ games.length }}</h2>
         <ul>
@@ -14,7 +8,19 @@
                 UserRatings: {{ game.rating }} Playtime: {{ game.playtime }}
             </li>
         </ul>
+    </section>
 
+    <section>
+        <div class="cards-area">
+            <collection-game-card v-for="(game, index) in games" v-bind:game="game" v-bind:key="index" />
+        </div>
+        <!-- <div class="pagination" v-if="games.length > 0">
+            <button v-on:click="previousPage" v-bind:disabled="currentPage <= 1"><i
+                    class="fa-solid fa-chevron-left"></i></button>
+            <span> Page {{ currentPage }} </span>
+            <button v-on:click="nextPage" v-bind:disabled="games.length == 0"><i
+                    class="fa-solid fa-chevron-right"></i></button>
+        </div> -->
     </section>
 </template>
 
@@ -27,9 +33,10 @@ export default {
     data() {
         return {
             pageTitle: "Collection",
+            pageDescription: "Manage games you own...",
             bgImage: 'src/assets/img/george-flowers-blYe0BupDuQ-unsplash.jpg',
             games: [],
-            
+
         }
     },
     components: {
@@ -57,4 +64,8 @@ export default {
 
 </script>
 
-<style></style>
+<style scoped>
+h1 {
+    color: orange;
+}
+</style>

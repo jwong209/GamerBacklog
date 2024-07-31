@@ -15,14 +15,13 @@
 
                     <div class="navbar-links">
                         <ul>
+                            <li><router-link v-bind:to="{ name: 'games' }">Browse</router-link></li>
                             <li><router-link v-bind:to="{ name: 'collection' }">Collection</router-link></li>
                             <li><router-link v-bind:to="{ name: 'backlog' }">Backlog</router-link></li>
                             <li><router-link v-bind:to="{ name: 'about' }">About</router-link></li>
-                            <li></li>
                         </ul>
                     </div>
                 </div>
-
 
                 <div class="nav-right">
                     <div v-if="$store.state.token">Hello, {{ $store.state.user.username }}</div>
@@ -163,7 +162,6 @@ header {
     animation: hithere 1s ease infinite;
 }
 
-
 @keyframes hithere {
     30% {
         transform: scale(1.2);
@@ -191,43 +189,33 @@ header {
     0% {
         transform: translate(1px, 1px) rotate(0deg);
     }
-
     10% {
         transform: translate(-1px, -2px) rotate(-1deg);
     }
-
     20% {
         transform: translate(-3px, 0px) rotate(1deg);
     }
-
     30% {
         transform: translate(3px, 2px) rotate(0deg);
     }
-
     40% {
         transform: translate(1px, -1px) rotate(1deg);
     }
-
     50% {
         transform: translate(-1px, 2px) rotate(-1deg);
     }
-
     60% {
         transform: translate(-3px, 1px) rotate(0deg);
     }
-
     70% {
         transform: translate(3px, 1px) rotate(-1deg);
     }
-
     80% {
         transform: translate(-1px, -1px) rotate(1deg);
     }
-
     90% {
         transform: translate(1px, 2px) rotate(0deg);
     }
-
     100% {
         transform: translate(1px, -2px) rotate(-1deg);
     }

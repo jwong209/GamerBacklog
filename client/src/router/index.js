@@ -70,19 +70,19 @@ const routes = [
       }
     },
     {
-      path: "/collection",  // change later
+      path: "/collection", 
       name: "collection",
       component: CollectionView,
       meta: {
-        requiresAuth: true  // change later
+        requiresAuth: true  
       }
     },
     {
-      path: "/backlog",   // change later
+      path: "/backlog",   
       name: "backlog",
       component: BacklogView,
       meta: {
-        requiresAuth: true // change later
+        requiresAuth: true 
       }
     }
    
