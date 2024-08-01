@@ -26,8 +26,9 @@
 
 <script>
 import CollectionService from '../services/CollectionService';
-import CollectionGameCard from '../components/CollectionGameCard.vue';
+import BacklogService from '../services/BacklogService';
 import Heading from '../components/HeadingComponent.vue';
+import CollectionGameCard from '../components/CollectionGameCard.vue';
 
 export default {
     data() {
@@ -40,8 +41,8 @@ export default {
         }
     },
     components: {
-        CollectionGameCard,
         Heading,
+        CollectionGameCard,
     },
 
     methods: {
@@ -54,10 +55,22 @@ export default {
                     alert('Unable to fetch collection');
                 });
         },
+        getBacklogId() {
+            BacklogService.getBacklogId()
+                .then((response) => {
+                    this.backlogId = response.data;
+                    console.log('This is the backlogId: ' + this.backlog.id);
+                })
+                .catch((error) => {
+                    // alert('Unable to retrieve backlogId');
+                });
+        },
     },
 
     created() {
+        this.getBacklogId();
         this.getCollectionGames();
+
     }
 }
 

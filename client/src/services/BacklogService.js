@@ -10,13 +10,12 @@ export default {
         return axios.get('/backlogs/user/id');
     },
 
-    addGameToBacklog(backlogId, gameId) {
-        return axios.post(`/backlogs/${backlogId}/games/${gameId}`);
-    },
-
     removeGameFromBacklog(backlogId, gameId) {
         return axios.delete(`/backlogs/${backlogId}/games/${gameId}`);
-    }
+    },
 
+    addGameToBacklog(backlogGame) {
+        return axios.post('/backlogs/user', backlogGame);
+    },
 
 }

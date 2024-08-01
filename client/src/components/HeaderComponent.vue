@@ -43,7 +43,6 @@
                         <router-link v-bind:to="{ name: 'login' }" v-else>Login</router-link>
                     </button>
 
-
                 </div>
             </nav>
         </div>

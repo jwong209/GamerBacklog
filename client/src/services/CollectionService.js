@@ -18,5 +18,4 @@ export default {
         return axios.delete(`/collections/${collectionId}/games/${gameId}`);
     },
 
-
 }

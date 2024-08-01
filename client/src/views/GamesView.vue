@@ -2,29 +2,19 @@
     <heading v-bind:pageTitle="pageTitle" v-bind:bgImage="bgImage" v-bind:pageDescription="pageDescription" />
 
     <section>
-
-        <div class="section-heading">
-            <h2><i class="fa-solid fa-gamepad"></i>Browse Game Library</h2>
-            <div class="section-heading-left">
-                <!-- <button id="" class="primary">Get</button> -->
-                <button id="" class="secondary" v-on:click="resetSearch">Reset</button>
-            </div>
-        </div>
-        <hr>
-
         <form v-on:submit.prevent="searchGames" id="game-search-form">
             <label for="search-title">Title</label>
             <input name="search-title" type="text" v-model="searchName" placeholder="  Search by Game Title...">
             <label for="platform-options">Platform</label>
             <select v-model="searchPlatforms" name="platform-options">
-                <option value="">All Platforms</option>
+                <option value="">-- All Platforms --</option>
                 <option v-for="platform in platforms" v-bind:key="platform.id" v-bind:value="platform.id">
                     {{ platform.name }}
                 </option>
             </select>
             <label for="genre-options">Genre</label>
             <select v-model="searchGenres" name="genre-options">
-                <option value="">All Genres</option>
+                <option value="">-- All Genres --</option>
                 <option v-for="genre in genres" v-bind:key="genre.id" v-bind:value="genre.id">
                     {{ genre.name }}
                 </option>
@@ -32,33 +22,47 @@
             <label for="search-metacritic">Metacritic Score</label>
             <input name="search-metacritic" type="text" v-model="searchMetacritic"
                 placeholder="  Search by Metacritic Score...">
-            <button type="submit">Search</button>
+            <div id="search-controls">
+                <button type="submit" class="primary">Search</button>
+                <button id="" class="secondary" v-on:click="resetSearch">Reset</button>
+            </div>
+
         </form>
 
-        <div class="display-option">
-          
-            <i class="fa-solid fa-list"></i>
-            <!-- <i class="fa-solid fa-grip"></i> -->
-            <i class="fa-solid fa-grip-vertical"></i>
-        </div>
 
-        <div class="browse-output-container">
+    </section>
+
+    <section>
+        <div class="section-heading">
+            <h2><i class="fa-solid fa-gamepad"></i>Browse Game Library</h2>
+            <div class="section-heading-left">
+                <div class="display-option">
+                    <i class="fa-solid fa-list" v-on:click="isListVisible = true"></i>
+                    <i class="fa-solid fa-grip-vertical" v-on:click="isListVisible = false"></i>
+                </div>
+            </div>
+
+        </div>
+        <hr>
+        <div class="browse-output-container" v-show="isListVisible === true">
             <ul id='returned-game-data-ul'>
                 <li v-for="(game, index) in games" v-bind:game="game" v-bind:key="index">
-                    <hr>
+
                     ID: {{ game.id }} | Name: {{ game.name }} | Released: {{ game.released }} | Metacritic: {{
                         game.metacritic }} |
                     User
                     Ratings: {{ game.rating }} | Playtime: {{ game.playtime }}
+                    <hr>
                 </li>
+
             </ul>
         </div>
+        <div class="cards-area" v-show="isListVisible === false">
+            <game-card v-for="(game, index) in games" v-bind:game="game" v-bind:key="index"
+                v-bind:collectionId="collectionId" v-bind:backlogId="backlogId" />
+        </div>
 
-        <section class="cards-area">
-            <game-card v-for="(game, index) in games" v-bind:game="game" v-bind:key="index" />
-        </section>
-
-        <!-- Nav buttons -->
+        <!-- Pagination buttons -->
         <div class="pagination" v-if="games.length > 0">
             <button v-on:click="previousPage" v-bind:disabled="currentPage <= 1"><i
                     class="fa-solid fa-chevron-left"></i></button>
@@ -67,21 +71,22 @@
                     class="fa-solid fa-chevron-right"></i></button>
         </div>
     </section>
-
 </template>
 
 <script>
 import gameCard from '../components/GameCard.vue';
 import gameService from '../services/GamesService';
 import Heading from '../components/HeadingComponent.vue';
+import CollectionService from '../services/CollectionService';
+import BacklogService from '../services/BacklogService';
 
 export default {
     data() {
         return {
+            isListVisible: false,
             pageTitle: "Games Library",
             pageDescription: 'Browse from a selection of over 500,000+ titles on 50 platforms ',
             bgImage: 'src/assets/img/george-flowers-blYe0BupDuQ-unsplash.jpg',
-            isListVisible: true,
             games: [],
             platforms: [],
             genres: [],
@@ -90,6 +95,12 @@ export default {
             searchGenres: '',
             searchMetacritic: '',
             currentPage: 1,
+
+            collectionId: null,
+            backlogId: null,
+
+            // isModalVisible: false,
+            // currentlySelectedGameId: null,
         }
     },
 
@@ -125,12 +136,12 @@ export default {
             this.searchGames();
         },
         resetSearch() {
-            this.games = [];
             this.searchName = '';
             this.searchPlatforms = '';
             this.searchGenres = '';
-            this.searchMetacritic = '',
-                this.currentPage = 1;
+            this.searchMetacritic = '';
+            this.currentPage = 1;
+            this.games = [];
         },
         getPlatforms() {
             gameService.getPlatforms()
@@ -149,26 +160,62 @@ export default {
                 .catch((error) => {
                     alert('Unable to fetch genres');
                 });
+        },
+        getCollectionId() {
+            CollectionService.getCollectionId()
+                .then((response) => {
+                    this.collectionId = response.data;
+                })
+                .catch((error) => {
+                    // alert('Unable to retrieve collectionId');
+                });
+        },
+        getBacklogId() {
+            BacklogService.getBacklogId()
+                .then((response) => {
+                    this.backlogId = response.data;
+                    console.log('This is the backlogId: ' + this.backlog.id);
+                })
+                .catch((error) => {
+                    // alert('Unable to retrieve backlogId');
+                });
+        },
+        showList() {
+            this.isListVisible = true;
+            this.searchGames();
         }
+        // showModal() {
+        //     this.isModalVisible = true;
+        // },
+        // closeModal() {
+        //     this.isModalVisible = false;
+        // },
+        // handleOpenModal(gameId) {
+        //     this.isModalVisible = true;
+        //     this.currentlySelectedGameId = gameId;
+        // }
     },
 
     created() {
         this.getPlatforms();
         this.getGenres();
+        this.getBacklogId();
+        this.getCollectionId();
     }
 }
 
 </script>
 
 <style scoped>
-h1 {
-    color: orange;
-}
-
 #game-search-form {
     display: flex;
     flex-direction: column;
-    row-gap: .4rem;
+    align-items: center;
+    row-gap: .5rem;
+    background-color: rgb(200, 200, 200);
+    border-radius: 5px;
+    padding: 15px;
+
 }
 
 #game-search-form input,
@@ -177,6 +224,10 @@ label {
     width: 600px;
 }
 
+#search-controls button {
+    margin: 0 5px;
+    width: 120px;
+}
 
 .display-option {
     display: flex;
