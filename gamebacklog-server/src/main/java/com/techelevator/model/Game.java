@@ -1,5 +1,6 @@
 package com.techelevator.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.NotBlank;
 
 public class Game {
@@ -7,6 +8,8 @@ public class Game {
     @NotBlank( message = "The field 'name' is required.")
     private String name;
     private String released;
+    @JsonProperty("background_image")
+    private String backgroundImage;
     private Double rating;
     private int metacritic;
     private int playtime;
@@ -14,13 +17,22 @@ public class Game {
     public Game() {
     }
 
-    public Game(int id, String name, String released, Double rating, int metacritic, int playtime) {
+    public Game(int id, String name, String released, String backgroundImage,Double rating, int metacritic, int playtime) {
         this.id = id;
         this.name = name;
         this.released = released;
+        this.backgroundImage = backgroundImage;
         this.rating = rating;
         this.metacritic = metacritic;
         this.playtime = playtime;
+    }
+
+    public String getBackgroundImage() {
+        return backgroundImage;
+    }
+
+    public void setBackgroundImage(String backgroundImage) {
+        this.backgroundImage = backgroundImage;
     }
 
     public int getId() {

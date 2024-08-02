@@ -3,59 +3,57 @@
 
     <section>
         <form v-on:submit.prevent="searchGames" id="game-search-form">
-            <label for="search-title">Title</label>
-            <input name="search-title" type="text" v-model="searchName" placeholder="  Search by Game Title...">
-            <label for="platform-options">Platform</label>
-            <select v-model="searchPlatforms" name="platform-options">
-                <option value="">-- All Platforms --</option>
-                <option v-for="platform in platforms" v-bind:key="platform.id" v-bind:value="platform.id">
-                    {{ platform.name }}
-                </option>
-            </select>
-            <label for="genre-options">Genre</label>
-            <select v-model="searchGenres" name="genre-options">
-                <option value="">-- All Genres --</option>
-                <option v-for="genre in genres" v-bind:key="genre.id" v-bind:value="genre.id">
-                    {{ genre.name }}
-                </option>
-            </select>
-            <label for="search-metacritic">Metacritic Score</label>
-            <input name="search-metacritic" type="text" v-model="searchMetacritic"
-                placeholder="  Search by Metacritic Score...">
+
+            <div class="search-form-inputs">
+                <label for="search-title">Title</label>
+                <input name="search-title" type="text" v-model="searchName" placeholder="  Search by Game Title...">
+                <label for="platform-options">Platform</label>
+                <select v-model="searchPlatforms" name="platform-options">
+                    <option value="">-- All Platforms --</option>
+                    <option v-for="platform in platforms" v-bind:key="platform.id" v-bind:value="platform.id">
+                        {{ platform.name }}
+                    </option>
+                </select>
+            </div>
+            <div class="search-form-inputs">
+                <label for="genre-options">Genre</label>
+                <select v-model="searchGenres" name="genre-options">
+                    <option value="">-- All Genres --</option>
+                    <option v-for="genre in genres" v-bind:key="genre.id" v-bind:value="genre.id">
+                        {{ genre.name }}
+                    </option>
+                </select>
+                <label for="search-metacritic">Metacritic Score</label>
+                <input name="search-metacritic" type="text" v-model="searchMetacritic"
+                    placeholder="  Search by Metacritic Score...">
+            </div>
+
             <div id="search-controls">
                 <button type="submit" class="primary">Search</button>
                 <button id="" class="secondary" v-on:click="resetSearch">Reset</button>
             </div>
-
         </form>
 
-
-    </section>
-
-    <section>
         <div class="section-heading">
             <h2><i class="fa-solid fa-gamepad"></i>Browse Game Library</h2>
             <div class="section-heading-left">
                 <div class="display-option">
-                    <i class="fa-solid fa-list" v-on:click="isListVisible = true"></i>
-                    <i class="fa-solid fa-grip-vertical" v-on:click="isListVisible = false"></i>
+                    <button class="display-button" v-bind:disabled="isListVisible === false"
+                        v-on:click="isListVisible = false">
+                        <i class="fa-solid fa-grip-vertical"></i>
+                    </button>
+                    <button class="display-button" v-bind:disabled="isListVisible === true"
+                        v-on:click="isListVisible = true">
+                        <i class="fa-solid fa-list"></i>
+                    </button>
                 </div>
             </div>
-
         </div>
+
         <hr>
-        <div class="browse-output-container" v-show="isListVisible === true">
-            <ul id='returned-game-data-ul'>
-                <li v-for="(game, index) in games" v-bind:game="game" v-bind:key="index">
 
-                    ID: {{ game.id }} | Name: {{ game.name }} | Released: {{ game.released }} | Metacritic: {{
-                        game.metacritic }} |
-                    User
-                    Ratings: {{ game.rating }} | Playtime: {{ game.playtime }}
-                    <hr>
-                </li>
-
-            </ul>
+        <div v-show="isListVisible === true">
+            <game-list-item v-for="(game, index) in games" v-bind:game="game" v-bind:key="index" v-bind:collectionId="collectionId" v-bind:backlogId="backlogId" />
         </div>
         <div class="cards-area" v-show="isListVisible === false">
             <game-card v-for="(game, index) in games" v-bind:game="game" v-bind:key="index"
@@ -75,10 +73,12 @@
 
 <script>
 import gameCard from '../components/GameCard.vue';
+import GameListItem from '../components/GameListItem.vue';
 import gameService from '../services/GamesService';
 import Heading from '../components/HeadingComponent.vue';
 import CollectionService from '../services/CollectionService';
 import BacklogService from '../services/BacklogService';
+
 
 export default {
     data() {
@@ -98,15 +98,13 @@ export default {
 
             collectionId: null,
             backlogId: null,
-
-            // isModalVisible: false,
-            // currentlySelectedGameId: null,
         }
     },
 
     components: {
         Heading,
         gameCard,
+        GameListItem,
 
     },
 
@@ -180,20 +178,7 @@ export default {
                     // alert('Unable to retrieve backlogId');
                 });
         },
-        showList() {
-            this.isListVisible = true;
-            this.searchGames();
-        }
-        // showModal() {
-        //     this.isModalVisible = true;
-        // },
-        // closeModal() {
-        //     this.isModalVisible = false;
-        // },
-        // handleOpenModal(gameId) {
-        //     this.isModalVisible = true;
-        //     this.currentlySelectedGameId = gameId;
-        // }
+
     },
 
     created() {
@@ -207,10 +192,15 @@ export default {
 </script>
 
 <style scoped>
+.display-button {
+    width: 50px;
+    padding: 4px 0px 1px 12px;
+    cursor: pointer;
+
+}
+
 #game-search-form {
     display: flex;
-    flex-direction: column;
-    align-items: center;
     row-gap: .5rem;
     background-color: rgb(200, 200, 200);
     border-radius: 5px;
@@ -221,7 +211,13 @@ export default {
 #game-search-form input,
 select,
 label {
-    width: 600px;
+    width: 500px;
+}
+
+.search-form-inputs {
+    border: 1px dotted purple;
+    display: flex;
+    flex-direction: column;
 }
 
 #search-controls button {
@@ -236,17 +232,7 @@ label {
 }
 
 .display-option i {
-    margin-right: 1rem;
     font-size: 1.5rem;
-    cursor: pointer;
-}
-
-#returned-game-data-ul {
-    padding: 0;
-}
-
-#returned-game-data-ul li {
-    list-style: none;
 }
 
 .pagination {

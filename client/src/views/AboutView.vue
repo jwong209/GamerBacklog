@@ -13,7 +13,7 @@
     <i class="fa-solid fa-trash-can" v-on:click="removeFromCollection" id="removeButton"></i>
 
     <button type="button" class="btn" @click="showModal">Open Modal!</button>
-    <modal-add-backlog v-show="isModalVisible" @close="closeModal" />
+    <modal-backlog v-show="isModalVisible" @close="closeModal" />
 
     <section id="contact-form-section">
         <form>
@@ -25,7 +25,7 @@
 
 <script>
 import Heading from '../components/HeadingComponent.vue';
-import ModalAddBacklog from '../components/ModalAddBacklog.vue';
+import ModalBacklog from '../components/ModalBacklog.vue';
 
 export default {
     data() {
@@ -37,7 +37,7 @@ export default {
     },
     components: {
         Heading,
-        ModalAddBacklog,
+        ModalBacklog,
     },
 
     methods: {

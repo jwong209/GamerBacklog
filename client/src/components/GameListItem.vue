@@ -1,16 +1,31 @@
 <template>
-    <div class="game-card">
-        <div class="game-image-card" :style="{ backgroundImage: `url(${game.background_image})` }"></div>
-        <div class="game-data">
-            <h3>{{ game.name }}</h3>
-            <p><strong>Released: </strong>{{ game.released }}</p>
-            <p><strong>Playtime: </strong>{{ game.playtime }} hrs</p>
-            <p><strong>Metacritic: </strong>{{ game.metacritic }} </p>
-            <p><strong>User Ratings: </strong>{{ game.rating }}</p>
-            <button class="description-button" v-on:click="addToCollection">Add to Collection</button>
-            <button class="description-button" v-on:click="addToBacklog">Add to Backlog</button>
+    <div class="item-container">
+        <div class="items-left">
+            <div class="game-image-list" :style="{ backgroundImage: `url(${game.background_image})` }"></div>
+            <div>
+                <h3>{{ game.name }}</h3>
+                <p><strong>Released: </strong>{{ game.released }}</p>
+                <p><strong>Metacritic: </strong>{{ game.metacritic }}</p>
+                <p><strong>User Ratings: </strong>{{ game.rating }}</p>
+                <p><strong>Playtime: </strong>{{ game.playtime }}</p>
+            </div>
         </div>
+        <div class="items-right">
+            <div class="items-right-top">
+                <button class="description-button" v-on:click="addToCollection">Add to Collection</button>
+                <button class="description-button" v-on:click="addToBacklog">Add to Backlog</button>
+            </div>
+            <div class="items-right-bottom">
+                <!-- <button>Button</button> -->
+            </div>
+
+
+        </div>
+
     </div>
+
+
+    <hr>
 </template>
 
 <script>
@@ -58,18 +73,10 @@ export default {
                     alert('Unable to add game to backlog');
                 });
         },
-       
-    },
-
-    created() {
-     
     }
-
 
 }
 
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

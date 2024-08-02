@@ -3,6 +3,25 @@
 
     <section>
         <h2>Games in BACKLOG: {{ games.length }}</h2>
+
+        <div class="section-heading">
+            <h2><i class="fa-solid fa-gamepad"></i>...</h2>
+            <div class="section-heading-left">
+                <div class="display-option">
+                    <button class="display-button" v-bind:disabled="isListVisible === false"
+                        v-on:click="isListVisible = false">
+                        <i class="fa-solid fa-grip-vertical"></i>
+                    </button>
+                    <button class="display-button" v-bind:disabled="isListVisible === true"
+                        v-on:click="isListVisible = true">
+                        <i class="fa-solid fa-list"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <hr>
+
         <div v-show="isListVisible === true">
             <ul>
                 <li v-for="(game, index) in games" v-bind:game="game" v-bind:key="index">
@@ -10,10 +29,11 @@
                     UserRatings: {{ game.rating }} Playtime: {{ game.playtime }}
                 </li>
             </ul>
+            <backlog-list-item v-for="(game, index) in games" v-bind:game="game" v-bind:key="index" v-bind:backlogId="backlogId" />
         </div>
 
         <div class="cards-area" v-show="isListVisible === false">
-            <backlog-game-card v-for="(game, index) in games" v-bind:game="game" v-bind:key="index" />
+            <backlog-game-card v-for="(game, index) in games" v-bind:game="game" v-bind:key="index" v-bind:backlogId="backlogId" />
         </div>
 
     </section>
@@ -23,6 +43,8 @@
 import BacklogService from '../services/BacklogService';
 import Heading from '../components/HeadingComponent.vue';
 import BacklogGameCard from '../components/BacklogGameCard.vue';
+import BacklogListItem from '../components/BacklogListItem.vue';
+
 
 export default {
     data() {
@@ -32,12 +54,14 @@ export default {
             pageTitle: "Backlog",
             pageDescription: "Games that you'll get to later",
             bgImage: 'src/assets/img/george-flowers-blYe0BupDuQ-unsplash.jpg',
+            backlogId: null,
         }
     },
 
     components: {
         Heading,
         BacklogGameCard,
+        BacklogListItem,
 
     },
 
@@ -50,11 +74,23 @@ export default {
                 .catch((error) => {
                     alert('Unable to fetch backlog');
                 });
-        }
+        }, 
+        getBacklogId() {
+            BacklogService.getBacklogId()
+                .then((response) => {
+                    this.backlogId = response.data;
+                    // console.log('This is the GameId:' + this.game.id);
+                    // console.log('This is the backlogId:' + this.backlogId);
+                })
+                .catch((error) => {
+                    alert('Unable to retrieve id');
+                });
+        },
     },
 
     created() {
         this.getBacklogGames();
+        this.getBacklogId();
     }
 }
 

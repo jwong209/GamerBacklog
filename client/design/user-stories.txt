@@ -1,0 +1,19 @@
+- As an authenticated or anonymous user, I want to be able to search for a game based on title by entering input into the header’s search bar.
+- As an authenticated user or anonymous user, on the GamesView page, I want to be able to perform a more focused search for games based on title, platform, genre, and or score by entering input into the form.
+
+- As an authenticated user, I want to view all games in my COLLECTION when navigating to CollectionView.
+- As an authenticated user, from the Game Card, I want to be able to add the game to my COLLECTION by selecting the option in the <select> element.
+- As an authenticated user, from CollectionView, I want to be able to delete games from my COLLECTION by clicking the trash icon within the table row.
+- As an authenticated user, I want to be able to sort my COLLECTION by selecting an option from the ‘Sort by’ <select> element.
+
+- As an authenticated user, I want to view all games in my BACKLOG when navigating to BacklogView.
+- As an authenticated user, from the Game Card, I want to be able to add the game to my BACKLOG by selecting the option in the <select> element.
+- As an authenticated user, from BacklogView, I want to be able to delete games from my BACKLOG by clicking the trash icon within the table row.
+- As an authenticated user, I want to be able to sort my BACKLOG by selecting an option from the ‘Sort by’ <select> element.
+
+- As an authenticated or anonymous user, I want to be able to toggle Dark/Light Mode settings by clicking the icon within the header.
+- As an authenticated or anonymous user, (on any page) I want to be able to scroll back to top of page by clicking the fixed icon located in the bottom right of the page.
+
+(If time allows)
+- As an authenticated user, I want to view games that I have already completed.
+- As an authenticated user, I want to add games to a completed list so that I can keep track of games that I have finished.

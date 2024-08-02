@@ -1,24 +1,33 @@
 <template>
-    <div class="game-card">
-        <div class="game-image-card" :style="{ backgroundImage: `url(${game.background_image})` }"></div>
-        <div class="game-data">
-            <p>Title: {{ game.name }}</p>
-            <p>Released: {{ game.released }}</p>
-            <p>Platform: Owned game on this platform</p>
-            <p>Genres: </p>
-            <p v-if="game.playtime > 0">Playtime: {{ game.playtime }} hrs</p>
-            <p v-if="game.metacritic > 0">Metacritic: {{ game.metacritic }} </p>
-            <button>Edit Info</button>
-            <button class="description-button" v-on:click="addGameToBacklog">Add to Backlog</button>
-            <i class="fa-solid fa-trash-can" v-on:click="removeFromCollection" id="removeButton"></i>
+    <div class="item-container">
+        <div class="items-left">
+            <div class="game-image-list" :style="{ backgroundImage: `url(${game.background_image})` }"></div>
+            <div>
+                <p>Name: {{ game.name }}</p>
+                <p>Released: {{ game.released }}</p>
+                <p>Metacritic: {{ game.metacritic }}</p>
+                <p>User Ratings: {{ game.rating }}</p>
+                <p>Playtime: {{ game.playtime }}</p>
+            </div>
+        </div>
+        <div class="items-right">
+            <div class="items-right-top">
+                <button class="description-button" v-on:click="addGameToBacklog">Add to Backlog</button>
+                <button>Edit Info</button>
+            </div>
+            <div class="items-right-bottom">
+                <button id="removeButton" v-on:click="removeFromCollection"><i class="fa-solid fa-trash-can"  ></i> Delete</button>
+            </div>
+
         </div>
     </div>
+
+    <hr>
 </template>
 
 <script>
 import CollectionService from '../services/CollectionService';
 import BacklogService from '../services/BacklogService';
-import '../assets/main.css'
 
 export default {
     data() {
@@ -42,6 +51,7 @@ export default {
                 .then((response) => {
                     console.log('Successfully deleted game from collection');
                     alert('Successfully removed game from collection');
+                    // this.$router.push({ name: 'collection'});
                 })
                 .catch((error) => {
                     alert('Unable to delete from Collection');
@@ -67,7 +77,5 @@ export default {
 </script>
 
 <style scoped>
-#removeButton:hover {
-    cursor: pointer;
-}
+
 </style>

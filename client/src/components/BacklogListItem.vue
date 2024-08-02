@@ -1,18 +1,27 @@
 <template>
-    <div class="game-card">
-        <div class="game-image-card" :style="{ backgroundImage: `url(${game.background_image})` }"></div>
-        <div class="game-data">
-            <p>Title: {{ game.name }}</p>
-            <p>Released: {{ game.released }}</p>
-            <p>Platforms: </p>
-            <p>Genres: </p>
-            <p v-if="game.playtime > 0">Playtime: {{ game.playtime }} hrs</p>
-            <p v-if="game.metacritic > 0">Metacritic: {{ game.metacritic }} </p>
-
-            <button>Edit Info</button>
-            <button><i class="fa-solid fa-trash-can" v-on:click="removeFromBacklog" id="removeButton"></i></button>
+    <div class="item-container">
+        <div class="items-left">
+            <div class="game-image-list" :style="{ backgroundImage: `url(${game.background_image})` }"></div>
+            <div>
+                <p>Name: {{ game.name }}</p>
+                <p>Released: {{ game.released }}</p>
+                <p>Metacritic: {{ game.metacritic }}</p>
+                <p>User Ratings: {{ game.rating }}</p>
+                <p>Playtime: {{ game.playtime }}</p>
+            </div>
+        </div>
+        <div class="items-right">
+            <div class="items-right-top">
+                <button>Edit Info</button>
+            </div>
+            <div class="items-right-bottom">
+                <button v-on:click="removeFromBacklog"><i class="fa-solid fa-trash-can" id="removeButton"></i> Delete</button>
+            </div>
+            
         </div>
     </div>
+
+    <hr>
 </template>
 
 <script>
