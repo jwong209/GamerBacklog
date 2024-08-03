@@ -67,6 +67,28 @@ public class BacklogService {
         return gameRemoved;
     }
 
+    public BacklogGame getBacklogGame(int backlogId, int gameId, Principal principal) {
+        BacklogGame backlogGame = null;
+
+        User user = getUser(principal);
+        if (user != null) {
+            backlogGame = backlogGameDao.getBacklogGame(backlogId, gameId);
+        }
+
+        return backlogGame;
+    }
+
+    public BacklogGame updateBacklogGame(BacklogGame modifiedBacklogGame, Principal principal) {
+        BacklogGame backlogGame = null;
+
+        User user = getUser(principal);
+        if (user != null) {
+            backlogGame = backlogGameDao.updateBacklogGame(modifiedBacklogGame);
+        }
+
+        return backlogGame;
+    }
+
     /*
      * Helper method to get the User object from the Principal.
      */

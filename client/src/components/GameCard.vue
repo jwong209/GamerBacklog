@@ -6,7 +6,7 @@
             <p><strong>Released: </strong>{{ game.released }}</p>
             <p><strong>Playtime: </strong>{{ game.playtime }} hrs</p>
             <p><strong>Metacritic: </strong>{{ game.metacritic }} </p>
-            <p><strong>User Ratings: </strong>{{ game.rating }}</p>
+            <p><strong>User Rating: </strong>{{ game.rating }}</p>
             <button class="description-button" v-on:click="addToCollection">Add to Collection</button>
             <button class="description-button" v-on:click="addToBacklog">Add to Backlog</button>
         </div>

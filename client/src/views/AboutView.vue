@@ -10,7 +10,6 @@
             pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est
             laborum.</p>
     </section>
-    <i class="fa-solid fa-trash-can" v-on:click="removeFromCollection" id="removeButton"></i>
 
     <button type="button" class="btn" @click="showModal">Open Modal!</button>
     <modal-backlog v-show="isModalVisible" @close="closeModal" />

@@ -77,4 +77,58 @@ public class JdbcBacklogGameDao implements BacklogGameDao{
         return gameIds;
     }
 
+    @Override
+    public BacklogGame getBacklogGame(int backlogId, int gameId) {
+        BacklogGame backlogGame = null;
+
+        String sql = "SELECT * " +
+                "FROM backlog_game " +
+                "WHERE backlog_id = ? AND game_id = ?;";
+
+        try {
+            SqlRowSet results = jdbcTemplate.queryForRowSet(sql, backlogId, gameId);
+            if (results.next()) {
+                backlogGame = mapRowToBacklogGame(results);
+            }
+        } catch (CannotGetJdbcConnectionException e) {
+            throw new DaoException("Error occurred: " + e);
+        }
+
+        return backlogGame;
+    }
+
+    @Override
+    public BacklogGame updateBacklogGame(BacklogGame backlogGame) {
+        BacklogGame updatedBacklogGame = null;
+
+        String sql = "UPDATE backlog_game SET progress = ?, priority = ? " +
+                "WHERE backlog_id = ? AND game_id = ?;";
+
+        try {
+            int numberOfRows = jdbcTemplate.update(sql, backlogGame.getProgress(), backlogGame.getPriority(), backlogGame.getBacklogId(), backlogGame.getGameId());
+
+            if (numberOfRows == 0) {
+                throw new DaoException("Zero rows affected, expected at least one");
+            } else {
+                // retrieve the updated backlogGame to get any updated fields
+                updatedBacklogGame = getBacklogGame(backlogGame.getBacklogId(), backlogGame.getGameId());
+            }
+        } catch (CannotGetJdbcConnectionException e) {
+            throw new DaoException("Unable to connect to server or database", e);
+        } catch (DataIntegrityViolationException e) {
+            throw new DaoException("Data integrity violation", e);
+        }
+
+        return updatedBacklogGame;
+    }
+
+    private BacklogGame mapRowToBacklogGame(SqlRowSet results) {
+        BacklogGame backlogGame = new BacklogGame();
+        backlogGame.setBacklogId(results.getInt("backlog_id"));
+        backlogGame.setGameId(results.getInt("game_id"));
+        backlogGame.setProgress(results.getString("progress"));
+        backlogGame.setPriority(results.getInt("priority"));
+        return backlogGame;
+    }
+
 }

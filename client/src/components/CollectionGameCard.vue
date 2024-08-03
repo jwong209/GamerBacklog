@@ -8,7 +8,7 @@
             <p>Genres: </p>
             <p v-if="game.playtime > 0">Playtime: {{ game.playtime }} hrs</p>
             <p v-if="game.metacritic > 0">Metacritic: {{ game.metacritic }} </p>
-            <button>Edit Info</button>
+            <button v-on:click="editInfo(game.id)">Edit Info</button>
             <button class="description-button" v-on:click="addGameToBacklog">Add to Backlog</button>
             <i class="fa-solid fa-trash-can" v-on:click="removeFromCollection" id="removeButton"></i>
         </div>
@@ -57,6 +57,9 @@ export default {
                     alert('Unable to add game to backlog');
                 });
         },
+        editInfo() {
+            this.$emit('edit-info', { gameId: this.gameId, collectionId: this.collectionId });
+        }
 
     },
 

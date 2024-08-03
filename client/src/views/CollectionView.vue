@@ -45,10 +45,18 @@
                 v-bind:key="index" 
                 v-bind:backlogId="backlogId"
                 v-bind:collectionId="collectionId"
+                v-on:edit-info="editInfo"
             />
         </div>
        
     </section>
+
+    <modal-collection 
+        v-if="showModal && editInfo"  
+        v-bind:selectedGameId="selectedGameId" 
+        v-bind:collectionId="collectionId"
+        v-on:close="showModal = false"
+    />
 </template>
 
 <script>
@@ -57,6 +65,7 @@ import BacklogService from '../services/BacklogService';
 import Heading from '../components/HeadingComponent.vue';
 import CollectionGameCard from '../components/CollectionGameCard.vue';
 import CollectionListItem from '../components/CollectionListItem.vue';
+import ModalCollection from '../components/ModalCollection.vue';
 
 export default {
     data() {
@@ -70,12 +79,16 @@ export default {
             backlogId: null,
             collectionId: null,
 
+            showModal: false,
+            selectedGameId: null,
+
         }
     },
     components: {
         Heading,
         CollectionGameCard,
         CollectionListItem,
+        ModalCollection,
     },
 
     methods: {
@@ -109,12 +122,16 @@ export default {
                     // alert('Unable to retrieve collection id');
                 });
         },
+        editInfo({ gameId, collectionId }) {
+            this.selectedGameId = gameId;
+            this.showModal = true;
+        },
     },
 
     created() {
+        this.getCollectionGames();
         this.getBacklogId();
         this.getCollectionId();
-        this.getCollectionGames();
 
     }
 }

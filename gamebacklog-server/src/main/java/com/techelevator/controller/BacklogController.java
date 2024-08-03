@@ -95,5 +95,30 @@ public class BacklogController {
         }
     }
 
+    @RequestMapping(path = "/{backlogId}/games/{gameId}", method = RequestMethod.GET)
+    public BacklogGame getBacklogGame(@PathVariable int backlogId, @PathVariable int gameId, Principal principal) {
+        BacklogGame backlogGame = null;
+
+        try {
+            backlogGame = backlogService.getBacklogGame(backlogId, gameId, principal);
+        } catch (DaoException e) {
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
+        }
+
+        return backlogGame;
+    }
+
+    @RequestMapping(path = "/{backlogId}/games/{gameId}", method = RequestMethod.PUT)
+    public BacklogGame updateBacklogGame(@PathVariable int backlogId, @PathVariable int gameId, @Valid @RequestBody BacklogGame modifiedBacklogGame, Principal principal) {
+        BacklogGame backlogGame = null;
+
+        try {
+            backlogGame = backlogService.updateBacklogGame(modifiedBacklogGame, principal);
+        } catch (DaoException e) {
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
+        }
+
+        return backlogGame;
+    }
 
 }

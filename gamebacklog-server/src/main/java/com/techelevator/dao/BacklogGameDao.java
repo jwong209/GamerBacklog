@@ -12,4 +12,7 @@ public interface BacklogGameDao {
 
     List<Integer> getGameIdsInBacklog(int userId);
 
+    BacklogGame getBacklogGame(int backlogId, int gameId);
+
+    BacklogGame updateBacklogGame(BacklogGame backlogGame);
 }
