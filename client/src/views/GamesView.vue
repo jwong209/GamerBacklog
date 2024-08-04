@@ -51,9 +51,21 @@
         </div>
 
         <hr>
+        
+        <loading-spinner v-if="isLoading" v-bind:spin="isLoading" />
+
+        <!-- Pagination buttons -->
+        <div class="pagination" v-if="games.length > 0">
+            <button v-on:click="previousPage" v-bind:disabled="currentPage <= 1"><i
+                    class="fa-solid fa-chevron-left"></i></button>
+            <span> Page {{ currentPage }} </span>
+            <button v-on:click="nextPage" v-bind:disabled="games.length == 0"><i
+                    class="fa-solid fa-chevron-right"></i></button>
+        </div>
 
         <div v-show="isListVisible === true">
-            <game-list-item v-for="(game, index) in games" v-bind:game="game" v-bind:key="index" v-bind:collectionId="collectionId" v-bind:backlogId="backlogId" />
+            <game-list-item v-for="(game, index) in games" v-bind:game="game" v-bind:key="index"
+                v-bind:collectionId="collectionId" v-bind:backlogId="backlogId" />
         </div>
         <div class="cards-area" v-show="isListVisible === false">
             <game-card v-for="(game, index) in games" v-bind:game="game" v-bind:key="index"
@@ -78,15 +90,17 @@ import gameService from '../services/GamesService';
 import Heading from '../components/HeadingComponent.vue';
 import CollectionService from '../services/CollectionService';
 import BacklogService from '../services/BacklogService';
+import LoadingSpinner from '../components/LoadingSpinner.vue';
 
 
 export default {
     data() {
         return {
+            isLoading: false,
             isListVisible: false,
             pageTitle: "Games Library",
             pageDescription: 'Browse from a selection of over 500,000+ titles on 50 platforms ',
-            bgImage: 'src/assets/img/george-flowers-blYe0BupDuQ-unsplash.jpg',
+            bgImage: 'src/assets/img/wp12922844-game-collection-wallpapers.jpg',
             games: [],
             platforms: [],
             genres: [],
@@ -105,11 +119,15 @@ export default {
         Heading,
         gameCard,
         GameListItem,
+        LoadingSpinner,
 
     },
 
     methods: {
         searchGames() {
+            this.isLoading = true;
+            this.games = [];
+
             const params = {
                 name: this.searchName,
                 platforms: this.searchPlatforms,
@@ -120,8 +138,10 @@ export default {
             gameService.searchGames(params)
                 .then((response) => {
                     this.games = response.data;
+                    this.isLoading = false;
                 })
                 .catch((error) => {
+                    this.isLoading = false;
                     alert('Unable to fetch games');
                 });
         },
@@ -186,6 +206,7 @@ export default {
         this.getGenres();
         this.getBacklogId();
         this.getCollectionId();
+        this.searchGames();
     }
 }
 
@@ -239,9 +260,12 @@ label {
     display: flex;
     justify-content: center;
     align-items: center;
+    margin: 20px auto;
 }
 
 .pagination span {
     margin: 0 15px;
 }
+
+
 </style>

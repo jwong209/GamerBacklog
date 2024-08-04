@@ -23,6 +23,7 @@ export default {
     display: flex;
     flex-direction: column;
     padding: 20px;
+    margin-bottom: 50px;
 }
 
 .inner-container {

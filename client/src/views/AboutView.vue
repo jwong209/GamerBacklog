@@ -11,6 +11,8 @@
             laborum.</p>
     </section>
 
+    <loading-spinner />
+
     <button type="button" class="btn" @click="showModal">Open Modal!</button>
     <modal-backlog v-show="isModalVisible" @close="closeModal" />
 
@@ -25,6 +27,7 @@
 <script>
 import Heading from '../components/HeadingComponent.vue';
 import ModalBacklog from '../components/ModalBacklog.vue';
+import LoadingSpinner from '../components/LoadingSpinner.vue';
 
 export default {
     data() {
@@ -37,6 +40,7 @@ export default {
     components: {
         Heading,
         ModalBacklog,
+        LoadingSpinner
     },
 
     methods: {

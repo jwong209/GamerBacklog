@@ -3,15 +3,15 @@
     <div class="modal-backdrop">
       <div class="modal" role="dialog" aria-labelledby="modalTitle" aria-describedby="modalDescription">
         <header class="modal-header" id="modalTitle">
-          <slot name="header">Default Title</slot>
+          <slot name="header">Edit Backlog Status</slot>
           <button type="button" class="btn-close" @click="close" aria-label="Close modal">x</button>
         </header>
 
         <section class="modal-body" id="modalDescription">
           <slot name="body">
-            <form>
-              <label>Priority</label>
-              <select id="priority" v-model="priority">
+            <form v-on:submit.prevent="updateBacklogGame">
+              <label>Priority: </label>
+              <select id="priority" v-model="backlogGame.priority">
                 <option value="3">-----</option>
                 <option value="1">1 (Low)</option>
                 <option value="2">2</option>
@@ -20,8 +20,8 @@
                 <option value="5">5 (High)</option>
               </select>
 
-              <label>Progress</label>
-              <textarea v-model="progress" type="text" placeholder="Short description of your progress">
+              <label>Progress: </label>
+              <textarea v-model="backlogGame.progress" type="text" placeholder="Short description of your progress">
               </textarea>
 
               <input type="submit" value="Submit">
@@ -32,7 +32,7 @@
         </section>
 
         <footer class="modal-footer">
-          <slot name="footer">Default Footer</slot>
+          <slot name="footer"></slot>
           <button type="button" class="btn-green" @click="close" aria-label="Close modal">Cancel</button>
         </footer>
       </div>
@@ -41,12 +41,23 @@
 </template>
   
 <script>
+import BacklogService from '../services/BacklogService';
+
 export default {
   data() {
     return {
-      priority: null,
-      progress: '',
+      backlogGame: {
+        "backlogId": this.backlogId,
+        "gameId": this.selectedGameId,
+        "progress": '',
+        "priority": null
+      },
     }
+    
+  },
+
+  computed: {
+    
   },
 
   props: ['selectedGameId', 'backlogId'],
@@ -55,12 +66,17 @@ export default {
     close() {
       this.$emit('close');
     },
-    // submitForm() {
-    //   const formData = {
-    //     gameId: this.selectedGameId,
-    //     backlogId: this.backlogId,
-    //   }
-    // }
+    updateBacklogGame() {
+      BacklogService.updateBacklogGame(this.backlogId, this.selectedGameId, this.backlogGame)
+        .then((response) => {
+          alert('Successfully updated backlog status');
+        })
+        .catch((error) => {
+          alert('Unable to update backlog status');
+        });
+    },
+    
+
   }
 };
 </script>

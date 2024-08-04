@@ -18,4 +18,12 @@ export default {
         return axios.post('/backlogs/user', backlogGame);
     },
 
+    getBacklogGame(backlogId, gameId) {
+        return axios.get(`/backlogs/${backlogId}/games/${gameId}`);
+    },
+
+    updateBacklogGame(backlogId, gameId, backlogGame) {
+        return axios.put(`/backlogs/${backlogId}/games/${gameId}`, backlogGame);
+    },
+
 }

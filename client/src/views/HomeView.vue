@@ -225,7 +225,7 @@ export default {
 
 /* ----------------------  THANKS FOR VISITING SECTION  ---------------------- */
 #extra-section {
-  background-image: linear-gradient(rgba(14, 5, 46, 0.8), rgba(7, 3, 19, 0.8)), url('../assets/img/george-flowers-blYe0BupDuQ-unsplash.jpg');
+  background-image: linear-gradient(rgba(14, 5, 46, 0.8), rgba(7, 3, 19, 0.8)), url('../assets/img/pxfuel.jpg');
   width: 100%;
   max-width: none;
   background-size: cover;

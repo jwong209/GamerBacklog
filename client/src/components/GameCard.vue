@@ -4,11 +4,11 @@
         <div class="game-data">
             <h3>{{ game.name }}</h3>
             <p><strong>Released: </strong>{{ game.released }}</p>
-            <p><strong>Playtime: </strong>{{ game.playtime }} hrs</p>
-            <p><strong>Metacritic: </strong>{{ game.metacritic }} </p>
+            <p v-if="game.playtime > 0"><strong>Average Playtime: </strong>{{ game.playtime }} hrs</p>
+            <p v-if="game.metacritic > 0"><strong>Metacscore: </strong>{{ game.metacritic }} </p>
             <p><strong>User Rating: </strong>{{ game.rating }}</p>
-            <button class="description-button" v-on:click="addToCollection">Add to Collection</button>
-            <button class="description-button" v-on:click="addToBacklog">Add to Backlog</button>
+            <button class="description-button" v-on:click="addToCollection"><i class="fa-solid fa-layer-group"></i> Add to Collection</button>
+            <button class="description-button" v-on:click="addToBacklog"><i class="fa-solid fa-gamepad"></i> Add to Backlog</button>
         </div>
     </div>
 </template>

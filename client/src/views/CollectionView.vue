@@ -28,6 +28,8 @@
 
         <hr>
 
+        <loading-spinner v-if="isLoading" v-bind:spin="isLoading" />
+
         <div v-show="isListVisible === true">
             <collection-list-item 
                 v-for="(game, index) in games" 
@@ -66,14 +68,16 @@ import Heading from '../components/HeadingComponent.vue';
 import CollectionGameCard from '../components/CollectionGameCard.vue';
 import CollectionListItem from '../components/CollectionListItem.vue';
 import ModalCollection from '../components/ModalCollection.vue';
+import LoadingSpinner from '../components/LoadingSpinner.vue';
 
 export default {
     data() {
         return {
+            isLoading: false,
             isListVisible: false,
             pageTitle: "Collection",
             pageDescription: "Manage games you own...",
-            bgImage: 'src/assets/img/george-flowers-blYe0BupDuQ-unsplash.jpg',
+            bgImage: 'src/assets/img/wp12922818-game-collection-wallpapers.jpg',
             games: [],
 
             backlogId: null,
@@ -89,15 +93,19 @@ export default {
         CollectionGameCard,
         CollectionListItem,
         ModalCollection,
+        LoadingSpinner,
     },
 
     methods: {
         getCollectionGames() {
+            this.isLoading = true;
             CollectionService.getGamesInCollection()
                 .then((response) => {
                     this.games = response.data;
+                    this.isLoading = false;
                 })
                 .catch((error) => {
+                    this.isLoading = false;
                     alert('Unable to fetch collection');
                 });
         },

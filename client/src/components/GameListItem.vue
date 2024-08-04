@@ -1,5 +1,7 @@
 <template>
+ 
     <div class="item-container">
+        
         <div class="items-left">
             <div class="game-image-list" :style="{ backgroundImage: `url(${game.background_image})` }"></div>
             <div>
@@ -12,8 +14,8 @@
         </div>
         <div class="items-right">
             <div class="items-right-top">
-                <button class="description-button" v-on:click="addToCollection">Add to Collection</button>
-                <button class="description-button" v-on:click="addToBacklog">Add to Backlog</button>
+                <button class="description-button" v-on:click="addToCollection"><i class="fa-solid fa-layer-group"></i> Add to Collection</button>
+                <button class="description-button" v-on:click="addToBacklog"><i class="fa-solid fa-gamepad"></i> Add to Backlog</button>
             </div>
             <div class="items-right-bottom">
                 <!-- <button>Button</button> -->
@@ -23,9 +25,8 @@
         </div>
 
     </div>
-
-
     <hr>
+
 </template>
 
 <script>

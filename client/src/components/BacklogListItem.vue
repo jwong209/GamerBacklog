@@ -8,6 +8,8 @@
                 <p>Metacritic: {{ game.metacritic }}</p>
                 <p>User Ratings: {{ game.rating }}</p>
                 <p>Playtime: {{ game.playtime }}</p>
+                <!-- <p>Priority: {{ backlogGame.priority }}</p>
+                <p>Progress: {{ backlogGame.progress }}</p> -->
             </div>
         </div>
         <div class="items-right">
@@ -30,7 +32,6 @@ import BacklogService from '../services/BacklogService';
 export default {
     data() {
         return {
-            // backlogId: null,
             gameId: this.game.id,
         }
     },
@@ -38,18 +39,6 @@ export default {
     props: ['game', 'backlogId'],
 
     methods: {
-        // getBacklogId() {
-        //     BacklogService.getBacklogId()
-        //         .then((response) => {
-        //             this.backlogId = response.data;
-        //             // console.log('This is the GameId:' + this.game.id);
-        //             // console.log('This is the backlogId:' + this.backlogId);
-        //         })
-        //         .catch((error) => {
-        //             alert('Unable to retrieve id');
-        //         });
-        // },
-
         removeFromBacklog() {
             BacklogService.removeGameFromBacklog(this.backlogId, this.gameId)
                 .then((response) => {
@@ -59,12 +48,22 @@ export default {
                 .catch((error) => {
                     alert('Unable to delete from Backlog');
                 });
-        }
+        },
+        getBacklogGame() {
+            BacklogService.getBacklogGame(this.backlogId, this.gameId)
+                .then((response) => {
+                    this.backlogGame = response.data;
+                    console.log('Successfully retrieved backlog info');
+                })
+                .catch((error) => {
+                    alert('Unable to get backlog information');
+                });
+        },
 
     },
 
     created() {
-        // this.getBacklogId();
+        // this.getBacklogGame();
     }
 }
 
