@@ -31,7 +31,7 @@
                     </div>
 
                     <form action="/action_page.php">
-                        <input type="text" placeholder="Search.." name="search" class="search-pair-input">
+                        <input type="text" placeholder="Search game library" name="search" class="search-pair-input">
                         <button type="submit" class="search-pair-btn"><i class="fa fa-search"></i></button>
                     </form>
 
@@ -164,20 +164,16 @@ header {
     30% {
         transform: scale(1.2);
     }
-
     40%,
     60% {
         transform: rotate(-20deg) scale(1.2);
     }
-
     50% {
         transform: rotate(20deg) scale(1.2);
     }
-
     70% {
         transform: rotate(0deg) scale(1.2);
     }
-
     100% {
         transform: scale(1);
     }

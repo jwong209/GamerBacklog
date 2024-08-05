@@ -2,10 +2,10 @@
     <div class="game-card">
         <div class="game-image-card" :style="{ backgroundImage: `url(${game.background_image})` }"></div>
         <div class="game-data">
-            <p>Title: {{ game.name }}</p>
+            <p>{{ game.name }}</p>
             <p>Released: {{ game.released }}</p>
-            <p>Platform: Owned game on this platform</p>
-            <p>Genres: </p>
+            <p>Platform: </p>
+            <!-- <p>Genres: </p> -->
             <p v-if="game.playtime > 0">Playtime: {{ game.playtime }} hrs</p>
             <p v-if="game.metacritic > 0">Metacritic: {{ game.metacritic }} </p>
             <button v-on:click="editInfo(game.id)">Edit Info</button>

@@ -54,6 +54,7 @@
         
         <loading-spinner v-if="isLoading" v-bind:spin="isLoading" />
 
+
         <!-- Pagination buttons -->
         <div class="pagination" v-if="games.length > 0">
             <button v-on:click="previousPage" v-bind:disabled="currentPage <= 1"><i
@@ -202,10 +203,10 @@ export default {
     },
 
     created() {
-        this.getPlatforms();
-        this.getGenres();
         this.getBacklogId();
         this.getCollectionId();
+        this.getGenres();
+        this.getPlatforms();
         this.searchGames();
     }
 }

@@ -6,12 +6,13 @@
 
         <div class="section-heading">
             <h2><i class="fa-solid fa-gamepad"></i>{{ games.length }} games in BACKLOG</h2>
-            <form action="/action_page.php">
+
+            <form action="/action_page.php" id="search-list">
                 <input type="text" placeholder="Search my backlog" name="search" class="search-pair-input">
                 <button type="submit" class="search-pair-btn"><i class="fa fa-search"></i></button>
             </form>
-            <div class="section-heading-left">
 
+            <div class="section-heading-left">
                 <div class="display-option">
                     <button class="display-button" v-bind:disabled="isListVisible === false"
                         v-on:click="isListVisible = false">
@@ -23,36 +24,35 @@
                     </button>
                 </div>
             </div>
+
         </div>
 
         <hr>
 
-        <loading-spinner v-if="isLoading" v-bind:spin="isLoading" />
+        <div class="display-area">
+            <filter-options />
+            <loading-spinner v-if="isLoading" v-bind:spin="isLoading" />
 
-        <div v-show="isListVisible === true">
+
             <!-- <ul>
                 <li v-for="(game, index) in games" v-bind:game="game" v-bind:key="index">
                     ID: {{ game.id }} Name: {{ game.name }} Released: {{ game.released }} Metacritic: {{ game.metacritic }}
                     UserRatings: {{ game.rating }} Playtime: {{ game.playtime }}
                 </li>
             </ul> -->
-            <backlog-list-item 
-                v-for="(game, index) in games" 
-                v-bind:game="game" 
-                v-bind:key="index"
-                v-bind:backlogId="backlogId" 
-            />
+            <div class="list-area" v-show="isListVisible === true">
+                <backlog-list-item v-for="(game, index) in games" v-bind:game="game" v-bind:key="index"
+                    v-bind:backlogId="backlogId" />
+            </div>
+
+
+            <div class="cards-area" v-show="isListVisible === false">
+                <!-- <backlog-game-card v-for="(game, index) in games" v-bind:game="game" v-bind:key="index" v-bind:backlogId="backlogId" v-on:edit-info="editInfo = $event; showModal = true" /> -->
+                <backlog-game-card v-for="(game, index) in games" v-bind:game="game" v-bind:key="index"
+                    v-bind:backlogId="backlogId" v-on:edit-info="editInfo" />
+            </div>
         </div>
 
-        <div class="cards-area" v-show="isListVisible === false">
-            <!-- <backlog-game-card v-for="(game, index) in games" v-bind:game="game" v-bind:key="index" v-bind:backlogId="backlogId" v-on:edit-info="editInfo = $event; showModal = true" /> -->
-            <backlog-game-card 
-                v-for="(game, index) in games" 
-                v-bind:game="game" v-bind:key="index"
-                v-bind:backlogId="backlogId" 
-                v-on:edit-info="editInfo" 
-            />
-        </div>
     </section>
 
     <modal-backlog v-if="showModal && editInfo" v-bind:selectedGameId="selectedGameId" v-bind:backlogId="backlogId"
@@ -66,6 +66,7 @@ import BacklogGameCard from '../components/BacklogGameCard.vue';
 import BacklogListItem from '../components/BacklogListItem.vue';
 import ModalBacklog from '../components/ModalBacklog.vue';
 import LoadingSpinner from '../components/LoadingSpinner.vue';
+import FilterOptions from '../components/FilterOptions.vue';
 
 
 export default {
@@ -90,6 +91,7 @@ export default {
         BacklogListItem,
         ModalBacklog,
         LoadingSpinner,
+        FilterOptions,
 
     },
 

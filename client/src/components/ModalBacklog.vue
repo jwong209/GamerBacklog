@@ -10,31 +10,39 @@
         <section class="modal-body" id="modalDescription">
           <slot name="body">
             <form v-on:submit.prevent="updateBacklogGame">
-              <label>Priority: </label>
-              <select id="priority" v-model="backlogGame.priority">
-                <option value="3">-----</option>
-                <option value="1">1 (Low)</option>
-                <option value="2">2</option>
-                <option value="3">3 (Medium)</option>
-                <option value="4">4</option>
-                <option value="5">5 (High)</option>
-              </select>
+              <div id="form-top">
+                <label for="priority-form">Priority: </label>
+                <select id="priority-form" name="priority-form" v-model="backlogGame.priority">
+                  <option value="3">-----</option>
+                  <option value="1">1 (Low)</option>
+                  <option value="2">2</option>
+                  <option value="3">3 (Medium)</option>
+                  <option value="4">4</option>
+                  <option value="5">5 (High)</option>
+                </select>
 
-              <label>Progress: </label>
-              <textarea v-model="backlogGame.progress" type="text" placeholder="Short description of your progress">
+                <label>Progress: </label>
+                <textarea v-model="backlogGame.progress" type="text" placeholder="Enter progress notes">
               </textarea>
+              </div>
 
-              <input type="submit" value="Submit">
-              <input type="reset" value="Reset">
+              <div id="form-bottom">
+                <button type="button" class="secondary" @click="close" aria-label="Close modal">Cancel</button>
+
+                <button type="submit" value="Submit" class="primary">Submit</button>
+              </div>
+
+
+              <!-- <input type="reset" value="Reset"> -->
             </form>
 
           </slot>
         </section>
 
-        <footer class="modal-footer">
-          <slot name="footer"></slot>
-          <button type="button" class="btn-green" @click="close" aria-label="Close modal">Cancel</button>
-        </footer>
+        <!-- <footer class="modal-footer">
+          <slot name="footer">
+          </slot>
+        </footer> -->
       </div>
     </div>
   </transition>
@@ -53,11 +61,11 @@ export default {
         "priority": null
       },
     }
-    
+
   },
 
   computed: {
-    
+
   },
 
   props: ['selectedGameId', 'backlogId'],
@@ -70,18 +78,19 @@ export default {
       BacklogService.updateBacklogGame(this.backlogId, this.selectedGameId, this.backlogGame)
         .then((response) => {
           alert('Successfully updated backlog status');
+          this.close();
         })
         .catch((error) => {
           alert('Unable to update backlog status');
         });
     },
-    
+
 
   }
 };
 </script>
 
-<style>
+<style scoped>
 .modal-backdrop {
   position: fixed;
   top: 0;
@@ -100,18 +109,19 @@ export default {
   overflow-x: auto;
   display: flex;
   flex-direction: column;
+  border-radius: 12px 12px 10px 10px;
 }
 
 .modal-header,
 .modal-footer {
   padding: 15px;
-  display: flex;
+  /* display: flex; */
 }
 
 .modal-header {
   position: relative;
-  border-bottom: 1px solid #eeeeee;
-  color: #4AAE9B;
+  border-bottom: 1px solid #7c7c7c;
+  color: #000000;
   justify-content: space-between;
 }
 
@@ -122,8 +132,32 @@ export default {
 
 .modal-body {
   position: relative;
-  padding: 20px 10px;
-  
+  padding: 15px;
+}
+
+
+
+section {
+  margin: 0;
+  padding: 0;
+}
+
+
+#form-top {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 15px;
+}
+
+#form-bottom {
+  display: flex;
+  justify-content: flex-end;
+  column-gap: 8px;
+}
+
+textarea {
+  height: 250px;
+  width: 350px
 }
 
 .btn-close {
@@ -155,4 +189,6 @@ export default {
 .modal-fade-leave-active {
   transition: opacity .5s ease;
 }
+
+.dark-mode {}
 </style>

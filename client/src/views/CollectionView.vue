@@ -1,7 +1,6 @@
 <template>
-    <heading v-bind:pageTitle="pageTitle" v-bind:bgImage="bgImage" v-bind:pageDescription="pageDescription"/>
+    <heading v-bind:pageTitle="pageTitle" v-bind:bgImage="bgImage" v-bind:pageDescription="pageDescription" />
     <section>
-        <h2>Games in COLLECTION: {{ games.length }}</h2>
         <!-- <ul>
             <li v-for="(game, index) in games" v-bind:game="game" v-bind:key="index">
                 image url: {{ game.background_image }}
@@ -9,10 +8,24 @@
                 UserRatings: {{ game.rating }} Playtime: {{ game.playtime }}
             </li>
         </ul> -->
-   
+
         <div class="section-heading">
-            <h2><i class="fa-solid fa-gamepad"></i>...</h2>
+            <h2><i class="fa-solid fa-layer-group"></i>{{ games.length }} games</h2>
+
+            <form action="/action_page.php" id="search-list">
+                <input type="text" placeholder="Search this collection" name="search" class="search-pair-input">
+                <button type="submit" class="search-pair-btn"><i class="fa fa-search"></i></button>
+            </form>
+
             <div class="section-heading-left">
+                <select>
+                    <option>Sort by: </option>
+                    <option>Name</option>
+                    <option>Release date</option>
+                    <option>Metacritic Score</option>
+                    <option>User Score</option>
+                    <option>Playtime</option>
+                </select>
                 <div class="display-option">
                     <button class="display-button" v-bind:disabled="isListVisible === false"
                         v-on:click="isListVisible = false">
@@ -24,44 +37,34 @@
                     </button>
                 </div>
             </div>
+
         </div>
 
         <hr>
+        
+        <div class="display-area">
+            <filter-options />
+            <loading-spinner v-if="isLoading" v-bind:spin="isLoading" />
 
-        <loading-spinner v-if="isLoading" v-bind:spin="isLoading" />
-
-        <div v-show="isListVisible === true">
-            <collection-list-item 
-                v-for="(game, index) in games" 
-                v-bind:game="game" 
-                v-bind:key="index" 
-                v-bind:backlogId="backlogId"
-                v-bind:collectionId="collectionId" 
-            />
+            <div class="list-area" v-show="isListVisible === true">
+                <collection-list-item v-for="(game, index) in games" v-bind:game="game" v-bind:key="index"
+                v-bind:backlogId="backlogId" v-bind:collectionId="collectionId" />
+            </div>
+            
+            <div class="cards-area" v-show="isListVisible === false">
+                <collection-game-card v-for="(game, index) in games" v-bind:game="game" v-bind:key="index"
+                v-bind:backlogId="backlogId" v-bind:collectionId="collectionId" v-on:edit-info="editInfo" />
+            </div>
         </div>
-
-        <div class="cards-area" v-show="isListVisible === false">
-            <collection-game-card 
-                v-for="(game, index) in games" 
-                v-bind:game="game" 
-                v-bind:key="index" 
-                v-bind:backlogId="backlogId"
-                v-bind:collectionId="collectionId"
-                v-on:edit-info="editInfo"
-            />
-        </div>
-       
+            
     </section>
 
-    <modal-collection 
-        v-if="showModal && editInfo"  
-        v-bind:selectedGameId="selectedGameId" 
-        v-bind:collectionId="collectionId"
-        v-on:close="showModal = false"
-    />
+    <modal-collection v-if="showModal && editInfo" v-bind:selectedGameId="selectedGameId" v-bind:collectionId="collectionId"
+        v-on:close="showModal = false" />
 </template>
 
 <script>
+import '../assets/main.css'
 import CollectionService from '../services/CollectionService';
 import BacklogService from '../services/BacklogService';
 import Heading from '../components/HeadingComponent.vue';
@@ -69,6 +72,7 @@ import CollectionGameCard from '../components/CollectionGameCard.vue';
 import CollectionListItem from '../components/CollectionListItem.vue';
 import ModalCollection from '../components/ModalCollection.vue';
 import LoadingSpinner from '../components/LoadingSpinner.vue';
+import FilterOptions from '../components/FilterOptions.vue';
 
 export default {
     data() {
@@ -76,7 +80,7 @@ export default {
             isLoading: false,
             isListVisible: false,
             pageTitle: "Collection",
-            pageDescription: "Manage games you own...",
+            pageDescription: "Keep track of the games you own",
             bgImage: 'src/assets/img/wp12922818-game-collection-wallpapers.jpg',
             games: [],
 
@@ -94,6 +98,7 @@ export default {
         CollectionListItem,
         ModalCollection,
         LoadingSpinner,
+        FilterOptions,
     },
 
     methods: {
@@ -151,4 +156,7 @@ export default {
 h1 {
     color: orange;
 }
+
+
+
 </style>
