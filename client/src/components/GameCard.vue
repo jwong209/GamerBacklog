@@ -2,7 +2,8 @@
     <div class="game-card">
         <div class="game-image-card" :style="{ backgroundImage: `url(${game.background_image})` }"></div>
         <div class="game-data">
-            <h3>{{ game.name }}</h3>
+            <router-link v-bind:to="{ name: 'game', params: { gameId: gameId } }"><h3>{{ game.name }}</h3></router-link>
+            
             <p><strong>Released: </strong>{{ game.released }}</p>
             <p v-if="game.playtime > 0"><strong>Average Playtime: </strong>{{ game.playtime }} hrs</p>
             <p v-if="game.metacritic > 0"><strong>Metacscore: </strong>{{ game.metacritic }} </p>

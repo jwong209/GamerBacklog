@@ -13,6 +13,8 @@ public class Game {
     private Double rating;
     private int metacritic;
     private int playtime;
+    private String website;
+    private String description;
 
     public Game() {
     }
@@ -25,6 +27,22 @@ public class Game {
         this.rating = rating;
         this.metacritic = metacritic;
         this.playtime = playtime;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getWebsite() {
+        return website;
+    }
+
+    public void setWebsite(String website) {
+        this.website = website;
     }
 
     public String getBackgroundImage() {

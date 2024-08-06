@@ -1,5 +1,16 @@
 <template>
     <div class="filter-container">
+
+        <div class="filter-card">
+            <div class="filter-heading">
+                <h4>Format</h4>
+            </div>
+            <ul>
+                <li>Digital</li>
+                <li>Physical</li>
+            </ul>
+        </div>
+
         <div class="filter-card">
             <div class="filter-heading">
                 <h4>Genre</h4>
@@ -27,15 +38,7 @@
             </ul>
         </div>
 
-        <div class="filter-card">
-            <div class="filter-heading">
-                <h4>Format</h4>
-            </div>
-            <ul>
-                <li>Digital</li>
-                <li>Physical</li>
-            </ul>
-        </div>
+        
     </div>
 </template>
 

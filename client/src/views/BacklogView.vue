@@ -5,7 +5,7 @@
         <h2></h2>
 
         <div class="section-heading">
-            <h2><i class="fa-solid fa-gamepad"></i>{{ games.length }} games in BACKLOG</h2>
+            <h2><i class="fa-solid fa-gamepad"></i>Found {{ games.length }} games</h2>
 
             <form action="/action_page.php" id="search-list">
                 <input type="text" placeholder="Search my backlog" name="search" class="search-pair-input">
@@ -55,7 +55,7 @@
 
     </section>
 
-    <modal-backlog v-if="showModal && editInfo" v-bind:selectedGameId="selectedGameId" v-bind:backlogId="backlogId"
+    <modal-backlog v-if="showModal" v-bind:selectedGameId="selectedGameId" v-bind:backlogId="backlogId"
         v-on:close="showModal = false" />
 </template>
 

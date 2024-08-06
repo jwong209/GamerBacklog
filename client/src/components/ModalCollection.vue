@@ -12,6 +12,23 @@
             <form>
 
               <div id="form-top">
+                <label>Format:</label>
+                <div>
+                  <input type="radio" id="digital" name="owned-format" value="Digital" v-model="ownedFormat">
+                  <label for="digital">Digital</label>
+                </div>
+                <div>
+                  <input type="radio" id="physical" name="owned-format" value="Physical" v-model="ownedFormat">
+                  <label for="physical">Physical</label>
+                </div>
+                <label>Platform:</label>
+                <select v-model="ownedPlatform">
+                  <option value="">-----</option>
+                  <option value="1">daslfjka;lkf</option>
+
+                </select>
+
+
                 <label>Notes: </label>
                 <textarea v-model="notes" type="text" placeholder="Enter notes">
                 </textarea>
@@ -40,8 +57,10 @@
 export default {
   data() {
     return {
-      platform: '',
+      ownedPlatform: '',
+      ownedFormat: '',
       notes: '',
+
     }
   },
 
@@ -132,7 +151,7 @@ section {
 }
 
 textarea {
-  height: 250px;
+  height: 150px;
   width: 350px
 }
 

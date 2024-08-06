@@ -10,11 +10,11 @@
         </ul> -->
 
         <div class="section-heading">
-            <h2><i class="fa-solid fa-layer-group"></i>{{ games.length }} games</h2>
+            <h2><i class="fa-solid fa-layer-group"></i>Found {{ filteredList.length }} games</h2>
 
-            <form action="/action_page.php" id="search-list">
-                <input type="text" placeholder="Search this collection" name="search" class="search-pair-input">
-                <button type="submit" class="search-pair-btn"><i class="fa fa-search"></i></button>
+            <form action="/action_page.php" id="search-list" v-on:submit.prevent="filterByName">
+                <input type="text" placeholder="Search this collection" name="search" v-model="searchedName">
+                <!-- <button type="submit" class="search-pair-btn"><i class="fa fa-search"></i></button> -->
             </form>
 
             <div class="section-heading-left">
@@ -52,14 +52,15 @@
             </div>
             
             <div class="cards-area" v-show="isListVisible === false">
-                <collection-game-card v-for="(game, index) in games" v-bind:game="game" v-bind:key="index"
+                <collection-game-card v-for="(game, index) in filteredList" v-bind:game="game" v-bind:key="index"
                 v-bind:backlogId="backlogId" v-bind:collectionId="collectionId" v-on:edit-info="editInfo" />
+
             </div>
         </div>
             
     </section>
 
-    <modal-collection v-if="showModal && editInfo" v-bind:selectedGameId="selectedGameId" v-bind:collectionId="collectionId"
+    <modal-collection v-if="showModal" v-bind:selectedGameId="selectedGameId" v-bind:collectionId="collectionId"
         v-on:close="showModal = false" />
 </template>
 
@@ -90,6 +91,8 @@ export default {
             showModal: false,
             selectedGameId: null,
 
+            searchedName: '',
+
         }
     },
     components: {
@@ -99,6 +102,18 @@ export default {
         ModalCollection,
         LoadingSpinner,
         FilterOptions,
+    },
+
+    computed: {
+        filteredList() {
+            let filteredGames = this.games;
+
+            if (this.searchedName != "") {
+                filteredGames = filteredGames.filter((game) => game.name.toLowerCase().includes(this.searchedName.toLowerCase()));
+            }
+
+            return filteredGames;
+        },
     },
 
     methods: {
@@ -139,6 +154,7 @@ export default {
             this.selectedGameId = gameId;
             this.showModal = true;
         },
+       
     },
 
     created() {

@@ -156,7 +156,7 @@ section {
 }
 
 textarea {
-  height: 250px;
+  height: 150px;
   width: 350px
 }
 

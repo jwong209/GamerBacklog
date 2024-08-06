@@ -10,6 +10,7 @@ import AboutView from '../views/AboutView.vue'
 import CollectionView from '../views/CollectionView.vue'
 import BacklogView from '../views/BacklogView.vue'
 import GamesView from '../views/GamesView.vue'
+import GameDetails from '../views/GameDetails.vue'
 
 
 /**
@@ -65,6 +66,14 @@ const routes = [
       path: "/games",
       name: "games",
       component: GamesView,
+      meta: {
+        requiresAuth: false
+      }
+    },
+    {
+      path: "/games/:gameId",
+      name: "game",
+      component: GameDetails,
       meta: {
         requiresAuth: false
       }
