@@ -12,14 +12,14 @@
           required
           autofocus
         />
-        <label for="name">Name</label>
+        <!-- <label for="name">Name</label>
         <input
           type="text"
           id="name"
           placeholder="Name"
           v-model="user.name"
           required
-        />
+        /> -->
         <label for="password">Password</label>
         <input
           type="password"
@@ -37,7 +37,7 @@
           required
         />
 
-        <label for="address">Address</label>
+        <!-- <label for="address">Address</label>
         <input
           type="text"
           id="address"
@@ -67,7 +67,7 @@
           required
           minlength="5"
           maxlength="5"
-        />
+        /> -->
         <div></div>
         <div>
           <button type="submit">Create Account</button>

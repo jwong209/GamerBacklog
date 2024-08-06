@@ -5,40 +5,72 @@
             <div class="filter-heading">
                 <h4>Format</h4>
             </div>
-            <ul>
-                <li>Digital</li>
-                <li>Physical</li>
-            </ul>
+            <div class="filter-body">
+                <ul>
+                    <li>Digital</li>
+                    <li>Physical</li>
+                </ul>
+            </div>
         </div>
+
+        <div class="filter-card">
+            <div class="filter-heading">
+                <h4>Metacritic Score</h4>
+            </div>
+            <div class="filter-body">
+                <form v-on:submit.prevent>
+                    <label>Min Score:</label>
+                    <input type="number" id="metacritic-input">
+                    <button>></button>
+                </form>
+            </div>
+        </div>
+
+        <div class="filter-card">
+            <div class="filter-heading">
+                <h4>Platform</h4>
+            </div>
+            <div class="filter-body">
+                <ul>
+                    <li>Nintendo Switch</li>
+                    <li>Playstation 5</li>
+                    <li>Xbox Series X/S</li>
+                </ul>
+            </div>
+        </div>
+
+
 
         <div class="filter-card">
             <div class="filter-heading">
                 <h4>Genre</h4>
             </div>
-            <ul>
-                <li>Action</li>
-                <li>Indie</li>
-                <li>Adventure</li>
-                <li>RPG</li>
-                <li>Strategy</li>
-                <li>Shooter</li>
-                <li>Casual</li>
-                <li>Simulation</li>
-                <li>Puzzle</li>
-                <li>Arcade</li>
-                <li>Platformer</li>
-                <li>Racing</li>
-                <li>Massively Multiplayer</li>
-                <li>Sports</li>
-                <li>Fighting</li>
-                <li>Family</li>
-                <li>Board Games</li>
-                <li>Educational</li>
-                <li>Card</li>
-            </ul>
+            <div class="filter-body">
+                <ul>
+                    <li>Action</li>
+                    <li>Indie</li>
+                    <li>Adventure</li>
+                    <li>RPG</li>
+                    <li>Strategy</li>
+                    <li>Shooter</li>
+                    <li>Casual</li>
+                    <li>Simulation</li>
+                    <li>Puzzle</li>
+                    <li>Arcade</li>
+                    <li>Platformer</li>
+                    <li>Racing</li>
+                    <li>Massively Multiplayer</li>
+                    <li>Sports</li>
+                    <li>Fighting</li>
+                    <li>Family</li>
+                    <li>Board Games</li>
+                    <li>Educational</li>
+                    <li>Card</li>
+                </ul>
+            </div>
         </div>
 
-        
+
     </div>
 </template>
 
@@ -48,7 +80,7 @@
 
 <style scoped>
 .filter-card {
-    width: 230px;
+    width: 210px;
     border: 1px solid grey;
     border-radius: 3px;
     margin-bottom: 10px;
@@ -64,6 +96,10 @@
     margin: 0;
 }
 
+.filter-body {
+    padding: 3px 8px 3px 8px;
+}
+
 ul {
     list-style-type: none;
     margin: 0;
@@ -72,12 +108,17 @@ ul {
 
 li {
     width: 100%;
-    padding: 3px 8px 3px 8px;
 }
 
 li:hover {
     background-color: rgb(226, 226, 226);
     cursor: pointer;
+}
+
+
+#metacritic-input {
+    width: 50px;
+    margin-left: 5px;
 }
 
 .dark-mode {

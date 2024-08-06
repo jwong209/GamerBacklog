@@ -4,16 +4,23 @@
     <section class="game-details-section">
         <div class="game-details-left">
             <div class="image-container" :style="{ backgroundImage: `url(${game.background_image})` }"></div>
+            
+            
             <button>Add to Collection</button>
             <button>Add to Backlog</button>
-
         </div>
         <div class="game-details-right">
             <h2>{{ game.name }}</h2>
-            <p>Metacritic score: {{ game.metacritic }}</p>
-            <p>Released: {{ game.released }}</p>
-            <p>Average playtime: {{ game.playtime }} hrs</p>
-            <p> {{ game.description }}</p>
+            <p>Metacritic score:<br> {{ game.metacritic }}</p>
+            <p>Platforms:</p>
+            <p>Genres:</p>
+            <p>Developer:</p>
+            <p>Publisher:</p>
+            <p>Released:<br> {{ game.released }}</p>
+            <p>Average playtime:<br> {{ game.playtime }} hrs</p>
+            
+            <h3>About</h3>
+            <p>{{ game.description_raw }}</p>
             
             <a :href="game.website" target="_blank">{{ game.website }}</a>
 
@@ -69,6 +76,7 @@ export default {
 <style scoped>
 .game-details-section {
     display: flex;
+    column-gap: 40px;
 
 }
 

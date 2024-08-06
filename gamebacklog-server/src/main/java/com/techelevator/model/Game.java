@@ -14,6 +14,7 @@ public class Game {
     private int metacritic;
     private int playtime;
     private String website;
+    @JsonProperty("description_raw")
     private String description;
 
     public Game() {

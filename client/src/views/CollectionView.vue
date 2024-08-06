@@ -18,9 +18,10 @@
             </form>
 
             <div class="section-heading-left">
-                <select>
-                    <option>Sort by: </option>
-                    <option>Name</option>
+                <select name="sort-select" v-model="sortBySelection">
+                    <option value="">Sort by: </option>
+                    <option value="Name A-Z">Name (A-Z)</option>
+                    <option value="Name Z-A">Name (Z-A)</option>
                     <option>Release date</option>
                     <option>Metacritic Score</option>
                     <option>User Score</option>
@@ -41,23 +42,23 @@
         </div>
 
         <hr>
-        
+
         <div class="display-area">
             <filter-options />
             <loading-spinner v-if="isLoading" v-bind:spin="isLoading" />
 
             <div class="list-area" v-show="isListVisible === true">
                 <collection-list-item v-for="(game, index) in games" v-bind:game="game" v-bind:key="index"
-                v-bind:backlogId="backlogId" v-bind:collectionId="collectionId" />
+                    v-bind:backlogId="backlogId" v-bind:collectionId="collectionId" />
             </div>
-            
+
             <div class="cards-area" v-show="isListVisible === false">
                 <collection-game-card v-for="(game, index) in filteredList" v-bind:game="game" v-bind:key="index"
-                v-bind:backlogId="backlogId" v-bind:collectionId="collectionId" v-on:edit-info="editInfo" />
+                    v-bind:backlogId="backlogId" v-bind:collectionId="collectionId" v-on:edit-info="editInfo" />
 
             </div>
         </div>
-            
+
     </section>
 
     <modal-collection v-if="showModal" v-bind:selectedGameId="selectedGameId" v-bind:collectionId="collectionId"
@@ -92,7 +93,7 @@ export default {
             selectedGameId: null,
 
             searchedName: '',
-
+            sortBySelection: '',
         }
     },
     components: {
@@ -108,9 +109,40 @@ export default {
         filteredList() {
             let filteredGames = this.games;
 
+            // ----------------- FILTER Conditions  -----------------
+
             if (this.searchedName != "") {
                 filteredGames = filteredGames.filter((game) => game.name.toLowerCase().includes(this.searchedName.toLowerCase()));
             }
+
+            // ----------------- SORTING Conditions  -----------------
+            if (this.sortBySelection === 'Name A-Z') {
+                filteredGames = filteredGames.sort((a, b) => {
+                    const nameA = a.name.toLowerCase();
+                    const nameB = b.name.toLowerCase();
+                    if (nameA < nameB) { 
+                        return -1;        // A comes before B
+                    }
+                    if (nameA > nameB) {  
+                        return 1;         // A comes after B
+                    }
+                    return 0;            // no change
+                })
+            }
+            if (this.sortBySelection === 'Name Z-A') {
+                filteredGames = filteredGames.sort((a, b) => {
+                    const nameA = a.name.toLowerCase();
+                    const nameB = b.name.toLowerCase();
+                    if (nameA < nameB) { 
+                        return -1;        // A comes before B
+                    }
+                    if (nameA > nameB) {  
+                        return 1;         // A comes after B
+                    }
+                    return 0;            // no change
+                }).reverse();
+            }
+
 
             return filteredGames;
         },
@@ -154,7 +186,8 @@ export default {
             this.selectedGameId = gameId;
             this.showModal = true;
         },
-       
+
+
     },
 
     created() {
@@ -164,15 +197,10 @@ export default {
 
     }
 }
-
-
 </script>
 
 <style scoped>
 h1 {
     color: orange;
 }
-
-
-
 </style>
