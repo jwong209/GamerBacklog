@@ -2,12 +2,18 @@
     <div class="game-card">
         <div class="game-image-card" :style="{ backgroundImage: `url(${game.background_image})` }"></div>
         <div class="game-data">
-            <p>{{ game.name }}</p>
-            <p>Released: {{ game.released }}</p>
-            <p>Platform: </p>
+            <router-link v-bind:to="{ name: 'game', params: { gameId: gameId } }"><h3>{{ game.name }}</h3></router-link>
+            <!-- <p>Released: {{ game.released }}</p> -->
             <!-- <p>Genres: </p> -->
-            <p v-if="game.playtime > 0">Playtime: {{ game.playtime }} hrs</p>
-            <p v-if="game.metacritic > 0">Metacritic: {{ game.metacritic }} </p>
+            <!-- <p v-if="game.playtime > 0">Avg. Playtime: {{ game.playtime }} hrs</p> -->
+            <!-- <p v-if="game.metacritic > 0">Metacritic: {{ game.metacritic }} </p> -->
+            <p>Status: {{ collectionGame?.status }}</p>
+            <p>Format: {{ collectionGame?.format }}</p>
+            <p>Platform: {{ collectionGame?.platform }}</p>
+            <p>Rating: {{ collectionGame?.rating }} </p>
+            <p>Notes: {{ collectionGame?.notes }}</p>
+
+
             <button v-on:click="editInfo(game.id)">Edit Info</button>
             <button class="description-button" v-on:click="addGameToBacklog">Add to Backlog</button>
             <i class="fa-solid fa-trash-can" v-on:click="removeFromCollection" id="removeButton"></i>
@@ -30,6 +36,7 @@ export default {
                 "priority": 3,
                 "progress": ""
             },
+            collectionGame: null,
         }
     },
 
@@ -59,11 +66,21 @@ export default {
         },
         editInfo() {
             this.$emit('edit-info', { gameId: this.gameId, collectionId: this.collectionId });
+        },
+        getCollectionGame() {
+            CollectionService.getCollectionGame(this.collectionId, this.game.id)
+                .then((response) => {
+                    this.collectionGame = response.data; 
+                })
+                .catch((error) => {
+                    alert('Unable to get collection information');
+                });
         }
 
     },
 
     created() {
+        this.getCollectionGame();
     }
 }
 

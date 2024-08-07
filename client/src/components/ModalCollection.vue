@@ -9,28 +9,57 @@
 
         <section class="modal-body" id="modalDescription">
           <slot name="body">
-            <form>
+            <form v-on:submit.prevent="updateCollectionGame">
 
               <div id="form-top">
+                <label>Status:</label>
+                <div>
+                  <input type="radio" id="unplayed" name="status" value="Unplayed" v-model="collectionGame.status">
+                  <label for="unplayed">Unplayed</label>
+                </div>
+                <div>
+                  <input type="radio" id="currently-playing" name="status" value="Currently playing" v-model="collectionGame.status">
+                  <label for="currently-playing">Currently playing</label>
+                </div>
+                <div>
+                  <input type="radio" id="completed" name="status" value="Completed" v-model="collectionGame.status">
+                  <label for="completed">Completed</label>
+                </div>
+                <div> 
+                  <input type="radio" id="abandoned" name="status" value="Abandoned" v-model="collectionGame.status">
+                  <label for="abandoned">Abandoned</label>
+                </div>
+
                 <label>Format:</label>
                 <div>
-                  <input type="radio" id="digital" name="owned-format" value="Digital" v-model="ownedFormat">
+                  <input type="radio" id="digital" name="owned-format" value="Digital" v-model="collectionGame.format">
                   <label for="digital">Digital</label>
                 </div>
                 <div>
-                  <input type="radio" id="physical" name="owned-format" value="Physical" v-model="ownedFormat">
+                  <input type="radio" id="physical" name="owned-format" value="Physical" v-model="collectionGame.format">
                   <label for="physical">Physical</label>
                 </div>
-                <label>Platform:</label>
-                <select v-model="ownedPlatform">
-                  <option value="">-----</option>
-                  <option value="1">daslfjka;lkf</option>
 
+                <label for="platform-select">Platform:</label>
+                <select name="platform-selection" id="platform-select" v-model="collectionGame.platform">
+                  <option value="">-----</option>
+                  <option v-for="platform in platforms" v-bind:key="platform.id" v-bind:value="platform.name">{{
+                    platform.name }}</option>
+                </select>
+
+                <label for="rating-select">Rating:</label>
+                <select name="rating-selection" id="rating-select" v-model="collectionGame.rating">
+                  <option value="">-----</option>
+                  <option value="5">5</option>
+                  <option value="4">4</option>
+                  <option value="3">3</option>
+                  <option value="2">2</option>
+                  <option value="1">1</option>
                 </select>
 
 
                 <label>Notes: </label>
-                <textarea v-model="notes" type="text" placeholder="Enter notes">
+                <textarea v-model="collectionGame.notes" type="text" placeholder="Enter notes">
                 </textarea>
               </div>
 
@@ -54,22 +83,40 @@
 </template>
     
 <script>
+import CollectionService from '../services/CollectionService';
+
 export default {
   data() {
     return {
-      ownedPlatform: '',
-      ownedFormat: '',
-      notes: '',
+      collectionGame: {
+        "collectionId": this.collectionId,
+        "gameId": this.selectedGameId,
+        "status": "",
+        "platform": "",
+        "format": "",
+        "rating": null,
+        "notes": ""
+      }
 
     }
   },
 
-  props: ['selectedGameId', 'collectionId'],
+  props: ['selectedGameId', 'collectionId', 'platforms'],
 
   methods: {
     close() {
       this.$emit('close');
     },
+    updateCollectionGame() {
+      CollectionService.updateCollectionGame(this.collectionId, this.selectedGameId, this.collectionGame)
+        .then((response) => {
+          alert('Successfully updated collection status');
+          this.close();
+        })
+        .catch((error) => {
+          alert('Unable to update collection status');
+        });
+    }
 
   }
 };

@@ -24,5 +24,9 @@ export default {
         return axios.get('/genres');
     },
 
+    getGameScreenshots(gameId) {
+        return axios.get(`/games/${gameId}/screenshots`);
+    }
+
     
 }

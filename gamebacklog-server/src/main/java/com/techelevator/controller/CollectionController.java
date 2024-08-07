@@ -5,9 +5,12 @@ import com.techelevator.dao.CollectionGameDao;
 import com.techelevator.exception.BacklogServiceException;
 import com.techelevator.exception.CollectionServiceException;
 import com.techelevator.exception.DaoException;
+import com.techelevator.model.BacklogGame;
+import com.techelevator.model.CollectionGame;
 import com.techelevator.model.Game;
 import com.techelevator.service.CollectionService;
 import com.techelevator.service.GameService;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -62,10 +65,10 @@ public class CollectionController {
     }
 
     @ResponseStatus(HttpStatus.CREATED)
-    @RequestMapping(path = "/{collectionId}/games/{gameId}", method = RequestMethod.POST)
-    public void addGameToCollection(@PathVariable int collectionId, @PathVariable int gameId, Principal principal) {
+    @RequestMapping(path = "/user", method = RequestMethod.POST)
+    public void addGameToCollection(@RequestBody CollectionGame collectionGame, Principal principal) {
         try {
-            collectionService.addGameToCollection(collectionId, gameId, principal);
+            collectionService.addGameToCollection(collectionGame, principal);
         } catch (AccessDeniedException e) {
             throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Access denied");
         } catch (CollectionServiceException e) {
@@ -91,8 +94,31 @@ public class CollectionController {
         } catch (DaoException e) {
             throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
         }
-
     }
 
+    @RequestMapping(path = "/{collectionId}/games/{gameId}", method = RequestMethod.GET)
+    public CollectionGame getCollectionGame(@PathVariable int collectionId, @PathVariable int gameId, Principal principal) {
+        CollectionGame collectionGame = null;
 
+        try {
+            collectionGame = collectionService.getCollectionGame(collectionId, gameId, principal);
+        } catch (DaoException e) {
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
+        }
+
+        return collectionGame;
+    }
+
+    @RequestMapping(path = "/{collectionId}/games/{gameId}", method = RequestMethod.PUT)
+    public CollectionGame updateCollectionGame(@PathVariable int collectionId, @PathVariable int gameId, @Valid @RequestBody CollectionGame modifiedCollectionGame, Principal principal) {
+        CollectionGame collectionGame = null;
+
+        try {
+            collectionGame = collectionService.updateCollectionGame(modifiedCollectionGame, principal);
+        } catch (DaoException e) {
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
+        }
+
+        return collectionGame;
+    }
 }

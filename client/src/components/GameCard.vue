@@ -2,14 +2,17 @@
     <div class="game-card">
         <div class="game-image-card" :style="{ backgroundImage: `url(${game.background_image})` }"></div>
         <div class="game-data">
-            <router-link v-bind:to="{ name: 'game', params: { gameId: gameId } }"><h3>{{ game.name }}</h3></router-link>
-            
+            <router-link v-bind:to="{ name: 'game', params: { gameId: gameId } }">
+                <h3>{{ game.name }}</h3>
+            </router-link>
             <p><strong>Released: </strong>{{ game.released }}</p>
             <p v-if="game.playtime > 0"><strong>Average Playtime: </strong>{{ game.playtime }} hrs</p>
             <p v-if="game.metacritic > 0"><strong>Metacscore: </strong>{{ game.metacritic }} </p>
             <p><strong>User Rating: </strong>{{ game.rating }}</p>
-            <button class="description-button" v-on:click="addToCollection"><i class="fa-solid fa-layer-group"></i> Add to Collection</button>
-            <button class="description-button" v-on:click="addToBacklog"><i class="fa-solid fa-gamepad"></i> Add to Backlog</button>
+            <button class="description-button" v-on:click="addToCollection"><i class="fa-solid fa-layer-group"></i> Add to
+                Collection</button>
+            <button class="description-button" v-on:click="addToBacklog"><i class="fa-solid fa-gamepad"></i> Add to
+                Backlog</button>
         </div>
     </div>
 </template>
@@ -28,6 +31,15 @@ export default {
                 "priority": 3,
                 "progress": ""
             },
+            collectionGame: {
+                "collectionId": this.collectionId,
+                "gameId": this.game.id,
+                "status": "",
+                "format": "",
+                "platform": "",
+                "rating": null,
+                "notes": ""
+            }
         }
     },
     props: ['game', 'collectionId', 'backlogId'],
@@ -37,7 +49,7 @@ export default {
 
     methods: {
         addToCollection() {
-            CollectionService.addGameToCollection(this.collectionId, this.gameId)
+            CollectionService.addGameToCollection(this.collectionGame)
                 .then((response) => {
                     console.log('Successfully added game with id ' + this.gameId);
                     alert('Successfully added to collection');
@@ -59,11 +71,11 @@ export default {
                     alert('Unable to add game to backlog');
                 });
         },
-       
+
     },
 
     created() {
-     
+
     }
 
 
@@ -71,6 +83,4 @@ export default {
 
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

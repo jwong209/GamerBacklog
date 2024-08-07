@@ -61,7 +61,7 @@
 
     </section>
 
-    <modal-collection v-if="showModal" v-bind:selectedGameId="selectedGameId" v-bind:collectionId="collectionId"
+    <modal-collection v-if="showModal" v-bind:selectedGameId="selectedGameId" v-bind:collectionId="collectionId" v-bind:platforms="platforms"
         v-on:close="showModal = false" />
 </template>
 
@@ -75,6 +75,8 @@ import CollectionListItem from '../components/CollectionListItem.vue';
 import ModalCollection from '../components/ModalCollection.vue';
 import LoadingSpinner from '../components/LoadingSpinner.vue';
 import FilterOptions from '../components/FilterOptions.vue';
+import GamesService from '../services/GamesService';
+ 
 
 export default {
     data() {
@@ -85,6 +87,7 @@ export default {
             pageDescription: "Keep track of the games you own",
             bgImage: 'src/assets/img/wp12922818-game-collection-wallpapers.jpg',
             games: [],
+            platforms: [],
 
             backlogId: null,
             collectionId: null,
@@ -186,6 +189,15 @@ export default {
             this.selectedGameId = gameId;
             this.showModal = true;
         },
+        getPlatforms() {
+            GamesService.getPlatforms()
+                .then((response) => {
+                    this.platforms = response.data;
+                })
+                .catch((error) => {
+                    alert('Unable to fetch platforms');
+                });
+        },
 
 
     },
@@ -194,6 +206,7 @@ export default {
         this.getCollectionGames();
         this.getBacklogId();
         this.getCollectionId();
+        this.getPlatforms();
 
     }
 }

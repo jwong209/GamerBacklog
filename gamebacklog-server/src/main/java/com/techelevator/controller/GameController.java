@@ -3,6 +3,8 @@ package com.techelevator.controller;
 
 import com.techelevator.exception.DaoException;
 import com.techelevator.model.Game;
+import com.techelevator.model.GameScreenshot;
+import com.techelevator.model.Genre;
 import com.techelevator.service.GameService;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -50,5 +52,18 @@ public class GameController {
         }
 
     }
+
+    @PreAuthorize("permitAll")
+    @RequestMapping(path = "/{gameId}/screenshots", method = RequestMethod.GET)
+    public List<GameScreenshot> getGameScreenshots(@PathVariable int gameId) {
+        try {
+            return gameService.getGameScreenshots(gameId);
+        } catch (DaoException e) {
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
+        }
+
+    }
+
+
 
 }

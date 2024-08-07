@@ -1,7 +1,6 @@
 package com.techelevator.service;
 
-import com.techelevator.model.ApiResponseGame;
-import com.techelevator.model.Game;
+import com.techelevator.model.*;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -51,5 +50,15 @@ public class GameService {
         List<Game> games = apiResponse.getResults();
 
         return games;
+    }
+
+    public List<GameScreenshot> getGameScreenshots(@PathVariable int gameId) {
+        String adjustedUrl = API_BASE_URL + "/" + gameId + "/" + "screenshots" + "?key=" + RAWG_API_KEY;
+        ApiResponseGameScreenshots apiResponse = null;
+
+        apiResponse = restTemplate.getForObject(adjustedUrl, ApiResponseGameScreenshots.class);
+        List<GameScreenshot> screenshots = apiResponse.getResults();
+
+        return screenshots;
     }
 }

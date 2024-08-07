@@ -39,6 +39,11 @@ CREATE TABLE backlog_game (
 CREATE TABLE collection_game (
     collection_id INTEGER,
     game_id INTEGER NOT NULL,
+    status VARCHAR(50),
+    format VARCHAR(50),
+    platform VARCHAR(50),
+    rating INTEGER,
+    notes VARCHAR(50),
     PRIMARY KEY (collection_id, game_id),
     FOREIGN KEY (collection_id) REFERENCES collection (collection_id)
 );
