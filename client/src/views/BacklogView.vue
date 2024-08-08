@@ -41,14 +41,14 @@
                 </li>
             </ul> -->
             <div class="list-area" v-show="isListVisible === true">
-                <backlog-list-item v-for="(game, index) in games" v-bind:game="game" v-bind:key="index"
+                <backlog-list-item v-for="game in games" v-bind:game="game" v-bind:key="game.id"
                     v-bind:backlogId="backlogId" />
             </div>
 
 
             <div class="cards-area" v-show="isListVisible === false">
                 <!-- <backlog-game-card v-for="(game, index) in games" v-bind:game="game" v-bind:key="index" v-bind:backlogId="backlogId" v-on:edit-info="editInfo = $event; showModal = true" /> -->
-                <backlog-game-card v-for="(game, index) in games" v-bind:game="game" v-bind:key="index"
+                <backlog-game-card v-for="game in games" v-bind:game="game" v-bind:key="game.id"
                     v-bind:backlogId="backlogId" v-on:edit-info="editInfo" />
             </div>
         </div>

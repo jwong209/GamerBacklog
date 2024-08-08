@@ -7,12 +7,18 @@
             </router-link>
             <p><strong>Released: </strong>{{ game.released }}</p>
             <p v-if="game.playtime > 0"><strong>Average Playtime: </strong>{{ game.playtime }} hrs</p>
-            <p v-if="game.metacritic > 0"><strong>Metacscore: </strong>{{ game.metacritic }} </p>
-            <p><strong>User Rating: </strong>{{ game.rating }}</p>
-            <button class="description-button" v-on:click="addToCollection"><i class="fa-solid fa-layer-group"></i> Add to
+            <p v-if="game.metacritic > 0"><strong>Metascore: </strong>{{ game.metacritic }} </p>
+            <p><strong>User Rating: </strong>{{ game.rating }} / 5</p>
+            <!-- <button class="description-button" v-on:click="addToCollection"><i class="fa-solid fa-layer-group"></i> Add to
                 Collection</button>
             <button class="description-button" v-on:click="addToBacklog"><i class="fa-solid fa-gamepad"></i> Add to
-                Backlog</button>
+                Backlog</button> -->
+            <div class="game-options">
+                <button class="description-button" v-on:click="addToCollection"><i class="fa-solid fa-layer-group"></i>
+                    collection</button>
+                <button class="description-button" v-on:click="addToBacklog"><i class="fa-solid fa-gamepad"></i>
+                    Backlog</button>
+                </div>
         </div>
     </div>
 </template>
@@ -83,4 +89,20 @@ export default {
 
 </script>
 
-<style scoped></style>
+<style scoped>
+.game-options {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    padding: 15px;
+}
+
+.game-options button {
+    padding: 5px 10px 5px 10px;
+    cursor: pointer;
+}
+
+.game-options i {
+    font-size: 20px;
+}
+</style>

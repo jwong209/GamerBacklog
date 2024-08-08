@@ -10,13 +10,15 @@
             <p>Status: {{ collectionGame?.status }}</p>
             <p>Format: {{ collectionGame?.format }}</p>
             <p>Platform: {{ collectionGame?.platform }}</p>
-            <p>Rating: {{ collectionGame?.rating }} </p>
+            <p v-if="collectionGame?.rating > 0">Rating: <i id="star-icon" class="fa-solid fa-star" v-for="(star, index) in collectionGame?.rating" v-bind:key="index"></i></p>
             <p>Notes: {{ collectionGame?.notes }}</p>
 
+            <div class="game-options">
+                <button v-on:click="editInfo(game.id)"><i class="fa-solid fa-pen-to-square"></i> Edit Info</button>
+                <button class="description-button" v-on:click="addGameToBacklog">Add to Backlog</button>
+                <i class="fa-solid fa-trash-can" v-on:click="removeGameFromCollection" id="removeButton"></i>
 
-            <button v-on:click="editInfo(game.id)">Edit Info</button>
-            <button class="description-button" v-on:click="addGameToBacklog">Add to Backlog</button>
-            <i class="fa-solid fa-trash-can" v-on:click="removeFromCollection" id="removeButton"></i>
+            </div>
         </div>
     </div>
 </template>
@@ -44,8 +46,18 @@ export default {
 
     methods: {
        
-        removeFromCollection() {
-            CollectionService.removeGameFromCollection(this.collectionId, this.gameId)
+        // removeFromCollection() {
+        //     CollectionService.removeGameFromCollection(this.collectionId, this.gameId)
+        //         .then((response) => {
+        //             console.log('Successfully deleted game from collection');
+        //             alert('Successfully removed game from collection');
+        //         })
+        //         .catch((error) => {
+        //             alert('Unable to delete from Collection');
+        //         });
+        // },
+        removeGameFromCollection() {
+            this.$store.dispatch('removeGameFromCollection', { collectionId: this.collectionId, currentGameId: this.gameId })
                 .then((response) => {
                     console.log('Successfully deleted game from collection');
                     alert('Successfully removed game from collection');
@@ -53,7 +65,7 @@ export default {
                 .catch((error) => {
                     alert('Unable to delete from Collection');
                 });
-        },
+        },  
         addGameToBacklog() {
             BacklogService.addGameToBacklog(this.backlogGame) 
                 .then((response) => {
@@ -73,7 +85,8 @@ export default {
                     this.collectionGame = response.data; 
                 })
                 .catch((error) => {
-                    alert('Unable to get collection information');
+                    console.log('Unable to get collection information');
+                    // alert('Unable to get collection information');
                 });
         }
 
@@ -90,4 +103,11 @@ export default {
 #removeButton:hover {
     cursor: pointer;
 }
+
+#star-icon {
+    color: rgb(225, 200, 3);
+}
+
+
+
 </style>

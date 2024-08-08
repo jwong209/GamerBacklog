@@ -1,14 +1,6 @@
 <template>
     <heading v-bind:pageTitle="pageTitle" v-bind:bgImage="bgImage" v-bind:pageDescription="pageDescription" />
     <section>
-        <!-- <ul>
-            <li v-for="(game, index) in games" v-bind:game="game" v-bind:key="index">
-                image url: {{ game.background_image }}
-                ID: {{ game.id }} Name: {{ game.name }} Released: {{ game.released }} Metacritic: {{ game.metacritic }}
-                UserRatings: {{ game.rating }} Playtime: {{ game.playtime }}
-            </li>
-        </ul> -->
-
         <div class="section-heading">
             <h2><i class="fa-solid fa-layer-group"></i>Found {{ filteredList.length }} games</h2>
 
@@ -45,15 +37,15 @@
 
         <div class="display-area">
             <filter-options />
-            <loading-spinner v-if="isLoading" v-bind:spin="isLoading" />
+            <loading-spinner v-if="isLoading && filteredList.length === 0" v-bind:spin="isLoading"/>
 
             <div class="list-area" v-show="isListVisible === true">
-                <collection-list-item v-for="(game, index) in games" v-bind:game="game" v-bind:key="index"
+                <collection-list-item v-for="game in filteredList" v-bind:game="game" v-bind:key="game.id"
                     v-bind:backlogId="backlogId" v-bind:collectionId="collectionId" />
             </div>
 
             <div class="cards-area" v-show="isListVisible === false">
-                <collection-game-card v-for="(game, index) in filteredList" v-bind:game="game" v-bind:key="index"
+                <collection-game-card v-for="game in filteredList" v-bind:game="game" v-bind:key="game.id"
                     v-bind:backlogId="backlogId" v-bind:collectionId="collectionId" v-on:edit-info="editInfo" />
 
             </div>
@@ -61,8 +53,8 @@
 
     </section>
 
-    <modal-collection v-if="showModal" v-bind:selectedGameId="selectedGameId" v-bind:collectionId="collectionId" v-bind:platforms="platforms"
-        v-on:close="showModal = false" />
+    <modal-collection v-if="showModal" v-bind:selectedGameId="selectedGameId" v-bind:collectionId="collectionId"
+        v-bind:platforms="platforms" v-on:close="showModal = false" />
 </template>
 
 <script>
@@ -76,7 +68,7 @@ import ModalCollection from '../components/ModalCollection.vue';
 import LoadingSpinner from '../components/LoadingSpinner.vue';
 import FilterOptions from '../components/FilterOptions.vue';
 import GamesService from '../services/GamesService';
- 
+
 
 export default {
     data() {
@@ -110,7 +102,8 @@ export default {
 
     computed: {
         filteredList() {
-            let filteredGames = this.games;
+            let filteredGames = this.$store.getters.retrieveCollectionGames;
+            // let filteredGames = this.games;
 
             // ----------------- FILTER Conditions  -----------------
 
@@ -123,10 +116,10 @@ export default {
                 filteredGames = filteredGames.sort((a, b) => {
                     const nameA = a.name.toLowerCase();
                     const nameB = b.name.toLowerCase();
-                    if (nameA < nameB) { 
+                    if (nameA < nameB) {
                         return -1;        // A comes before B
                     }
-                    if (nameA > nameB) {  
+                    if (nameA > nameB) {
                         return 1;         // A comes after B
                     }
                     return 0;            // no change
@@ -136,32 +129,34 @@ export default {
                 filteredGames = filteredGames.sort((a, b) => {
                     const nameA = a.name.toLowerCase();
                     const nameB = b.name.toLowerCase();
-                    if (nameA < nameB) { 
+                    if (nameA < nameB) {
                         return -1;        // A comes before B
                     }
-                    if (nameA > nameB) {  
+                    if (nameA > nameB) {
                         return 1;         // A comes after B
                     }
                     return 0;            // no change
                 }).reverse();
             }
 
-
             return filteredGames;
         },
+       
     },
 
     methods: {
         getCollectionGames() {
             this.isLoading = true;
-            CollectionService.getGamesInCollection()
+            this.$store.dispatch('getCollectionGames')
                 .then((response) => {
-                    this.games = response.data;
-                    this.isLoading = false;
+                    // this.games = response.data;
+                    // this.isLoading = false;
                 })
                 .catch((error) => {
-                    this.isLoading = false;
                     alert('Unable to fetch collection');
+                })
+                .finally(() => {
+                    this.isLoading = false;
                 });
         },
         getBacklogId() {
@@ -198,7 +193,6 @@ export default {
                     alert('Unable to fetch platforms');
                 });
         },
-
 
     },
 
