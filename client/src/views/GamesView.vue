@@ -4,38 +4,41 @@
     <section>
         <form v-on:submit.prevent="searchGames" id="game-search-form">
 
-            <div class="search-form-inputs">
-                <label for="search-title">Title</label>
-                <input name="search-title" type="text" v-model="searchName" placeholder="  Search by Game Title...">
-                <label for="platform-options">Platform</label>
-                <select v-model="searchPlatforms" name="platform-options">
-                    <option value="">-- All Platforms --</option>
-                    <option v-for="platform in platforms" v-bind:key="platform.id" v-bind:value="platform.id">
-                        {{ platform.name }}
-                    </option>
-                </select>
-            </div>
-            <div class="search-form-inputs">
-                <label for="genre-options">Genre</label>
-                <select v-model="searchGenres" name="genre-options">
-                    <option value="">-- All Genres --</option>
-                    <option v-for="genre in genres" v-bind:key="genre.id" v-bind:value="genre.id">
-                        {{ genre.name }}
-                    </option>
-                </select>
-                <label for="search-metacritic">Metacritic Score</label>
-                <input name="search-metacritic" type="text" v-model="searchMetacritic"
-                    placeholder="  Search by Metacritic Score...">
+            <div id="input-area">
+                <div class="search-form-inputs">
+                    <label for="search-title">Title</label>
+                    <input name="search-title" type="text" v-model="searchName" placeholder="  Search by Game Title...">
+                    <label for="search-metacritic">Metacritic Score</label>
+                    <input name="search-metacritic" type="text" v-model="searchMetacritic"
+                        placeholder="  Search by Metacritic Score...">
+                    
+                </div>
+                <div class="search-form-inputs">
+                    <label for="genre-options">Genre</label>
+                    <select v-model="searchGenres" name="genre-options">
+                        <option value="">--- All Genres ---</option>
+                        <option v-for="genre in genres" v-bind:key="genre.id" v-bind:value="genre.id">
+                            {{ genre.name }}
+                        </option>
+                    </select>
+                    <label for="platform-options">Platform</label>
+                    <select v-model="searchPlatforms" name="platform-options">
+                        <option value="">--- All Platforms ---</option>
+                        <option v-for="platform in platforms" v-bind:key="platform.id" v-bind:value="platform.id">
+                            {{ platform.name }}
+                        </option>
+                    </select>
+                </div>
             </div>
 
             <div id="search-controls">
-                <button type="submit" class="primary">Search</button>
                 <button id="" class="secondary" v-on:click="resetSearch">Reset</button>
+                <button type="submit" class="primary">Search</button>
             </div>
         </form>
 
         <div class="section-heading">
-            <h2><i class="fa-solid fa-gamepad"></i>Browse Game Library</h2>
+            <h2><i class="fa-solid fa-cubes"></i>Browse Game Library</h2>
             <div class="section-heading-left">
                 <div class="display-option">
                     <button class="display-button" v-bind:disabled="isListVisible === false"
@@ -51,7 +54,7 @@
         </div>
 
         <hr>
-        
+
         <loading-spinner v-if="isLoading" v-bind:spin="isLoading" />
 
 
@@ -70,7 +73,7 @@
         </div>
         <div class="cards-area" v-show="isListVisible === false">
             <game-card v-for="(game, index) in games" v-bind:game="game" v-bind:key="index"
-                v-bind:collectionId="collectionId" v-bind:backlogId="backlogId" />
+                v-bind:collectionId="collectionId" v-bind:backlogId="backlogId" v-on:open-options="openDialogModal" />
         </div>
 
         <!-- Pagination buttons -->
@@ -82,6 +85,15 @@
                     class="fa-solid fa-chevron-right"></i></button>
         </div>
     </section>
+
+    <dialog ref="dialogTemplateRef">
+        <button>Button 1</button>
+        <button>Button 2</button>
+    </dialog>
+    <div v-if="isOptionsVisible" id="add-options">
+        <button>Button 1</button>
+        <button>Button 2</button>
+    </div>
 </template>
 
 <script>
@@ -113,6 +125,9 @@ export default {
 
             collectionId: null,
             backlogId: null,
+
+            dialogRef: null,
+            isOptionsVisible: false,
         }
     },
 
@@ -199,6 +214,12 @@ export default {
                     // alert('Unable to retrieve backlogId');
                 });
         },
+        openDialogModal() {
+            this.dialogRef?.showModal();
+        },
+        closeDialogModal() {
+            this.dialogRef?.close();
+        }
 
     },
 
@@ -208,6 +229,12 @@ export default {
         this.getGenres();
         this.getPlatforms();
         this.searchGames();
+    },
+
+    // Template ref is only available after mount hook
+    // https://vuejs.org/guide/essentials/template-refs.html
+    mounted() {
+        this.dialogRef = this.$refs.dialogTemplateRef;
     }
 }
 
@@ -222,17 +249,20 @@ export default {
 }
 
 #game-search-form {
-    display: flex;
-    row-gap: .5rem;
     background-color: rgb(200, 200, 200);
     border-radius: 5px;
     padding: 15px;
-
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
-#game-search-form input,
-select,
-label {
+#input-area {
+    display: flex;
+    column-gap: 15px;
+}
+
+#game-search-form input {
     width: 500px;
 }
 
@@ -240,6 +270,10 @@ label {
     border: 1px dotted purple;
     display: flex;
     flex-direction: column;
+}
+
+#search-controls {
+    margin: 10px auto;
 }
 
 #search-controls button {
@@ -268,5 +302,38 @@ label {
     margin: 0 15px;
 }
 
+/* #add-options {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    border: 1px red solid;
+    width: 150px;
 
+} */
+
+/* ----- Dialog Modal ----- */
+dialog {
+    margin: 0 auto;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+dialog[open] {
+    animation: toggle-modal 1s ease-in-out;
+}
+
+dialog::backdrop {
+    background: slategray;
+    opacity: 0.2;
+}
+
+@keyframes toggle-modal {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
 </style>

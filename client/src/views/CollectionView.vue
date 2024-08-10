@@ -4,9 +4,8 @@
         <div class="section-heading">
             <h2><i class="fa-solid fa-layer-group"></i>Found {{ filteredList.length }} games</h2>
 
-            <form action="/action_page.php" id="search-list" v-on:submit.prevent="filterByName">
+            <form action="/action_page.php" id="search-list">
                 <input type="text" placeholder="Search this collection" name="search" v-model="searchedName">
-                <!-- <button type="submit" class="search-pair-btn"><i class="fa fa-search"></i></button> -->
             </form>
 
             <div class="section-heading-left">
@@ -37,7 +36,7 @@
 
         <div class="display-area">
             <filter-options />
-            <loading-spinner v-if="isLoading && filteredList.length === 0" v-bind:spin="isLoading"/>
+            <loading-spinner v-if="isLoading && filteredList.length === 0" v-bind:spin="isLoading" />
 
             <div class="list-area" v-show="isListVisible === true">
                 <collection-list-item v-for="game in filteredList" v-bind:game="game" v-bind:key="game.id"
@@ -53,8 +52,8 @@
 
     </section>
 
-    <modal-collection v-if="showModal" v-bind:selectedGameId="selectedGameId" v-bind:collectionId="collectionId"
-        v-bind:platforms="platforms" v-on:close="showModal = false" />
+    <modal-collection v-if="showModal" v-bind:selectedGameId="selectedGameId" v-bind:collectionId="collectionId" v-bind:platforms="platforms" v-on:close="showModal = false" />
+    
 </template>
 
 <script>
@@ -78,7 +77,6 @@ export default {
             pageTitle: "Collection",
             pageDescription: "Keep track of the games you own",
             bgImage: 'src/assets/img/wp12922818-game-collection-wallpapers.jpg',
-            games: [],
             platforms: [],
 
             backlogId: null,
@@ -89,6 +87,8 @@ export default {
 
             searchedName: '',
             sortBySelection: '',
+
+            dialogRef: null
         }
     },
     components: {
@@ -103,7 +103,6 @@ export default {
     computed: {
         filteredList() {
             let filteredGames = this.$store.getters.retrieveCollectionGames;
-            // let filteredGames = this.games;
 
             // ----------------- FILTER Conditions  -----------------
 
@@ -141,7 +140,7 @@ export default {
 
             return filteredGames;
         },
-       
+
     },
 
     methods: {
@@ -202,12 +201,9 @@ export default {
         this.getCollectionId();
         this.getPlatforms();
 
-    }
+    }, 
+    
 }
 </script>
 
-<style scoped>
-h1 {
-    color: orange;
-}
-</style>
+<style scoped></style>

@@ -13,12 +13,15 @@
                 Collection</button>
             <button class="description-button" v-on:click="addToBacklog"><i class="fa-solid fa-gamepad"></i> Add to
                 Backlog</button> -->
+
+           
             <div class="game-options">
-                <button class="description-button" v-on:click="addToCollection"><i class="fa-solid fa-layer-group"></i>
-                    collection</button>
-                <button class="description-button" v-on:click="addToBacklog"><i class="fa-solid fa-gamepad"></i>
-                    Backlog</button>
-                </div>
+                <button title="Add to collection" class="description-button" v-on:click="addToCollection"><i class="fa-solid fa-layer-group"></i>
+                </button>
+                <button title="Add to backlog" class="description-button" v-on:click="addToBacklog"><i class="fa-solid fa-gamepad"></i>
+                </button>
+                <!-- <button v-on:click="$emit('open-options')" id="add-to-btn">Add to...</button> -->
+            </div>
         </div>
     </div>
 </template>
@@ -90,19 +93,5 @@ export default {
 </script>
 
 <style scoped>
-.game-options {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-evenly;
-    padding: 15px;
-}
 
-.game-options button {
-    padding: 5px 10px 5px 10px;
-    cursor: pointer;
-}
-
-.game-options i {
-    font-size: 20px;
-}
 </style>

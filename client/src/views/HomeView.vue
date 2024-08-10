@@ -15,7 +15,7 @@
 
   <section id="how-it-works-section">
 
-    <h2 id="how-it-works-header"><i class="fa-brands fa-space-awesome"></i> How it works</h2>
+    <!-- <h2 id="how-it-works-header"><i class="fa-brands fa-space-awesome"></i> How it works</h2> -->
 
     <div id="how-it-works-area">
       <h2>PlayQ is a place to virtually track your game collection. Keep your backlog updated, rate the games you've

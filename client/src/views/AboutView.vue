@@ -11,18 +11,19 @@
             laborum.</p>
     </section>
 
-    <filter-options />
-
-    <loading-spinner />
 
     <button type="button" class="btn" @click="showModal">Open Modal!</button>
     <modal-backlog v-show="isModalVisible" @close="closeModal" />
+    <dialog ref="dialogTemplateRef">
+        <button>Button 1</button>
+        <button>Button 2</button>
+    </dialog>
+  
 
     <section id="contact-form-section">
         <form>
             <input type="text">
         </form>
-
     </section>
 </template>
 

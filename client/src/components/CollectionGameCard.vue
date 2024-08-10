@@ -2,22 +2,30 @@
     <div class="game-card">
         <div class="game-image-card" :style="{ backgroundImage: `url(${game.background_image})` }"></div>
         <div class="game-data">
-            <router-link v-bind:to="{ name: 'game', params: { gameId: gameId } }"><h3>{{ game.name }}</h3></router-link>
+            <router-link v-bind:to="{ name: 'game', params: { gameId: gameId } }">
+                <h3>{{ game.name }}</h3>
+            </router-link>
             <!-- <p>Released: {{ game.released }}</p> -->
             <!-- <p>Genres: </p> -->
             <!-- <p v-if="game.playtime > 0">Avg. Playtime: {{ game.playtime }} hrs</p> -->
             <!-- <p v-if="game.metacritic > 0">Metacritic: {{ game.metacritic }} </p> -->
-            <p>Status: {{ collectionGame?.status }}</p>
-            <p>Format: {{ collectionGame?.format }}</p>
-            <p>Platform: {{ collectionGame?.platform }}</p>
-            <p v-if="collectionGame?.rating > 0">Rating: <i id="star-icon" class="fa-solid fa-star" v-for="(star, index) in collectionGame?.rating" v-bind:key="index"></i></p>
-            <p>Notes: {{ collectionGame?.notes }}</p>
+            <p v-if="collectionGame.status"><strong>Status:</strong> {{ collectionGame?.status }}</p>
+            <p v-if="collectionGame.format"><strong>Format:</strong> {{ collectionGame?.format }}</p>
+            <p v-if="collectionGame.platform"><strong>Platform:</strong> {{ collectionGame?.platform }}</p>
+            <p v-if="collectionGame?.rating > 0"><strong>Rating:</strong> <i id="star-icon" class="fa-solid fa-star"
+                    v-for="(star, index) in collectionGame?.rating" v-bind:key="index"></i></p>
+            <p v-if="collectionGame.notes"><strong>Notes</strong><br> {{ collectionGame?.notes }}</p>
 
             <div class="game-options">
-                <button v-on:click="editInfo(game.id)"><i class="fa-solid fa-pen-to-square"></i> Edit Info</button>
-                <button class="description-button" v-on:click="addGameToBacklog">Add to Backlog</button>
-                <i class="fa-solid fa-trash-can" v-on:click="removeGameFromCollection" id="removeButton"></i>
-
+                <button title="Edit Info" v-on:click="editInfo(game.id)">
+                    <i class="fa-solid fa-pen-to-square"></i>
+                </button>
+                <button title="Add to Backlog" class="description-button" v-on:click="addGameToBacklog">
+                    <i class="fa-solid fa-gamepad"></i>
+                </button>
+                <button title="Remove from list" v-on:click="removeGameFromCollection">
+                    <i class="fa-solid fa-trash-can"></i>
+                </button>
             </div>
         </div>
     </div>
@@ -45,7 +53,7 @@ export default {
     props: ['game', 'collectionId', 'backlogId'],
 
     methods: {
-       
+
         // removeFromCollection() {
         //     CollectionService.removeGameFromCollection(this.collectionId, this.gameId)
         //         .then((response) => {
@@ -65,13 +73,13 @@ export default {
                 .catch((error) => {
                     alert('Unable to delete from Collection');
                 });
-        },  
+        },
         addGameToBacklog() {
-            BacklogService.addGameToBacklog(this.backlogGame) 
+            BacklogService.addGameToBacklog(this.backlogGame)
                 .then((response) => {
                     console.log('Added game to backlog');
                     alert('Successfully added to backlog');
-                }) 
+                })
                 .catch((error) => {
                     alert('Unable to add game to backlog');
                 });
@@ -82,7 +90,7 @@ export default {
         getCollectionGame() {
             CollectionService.getCollectionGame(this.collectionId, this.game.id)
                 .then((response) => {
-                    this.collectionGame = response.data; 
+                    this.collectionGame = response.data;
                 })
                 .catch((error) => {
                     console.log('Unable to get collection information');
@@ -107,7 +115,6 @@ export default {
 #star-icon {
     color: rgb(225, 200, 3);
 }
-
 
 
 </style>

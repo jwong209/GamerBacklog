@@ -2,17 +2,24 @@
     <heading v-bind:pageTitle="pageTitle" v-bind:bgImage="bgImage" v-bind:pageDescription="pageDescription" />
 
     <section>
-        <h2></h2>
 
         <div class="section-heading">
-            <h2><i class="fa-solid fa-gamepad"></i>Found {{ games.length }} games</h2>
+            <h2><i class="fa-solid fa-gamepad"></i>Found {{ filteredList.length }} games</h2>
 
             <form action="/action_page.php" id="search-list">
-                <input type="text" placeholder="Search my backlog" name="search" class="search-pair-input">
-                <button type="submit" class="search-pair-btn"><i class="fa fa-search"></i></button>
+                <input type="text" placeholder="Search my backlog" name="search" v-model="searchedName">
             </form>
 
             <div class="section-heading-left">
+                <select name="sort-select" v-model="sortBySelection">
+                    <option value="">Sort by: </option>
+                    <option value="Name A-Z">Name (A-Z)</option>
+                    <option value="Name Z-A">Name (Z-A)</option>
+                    <option>Release date</option>
+                    <option>Metacritic Score</option>
+                    <option>User Score</option>
+                    <option>Playtime</option>
+                </select>
                 <div class="display-option">
                     <button class="display-button" v-bind:disabled="isListVisible === false"
                         v-on:click="isListVisible = false">
@@ -31,24 +38,16 @@
 
         <div class="display-area">
             <filter-options />
-            <loading-spinner v-if="isLoading" v-bind:spin="isLoading" />
+            <loading-spinner v-if="isLoading && filteredList.length === 0" v-bind:spin="isLoading" />
 
-
-            <!-- <ul>
-                <li v-for="(game, index) in games" v-bind:game="game" v-bind:key="index">
-                    ID: {{ game.id }} Name: {{ game.name }} Released: {{ game.released }} Metacritic: {{ game.metacritic }}
-                    UserRatings: {{ game.rating }} Playtime: {{ game.playtime }}
-                </li>
-            </ul> -->
             <div class="list-area" v-show="isListVisible === true">
-                <backlog-list-item v-for="game in games" v-bind:game="game" v-bind:key="game.id"
+                <backlog-list-item v-for="game in filteredList" v-bind:game="game" v-bind:key="game.id"
                     v-bind:backlogId="backlogId" />
             </div>
 
 
             <div class="cards-area" v-show="isListVisible === false">
-                <!-- <backlog-game-card v-for="(game, index) in games" v-bind:game="game" v-bind:key="index" v-bind:backlogId="backlogId" v-on:edit-info="editInfo = $event; showModal = true" /> -->
-                <backlog-game-card v-for="game in games" v-bind:game="game" v-bind:key="game.id"
+                <backlog-game-card v-for="game in filteredList" v-bind:game="game" v-bind:key="game.id"
                     v-bind:backlogId="backlogId" v-on:edit-info="editInfo" />
             </div>
         </div>
@@ -57,6 +56,7 @@
 
     <modal-backlog v-if="showModal" v-bind:selectedGameId="selectedGameId" v-bind:backlogId="backlogId"
         v-on:close="showModal = false" />
+
 </template>
 
 <script>
@@ -74,7 +74,6 @@ export default {
         return {
             isLoading: true,
             isListVisible: false,
-            games: [],
             pageTitle: "Backlog",
             pageDescription: "Games that you'll get to later",
             bgImage: 'src/assets/img/pxfuel02.jpg',
@@ -82,6 +81,9 @@ export default {
 
             showModal: false,
             selectedGameId: null,
+
+            searchedName: '',
+            sortBySelection: '',
         }
     },
 
@@ -95,18 +97,75 @@ export default {
 
     },
 
+    computed: {
+        filteredList() {
+            let filteredGames = this.$store.getters.retrieveBacklogGames;
+
+             // ----------------- FILTER Conditions  -----------------
+             if (this.searchedName != "") {
+                filteredGames = filteredGames.filter((game) => game.name.toLowerCase().includes(this.searchedName.toLowerCase()));
+            }
+
+            // ----------------- SORTING Conditions  -----------------
+            if (this.sortBySelection === 'Name A-Z') {
+                filteredGames = filteredGames.sort((a, b) => {
+                    const nameA = a.name.toLowerCase();
+                    const nameB = b.name.toLowerCase();
+                    if (nameA < nameB) {
+                        return -1;        // A comes before B
+                    }
+                    if (nameA > nameB) {
+                        return 1;         // A comes after B
+                    }
+                    return 0;            // no change
+                })
+            }
+            if (this.sortBySelection === 'Name Z-A') {
+                filteredGames = filteredGames.sort((a, b) => {
+                    const nameA = a.name.toLowerCase();
+                    const nameB = b.name.toLowerCase();
+                    if (nameA < nameB) {
+                        return -1;        
+                    }
+                    if (nameA > nameB) {
+                        return 1;         
+                    }
+                    return 0;           
+                }).reverse();
+            }
+
+            return filteredGames;
+        }
+    },
+
     methods: {
+        // getBacklogGames() {
+        //     this.isLoading = true;
+
+        //     BacklogService.getGamesInBacklog()
+        //         .then((response) => {
+        //             this.games = response.data;
+        //             this.isLoading = false;
+        //         })
+        //         .catch((error) => {
+        //             this.isLoading = false;
+        //             alert('Unable to fetch backlog');
+        //         });
+        // },
         getBacklogGames() {
             this.isLoading = true;
-
-            BacklogService.getGamesInBacklog()
+            this.$store.dispatch('getBacklogGames')
                 .then((response) => {
-                    this.games = response.data;
-                    this.isLoading = false;
+                    // this.games = response.data;
+                    // this.isLoading = false;
+                    
                 })
                 .catch((error) => {
-                    this.isLoading = false;
+                    // this.isLoading = false;
                     alert('Unable to fetch backlog');
+                })
+                .finally(() => {
+                    this.isLoading = false;
                 });
         },
         getBacklogId() {
@@ -134,4 +193,6 @@ export default {
 
 </script>
 
-<style></style>
+<style scoped>
+
+</style>

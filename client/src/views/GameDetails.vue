@@ -5,46 +5,47 @@
         <div class="game-details-left">
             <div class="image-container" :style="{ backgroundImage: `url(${game.background_image})` }"></div>
 
-
             <div class="list-options">
-                <button v-on:click="addToCollection"><i class="fa-solid fa-layer-group"></i> Add to Collection</button>
-                <button v-on:click="addToBacklog"><i class="fa-solid fa-gamepad"></i> Add to Backlog</button>
+                <button v-if="!currentCollectionGame" v-on:click="addToCollection"><i class="fa-solid fa-layer-group"></i> Add to Collection</button>
+                <button v-if="!currentBacklogGame" v-on:click="addToBacklog"><i class="fa-solid fa-gamepad"></i> Add to Backlog</button>
             </div>
 
             <div class="player-status">
-                <div v-if="currentCollectionGame && currentCollectionGame.rating > 0" class="status-container">
+                <div v-if="currentCollectionGame" class="status-container">
                     <h3>Collection Status</h3>
                     <p>Status: {{ currentCollectionGame?.status }}</p>
                     <p>Format: {{ currentCollectionGame?.format }}</p>
-                    <!-- <p>Rating: {{ currentCollectionGame?.rating }}</p> -->
                     <p v-if="currentCollectionGame?.rating > 0">Rating: <i id="star-icon" class="fa-solid fa-star" v-for="(star, index) in currentCollectionGame?.rating" v-bind:key="index"></i></p>
                     <p>Notes: {{ currentCollectionGame?.notes }}</p>
+                    <button><i class="fa-solid fa-pen-to-square"></i> Edit Info</button>
+
                 </div>
                 <div v-if="currentBacklogGame" class="status-container">
                     <h3>Backlog Status</h3>
                     <p>Priority: {{ currentBacklogGame?.priority }}</p>
                     <p>Progress: {{ currentBacklogGame?.progress }}</p>
+                    <button><i class="fa-solid fa-pen-to-square"></i> Edit Info</button>
                 </div>
             </div>
 
         </div>
 
         <div class="game-details-right">
-            <h1 id="game-title">{{ game.name }}</h1>
-            <div class="details-subsection">
-                <div v-if="game.metacritic > 0"><strong>Metacritic score</strong> {{ game.metacritic }}</div>
-                <div><strong>Average playtime</strong>  {{ game.playtime }} hrs</div>
+            <h1 id="game-title">{{ game?.name }}</h1>
+            <div class="details-subsection" id="details-stats">
+                <div v-if="game.metacritic > 0"><strong>Metacritic score: </strong> {{ game.metacritic }}</div>
+                <div><strong><i class="fa-solid fa-stopwatch"></i> Average playtime: </strong>   {{ game.playtime }} hrs</div>
             </div>
             <div class="details-subsection">
 
                 <div>
                     <h2>Details</h2>
-                    <p>{{ game.description_raw }}</p>
+                    <p>{{ game?.description_raw }}</p>
                     <strong>Official site</strong> <br>
-                    <a :href="game.website" target="_blank">{{ game.website }}</a>
+                    <a :href="game?.website" target="_blank">{{ game.website }}</a>
                 </div>
-                <div id="game-info">
 
+                <div id="game-info">
                     <div><strong>Platforms</strong> <br> {{ game.platforms.map(wrapper => wrapper.platform.name).join(', ')
                     }}</div>
                     <div><strong>Genres</strong> <br> {{ game.genres.map(genre => genre.name).join(', ') }}</div>
@@ -53,13 +54,9 @@
                     <div><strong>Publishers</strong> <br> {{ game.publishers.map(publisher => publisher.name).join(', ') }}
                     </div>
                     <div><strong>Released</strong> <br> {{ game.released }}</div>
-                    <div><strong>ESRB</strong> <br> {{ game.esrb_rating.name }}</div>
-
+                    <div v-if="game.esrb_rating"><strong>ESRB</strong> <br> {{ game.esrb_rating.name }}</div>
                 </div>
             </div>
-
-
-
 
             <div class="details-subsection">
                 <h2>Screenshots</h2>
@@ -71,15 +68,18 @@
             </div>
         </div>
 
-
     </section>
+
+    <dialog>
+        <button>Button 1</button>
+        <button>Button 2</button>
+    </dialog>
 </template>
 
 <script>
 import GamesService from '../services/GamesService';
 import CollectionService from '../services/CollectionService';
 import BacklogService from '../services/BacklogService';
-import Heading from '../components/HeadingComponent.vue';
 
 export default {
     data() {
@@ -116,7 +116,6 @@ export default {
     },
 
     components: {
-        // Heading,
 
     },
 
@@ -225,11 +224,31 @@ export default {
 </script>
 
 <style scoped>
+.status-container {
+    border: 1px grey solid;
+    border-radius: 3px;
+    padding: 10px 20px;
+    margin-bottom: 10px;
+}
+
 .details-subsection {
-    padding: 20px;
+    padding: 20px 20px;
     background-color: white;
     margin-bottom: 15px;
     border-radius: 3px;
+}
+
+.details-subsection h2 {
+    margin: 0;
+}
+
+#details-stats {
+    display: flex;
+    justify-content: space-evenly;
+    column-gap: 1rem;
+    background-color: rgb(105, 108, 251);
+    padding: 5px 100px;
+    color: white;
 }
 
 #game-title {
@@ -241,10 +260,11 @@ export default {
     display: flex;
     flex-wrap: wrap;
     justify-content: flex-start;
+    column-gap: 1rem;
 }
 
 #game-info div {
-    width: 50%;
+    width: 48%;
     margin: 10px 0;
 }
 

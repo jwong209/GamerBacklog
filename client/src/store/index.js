@@ -55,7 +55,7 @@ export function createStore(currentToken, currentUser) {
           
       },
       getBacklogGames(context) {
-        return BacklogService.getBacklogGames()
+        return BacklogService.getGamesInBacklog()
           .then((response) => {
             if (response.status === 200) {
               context.state._backlogGames = response.data;
@@ -74,7 +74,17 @@ export function createStore(currentToken, currentUser) {
 
             return response;
           })
+      }, 
+      removeGameFromBacklog(context, { backlogId, currentGameId }) {
+        return BacklogService.removeGameFromBacklog( backlogId, currentGameId )
+          .then((response) => {
+            if (response.status === 204) {
+              context.state._backlogGames = context.state._backlogGames.filter(game => game.id !== currentGameId);
+            }
 
+            return response;
+          })
+  
       }
 
     }

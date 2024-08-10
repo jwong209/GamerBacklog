@@ -141,6 +141,7 @@ section h2 i {
   display: flex;
   /* justify-content: space-between; */
   column-gap: 35px;
+  margin-top: 20px;
 }
 
 .section-heading-left {
@@ -183,12 +184,15 @@ section h2 i {
   
 }
 
-
-
 /* ---------- Game Data ----------*/
 .game-data {
   padding: 0 15px;
   
+}
+
+.game-data a {
+  text-decoration: none;
+  color: blue;
 }
 
 .game-data-heading {
@@ -204,7 +208,30 @@ section h2 i {
   padding: 0 15px 50px 15px;
 }
 
-/* ---------- Game Bottom ----------*/
+/* ---------- Game Bottom (Options) ----------*/
+.game-options {
+  display: flex;
+  justify-content: center;
+  column-gap: 10px;
+  padding-bottom: 5px;
+}
+
+.game-options button {
+  width: 45px;
+  height: 45px;
+  border: none;
+  border-radius: 8px;
+  margin-bottom: 5px;
+}
+
+.game-options i {
+  font-size: larger
+}
+
+.game-options button:hover {
+  background-color: rgb(66, 41, 206);
+  color: white;
+}
 
 /* ----------------------  GAME LIST  ---------------------- */
 .list-area {
