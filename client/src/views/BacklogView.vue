@@ -223,8 +223,8 @@ export default {
             .finally(() => {
                 this.getBacklogGames();
                 console.log('finally backlogGames promise');
-                console.log('This is the collectionId: ' + this.collectionId);
-                console.log('This is the backlogId: ' + this.backlogId);
+                console.log('For collectionGame, this is the collectionId: ' + this.collectionId);
+                console.log('For collectionGame, this is the backlogId: ' + this.backlogId);
             })
             .catch((error) => {
                 console.log("Error occurred: " + error);

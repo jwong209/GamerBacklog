@@ -44,7 +44,7 @@ export default {
 
             collectionGame: {
                 "collectionId": this.collectionId,
-                "gameId": this.gameId,
+                "gameId": this.game.id,
                 "status": "",
                 "format": "",
                 "platform": "",
@@ -93,7 +93,7 @@ export default {
         addGameToCollection() {
             CollectionService.addGameToCollection(this.collectionGame)
                 .then((response) => {
-                    console.log('Added game to collection with ' + this.collectionId);
+                    // console.log('Added game to collection with collectionId: ' + this.collectionId);
                     alert('Successfully added to collection');
                 })
                 .catch((error) => {
@@ -108,8 +108,6 @@ export default {
 
     },
 
-    mounted() {
-    }
 }
 
 </script>

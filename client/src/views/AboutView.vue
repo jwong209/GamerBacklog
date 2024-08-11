@@ -30,8 +30,6 @@
 <script>
 import Heading from '../components/HeadingComponent.vue';
 import ModalBacklog from '../components/ModalBacklog.vue';
-import LoadingSpinner from '../components/LoadingSpinner.vue';
-import FilterOptions from '../components/FilterOptions.vue'
 
 export default {
     data() {
@@ -44,8 +42,6 @@ export default {
     components: {
         Heading,
         ModalBacklog,
-        LoadingSpinner,
-        FilterOptions,
     },
 
     methods: {

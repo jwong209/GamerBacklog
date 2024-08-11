@@ -57,4 +57,12 @@ export default {
         transform: translateY(-15px);
     }
 }
+
+@media screen and (max-width: 425px) {
+    #back-to-top-button {
+      bottom: 10px;
+      right: 10px;
+      z-index: 100;
+  }
+}
 </style>

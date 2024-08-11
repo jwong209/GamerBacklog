@@ -92,4 +92,10 @@ footer img {
     }
 }
 
+@media only screen and (max-width: 425px) {
+    #footer-area {
+      flex-flow: wrap column;
+  }
+}
+
 </style>

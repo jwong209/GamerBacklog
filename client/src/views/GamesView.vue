@@ -68,11 +68,11 @@
         </div>
 
         <div v-show="isListVisible === true">
-            <game-list-item v-for="(game, index) in games" v-bind:game="game" v-bind:key="index"
+            <game-list-item v-for="game in games" v-bind:game="game" v-bind:key="game.id"
                 v-bind:collectionId="collectionId" v-bind:backlogId="backlogId" />
         </div>
         <div class="cards-area" v-show="isListVisible === false">
-            <game-card v-for="(game, index) in games" v-bind:game="game" v-bind:key="index"
+            <game-card v-for="game in games" v-bind:game="game" v-bind:key="game.id"
                 v-bind:collectionId="collectionId" v-bind:backlogId="backlogId" v-on:open-options="openDialogModal" />
         </div>
 

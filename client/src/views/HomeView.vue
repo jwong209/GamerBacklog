@@ -63,19 +63,15 @@
     </div>
   </section>
 
-  <section>
-    <p>filler</p>
 
-  </section>
 
-  
+
 
   <section id="extra-section">
     <div>
       <h2 class="press-start-2p-regular">Thanks for visiting!</h2>
     </div>
   </section>
-
 </template>
 
 <script>
@@ -83,7 +79,7 @@
 export default {
   data() {
     return {
-     
+
     }
   },
 
@@ -91,11 +87,11 @@ export default {
   },
 
   methods: {
-   
+
   },
 
   created() {
-   
+
   }
 
 }
@@ -154,15 +150,19 @@ export default {
   0% {
     transform: rotate(0deg);
   }
+
   20% {
     transform: rotate(-4deg);
   }
+
   50% {
     transform: rotate(0deg);
   }
+
   70% {
     transform: rotate(4deg);
   }
+
   100% {
     transform: rotate(0deg);
   }
@@ -239,5 +239,77 @@ export default {
   margin-bottom: 0;
   border-radius: 0;
   padding: 5rem 10rem;
+}
+
+/* ---------------------------------  MOBILE SETTINGS  --------------------------------- */
+@media only screen and (max-width: 425px) {
+
+  #hero-section {
+    padding: 20px;
+    flex-direction: column;
+  }
+
+  #hero-img {
+    display: none;
+  }
+
+  
+  #hero-section {
+    padding: 1.5rem;
+  }
+  
+  #hero-text {
+    width: 100%;
+  }
+  
+  #hero-img {
+    width: 100%;
+    display: none;
+  }
+  
+  #how-it-works-section {
+      padding: 0;
+  }
+
+  #how-it-works-header {
+      margin-left: 10px;
+  }
+
+  #how-it-works-section:first-child {
+      margin-left: 10px;
+      border: 1px blue solid;
+  }
+
+  #how-it-works-area {
+      border-radius: 0;
+  }
+
+  #how-it-works-area > h2 {
+      font-size: 1.5rem;
+      width: 100%;
+      text-align: center;
+      margin: 10px auto;
+      color: rgb(57, 213, 249);
+  }
+
+  .how-it-works-text-container {
+      width: 100%;
+  }
+
+  .how-it-works-image-container {
+      display: none;
+  }
+
+  .how-it-works-content h3 {
+      font-size: 1.3rem;
+  }
+
+  #how-it-works-area p {
+      font-size: 1rem;
+      line-height: 1.5rem;
+  }
+
+
+
 }
 </style>

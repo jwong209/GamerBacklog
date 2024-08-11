@@ -190,5 +190,10 @@ textarea {
   transition: opacity .5s ease;
 }
 
-.dark-mode {}
+
+
+.dark-mode {
+
+
+}
 </style>
