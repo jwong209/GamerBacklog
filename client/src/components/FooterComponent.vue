@@ -55,7 +55,7 @@ footer li a {
 }
 
 footer li a:hover {
-    /* color: rgb(26, 23, 118); */
+    color: rgb(26, 23, 118);
 }
 
 footer img {

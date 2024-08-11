@@ -12,55 +12,60 @@
             <form v-on:submit.prevent="updateCollectionGame">
 
               <div id="form-top">
-                <label>Status:</label>
-                <div>
+                <div class="collection-status-item">
+                  <label><strong>Status:</strong></label><br>
                   <input type="radio" id="unplayed" name="status" value="Unplayed" v-model="collectionGame.status">
                   <label for="unplayed">Unplayed</label>
-                </div>
-                <div>
-                  <input type="radio" id="currently-playing" name="status" value="Currently playing" v-model="collectionGame.status">
+                  <br>
+                  <input type="radio" id="currently-playing" name="status" value="Currently playing"
+                    v-model="collectionGame.status">
                   <label for="currently-playing">Currently playing</label>
-                </div>
-                <div>
+                  <br>
                   <input type="radio" id="completed" name="status" value="Completed" v-model="collectionGame.status">
                   <label for="completed">Completed</label>
-                </div>
-                <div> 
+                  <br>
                   <input type="radio" id="abandoned" name="status" value="Abandoned" v-model="collectionGame.status">
                   <label for="abandoned">Abandoned</label>
                 </div>
 
-                <label>Format:</label>
-                <div>
+                <div class="collection-status-item">
+                  <label><strong>Format:</strong></label><br>
                   <input type="radio" id="digital" name="owned-format" value="Digital" v-model="collectionGame.format">
                   <label for="digital">Digital</label>
-                </div>
-                <div>
+                  <br>
                   <input type="radio" id="physical" name="owned-format" value="Physical" v-model="collectionGame.format">
                   <label for="physical">Physical</label>
+
                 </div>
 
-                <label for="platform-select">Platform:</label>
-                <select name="platform-selection" id="platform-select" v-model="collectionGame.platform">
-                  <option value="">-----</option>
-                  <option v-for="platform in platforms" v-bind:key="platform.id" v-bind:value="platform.name">{{
-                    platform.name }}</option>
-                </select>
+                <div class="collection-status-item">
+                  <label for="platform-select"><strong>Platform:</strong></label>
+                  <br>
+                  <select name="platform-selection" id="platform-select" v-model="collectionGame.platform">
+                    <option value="">-----</option>
+                    <option v-for="platform in platforms" v-bind:key="platform.id" v-bind:value="platform.name">{{
+                      platform.name }}</option>
+                  </select>
+                </div>
 
-                <label for="rating-select">Rating:</label>
-                <select name="rating-selection" id="rating-select" v-model="collectionGame.rating">
-                  <option value="">-----</option>
-                  <option value="5">5</option>
-                  <option value="4">4</option>
-                  <option value="3">3</option>
-                  <option value="2">2</option>
-                  <option value="1">1</option>
-                </select>
+                <div class="collection-status-item">
+                  <label for="rating-select"><strong>Rating:</strong></label>
+                  <br>
+                  <select name="rating-selection" id="rating-select" v-model="collectionGame.rating">
+                    <option value="">-----</option>
+                    <option value="5">5</option>
+                    <option value="4">4</option>
+                    <option value="3">3</option>
+                    <option value="2">2</option>
+                    <option value="1">1</option>
+                  </select>
+                </div>
 
-
-                <label>Notes: </label>
-                <textarea v-model="collectionGame.notes" type="text" placeholder="Enter notes">
-                </textarea>
+                <div class="collection-status-item">
+                  <label><strong>Notes: </strong></label><br>
+                  <textarea v-model="collectionGame.notes" type="text" placeholder="Enter notes">
+                  </textarea>
+                </div>
               </div>
 
               <div id="form-bottom">
@@ -117,6 +122,16 @@ export default {
           alert('Unable to update collection status');
         });
     }
+    // updateCollectionGame() {
+    //   this.$store.dispatch('updateGameInCollection', { collectionId: this.collectionId, currentGameId: this.selectedGameId, collectionGame: this.collectionGame })
+    //     .then((response) => {
+    //       alert('Successfully updated collection status');
+    //       this.close();
+    //     })
+    //     .catch((error) => {
+    //       alert('Unable to update collection status');
+    //     });
+    // }
 
   }
 };
@@ -153,7 +168,7 @@ export default {
 .modal-header {
   position: relative;
   border-bottom: 1px solid #7c7c7c;
-  color: #000000;
+  color: white;
   justify-content: space-between;
 }
 
@@ -172,6 +187,10 @@ section {
   padding: 0;
 }
 
+.collection-status-item {
+  margin-bottom: 10px;
+}
+
 .btn-close {
   position: absolute;
   top: 0;
@@ -181,7 +200,7 @@ section {
   padding: 10px;
   cursor: pointer;
   font-weight: bold;
-  color: #4AAE9B;
+  color: orange;
   background: transparent;
 }
 

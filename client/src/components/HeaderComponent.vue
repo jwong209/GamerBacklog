@@ -24,7 +24,7 @@
                 </div>
 
                 <div class="nav-right">
-                    <div v-if="$store.state.token">Hello, {{ $store.state.user.username }}</div>
+                    <div v-if="$store.state.token" id="greetings-mess">Hello, {{ $store.state.user.username }}</div>
 
                     <div class="nav-darkmode">
                         <i class="fa-solid fa-circle-half-stroke" v-on:click="toggleDarkMode"></i>
@@ -76,6 +76,10 @@ header {
     width: 100%;
     top: 0;
     z-index: 1000;
+}
+
+#greetings-mess {
+    color: rgb(160, 237, 248);
 }
 
 .navbar {

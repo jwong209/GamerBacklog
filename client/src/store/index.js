@@ -39,11 +39,11 @@ export function createStore(currentToken, currentUser) {
       },
       retrieveBacklogGames(state) {
         return state._backlogGames;
-      }
+      },
+      
     },
     // async methods + commits for the store
     actions: {
-
       getCollectionGames(context) {
         return CollectionService.getGamesInCollection()
           .then((response) => {
@@ -66,12 +66,10 @@ export function createStore(currentToken, currentUser) {
       removeGameFromCollection(context, { collectionId, currentGameId }) {
         return CollectionService.removeGameFromCollection(collectionId, currentGameId)
           .then((response) => {
-            
-            if(response.status === 204) {
+            if (response.status === 204) {
               // what am I removing here?
               context.state._collectionGames = context.state._collectionGames.filter(game => game.id !== currentGameId);
             }
-
             return response;
           })
       }, 
@@ -81,11 +79,24 @@ export function createStore(currentToken, currentUser) {
             if (response.status === 204) {
               context.state._backlogGames = context.state._backlogGames.filter(game => game.id !== currentGameId);
             }
-
             return response;
           })
   
-      }
+      },
+      // updateGameInCollection(context, { collectionId, currentGameId, collectionGame }) {
+      //   return CollectionService.updateCollectionGame(collectionId, currentGameId, collectionGame)
+      //     .then((response) => {
+      //       if (response.status === 204) {
+      //         const gameIndex = context.state._collectionGames.findIndex(game => game.id === currentGameId);
+
+      //         if (gameIndex !== -1) {
+      //           context.state._collectionGames[gameIndex] = collectionGame;
+      //         }
+      //       }
+      //       return response;
+      //     })
+      // }
+      // from here it will update the games list, but what about updating the CollectionGameCard? 
 
     }
 

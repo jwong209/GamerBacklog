@@ -5,7 +5,7 @@
             <h2><i class="fa-solid fa-layer-group"></i>Found {{ filteredList.length }} games</h2>
 
             <form action="/action_page.php" id="search-list">
-                <input type="text" placeholder="Search this collection" name="search" v-model="searchedName">
+                <input type="text" placeholder="Search my collection" name="search" v-model="searchedName">
             </form>
 
             <div class="section-heading-left">
@@ -146,10 +146,11 @@ export default {
     methods: {
         getCollectionGames() {
             this.isLoading = true;
-            this.$store.dispatch('getCollectionGames')
+            return this.$store.dispatch('getCollectionGames')  //added 'return' so that promise chaining succeeds
                 .then((response) => {
                     // this.games = response.data;
                     // this.isLoading = false;
+                    console.log('CollectionGames successfully retrieved');
                 })
                 .catch((error) => {
                     alert('Unable to fetch collection');
@@ -159,24 +160,25 @@ export default {
                 });
         },
         getBacklogId() {
-            BacklogService.getBacklogId()
+            return BacklogService.getBacklogId() //added 'return' so that promise chaining succeeds
                 .then((response) => {
                     this.backlogId = response.data;
-                    console.log('This is the backlogId: ' + this.backlog.id);
+                    console.log('This is the backlogId: ' + this.backlogId);
                 })
                 .catch((error) => {
                     // alert('Unable to retrieve backlogId');
+                    console.log('Unable to retrieve backlogId');
                 });
         },
         getCollectionId() {
-            CollectionService.getCollectionId()
+            return CollectionService.getCollectionId() //added 'return' so that promise chaining succeeds
                 .then((response) => {
                     this.collectionId = response.data;
-                    console.log('This is the GameId:' + this.game.id);
                     console.log('This is the CollectionId:' + this.collectionId);
                 })
                 .catch((error) => {
                     // alert('Unable to retrieve collection id');
+                    console.log('Unable to retrieve collectionId');
                 });
         },
         editInfo({ gameId, collectionId }) {
@@ -184,9 +186,10 @@ export default {
             this.showModal = true;
         },
         getPlatforms() {
-            GamesService.getPlatforms()
+            return GamesService.getPlatforms() //added 'return' so that promise chaining succeeds
                 .then((response) => {
                     this.platforms = response.data;
+                    console.log('Platforms successfully retrieved');
                 })
                 .catch((error) => {
                     alert('Unable to fetch platforms');
@@ -196,10 +199,28 @@ export default {
     },
 
     created() {
-        this.getCollectionGames();
-        this.getBacklogId();
-        this.getCollectionId();
-        this.getPlatforms();
+        // this.getCollectionGames();
+        // this.getBacklogId();
+        // this.getCollectionId();
+        // this.getPlatforms();
+
+        this.getCollectionId() // Promise chaining
+            .then(() => {
+                this.getBacklogId();
+                console.log('backlogId promise with ' + this.backlogId);
+            })
+            .then(() => {
+                this.getPlatforms();
+                console.log('platforms promise');
+            })
+            .then(() => {
+                this.getCollectionGames();
+                console.log('collectionGames promise');
+            })
+            .catch((error) => {
+                console.log("Error occurred: " + error);
+                alert("Unable to fetch info. Try reloading the page.");
+            });
 
     }, 
     

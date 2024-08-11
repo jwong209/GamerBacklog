@@ -1,30 +1,75 @@
 <template>
-    <!-- <heading v-bind:pageTitle="pageTitle" v-bind:bgImage="bgImage" v-bind:pageDescription="pageDescription" /> -->
-
     <section class="game-details-section">
         <div class="game-details-left">
-            <div class="image-container" :style="{ backgroundImage: `url(${game.background_image})` }"></div>
+            <div class="image-container" :style="{ backgroundImage: `url(${game?.background_image})` }"></div>
 
             <div class="list-options">
-                <button v-if="!currentCollectionGame" v-on:click="addToCollection"><i class="fa-solid fa-layer-group"></i> Add to Collection</button>
-                <button v-if="!currentBacklogGame" v-on:click="addToBacklog"><i class="fa-solid fa-gamepad"></i> Add to Backlog</button>
+                <button v-if="!currentCollectionGame" v-on:click="addToCollection"><i class="fa-solid fa-layer-group"></i>
+                    Add to Collection</button>
+                <button v-if="!currentBacklogGame" v-on:click="addToBacklog"><i class="fa-solid fa-gamepad"></i> Add to
+                    Backlog</button>
             </div>
 
             <div class="player-status">
                 <div v-if="currentCollectionGame" class="status-container">
-                    <h3>Collection Status</h3>
-                    <p>Status: {{ currentCollectionGame?.status }}</p>
-                    <p>Format: {{ currentCollectionGame?.format }}</p>
-                    <p v-if="currentCollectionGame?.rating > 0">Rating: <i id="star-icon" class="fa-solid fa-star" v-for="(star, index) in currentCollectionGame?.rating" v-bind:key="index"></i></p>
-                    <p>Notes: {{ currentCollectionGame?.notes }}</p>
-                    <button><i class="fa-solid fa-pen-to-square"></i> Edit Info</button>
+                    <h3 id="header-backlog-status">Collection Status</h3>
+
+                    <div class="status-stats">
+                        <table>
+                            <tr>
+                                <th>Status:</th>
+                                <td>{{ currentCollectionGame?.status }}</td>
+                            </tr>
+                            <tr>
+                                <th>Format:</th><td>{{ currentCollectionGame?.format }}</td>
+                            </tr>
+                            <tr>
+                                <th>Rating:</th><td><i id="star-icon" class="fa-solid fa-star"
+                                    v-for="(star, index) in currentCollectionGame?.rating" v-bind:key="index"></i></td>
+                            </tr>
+                            <tr>
+                                <th>Notes:</th><td>{{ currentCollectionGame?.notes }}</td>
+                            </tr>
+                        </table>
+                        <button><i class="fa-solid fa-pen-to-square"></i> Edit Info</button>
+
+                    </div>
+
+
+
+                    <!-- <div class="status-stats">
+                        <p>Status: {{ currentCollectionGame?.status }}</p>
+                        <p>Format: {{ currentCollectionGame?.format }}</p>
+                        <p v-if="currentCollectionGame?.rating > 0">Rating: <i id="star-icon" class="fa-solid fa-star"
+                                v-for="(star, index) in currentCollectionGame?.rating" v-bind:key="index"></i></p>
+                        <p>Notes: {{ currentCollectionGame?.notes }}</p>
+                        <button><i class="fa-solid fa-pen-to-square"></i> Edit Info</button>
+                    </div> -->
 
                 </div>
                 <div v-if="currentBacklogGame" class="status-container">
-                    <h3>Backlog Status</h3>
-                    <p>Priority: {{ currentBacklogGame?.priority }}</p>
-                    <p>Progress: {{ currentBacklogGame?.progress }}</p>
-                    <button><i class="fa-solid fa-pen-to-square"></i> Edit Info</button>
+                    <h3 id="header-collection-status">Backlog Status</h3>
+
+                    <div class="status-stats">
+    
+                        <table>
+                            <tr>
+                                <th>Priority:</th><td>{{ currentBacklogGame?.priority }}</td>
+                            </tr>
+                            <tr>
+                                <th>Progress:</th><td>{{ currentBacklogGame?.progress }}</td>
+                            </tr>
+                        </table>
+                        <button><i class="fa-solid fa-pen-to-square"></i> Edit Info</button>
+
+                    </div>
+
+                    <!-- <div class="status-stats">
+                        <p>Priority: {{ currentBacklogGame?.priority }}</p>
+                        <p>Progress: {{ currentBacklogGame?.progress }}</p>
+                        <button><i class="fa-solid fa-pen-to-square"></i> Edit Info</button>
+                    </div> -->
+
                 </div>
             </div>
 
@@ -34,15 +79,17 @@
             <h1 id="game-title">{{ game?.name }}</h1>
             <div class="details-subsection" id="details-stats">
                 <div v-if="game.metacritic > 0"><strong>Metacritic score: </strong> {{ game.metacritic }}</div>
-                <div><strong><i class="fa-solid fa-stopwatch"></i> Average playtime: </strong>   {{ game.playtime }} hrs</div>
+                <div><strong><i class="fa-solid fa-stopwatch"></i> Average playtime: </strong> {{ game.playtime }} hrs</div>
             </div>
             <div class="details-subsection">
 
                 <div>
                     <h2>Details</h2>
                     <p>{{ game?.description_raw }}</p>
-                    <strong>Official site</strong> <br>
-                    <a :href="game?.website" target="_blank">{{ game.website }}</a>
+                    <div v-if="game?.website">
+                        <strong>Official site</strong> <br>
+                        <a :href="game?.website" target="_blank">{{ game.website }}</a>
+                    </div>
                 </div>
 
                 <div id="game-info">
@@ -115,16 +162,8 @@ export default {
         }
     },
 
-    components: {
-
-    },
-
-    computed: {
-
-    },
-
     methods: {
-        getGamedata() {
+        getGameData() {
             const currentGameId = this.$route.params.gameId;
             GamesService.getGameById(currentGameId)
                 .then((response) => {
@@ -211,7 +250,7 @@ export default {
     },
 
     created() {
-        this.getGamedata();
+        this.getGameData();
         this.getBacklogId();
         this.getCollectionId();
         this.getGameScreenshots();
@@ -224,11 +263,39 @@ export default {
 </script>
 
 <style scoped>
+table th {
+    width: 80px;
+    text-align: right;
+    vertical-align: top;
+}
+table td {
+    padding-left: 15px;
+    display: table-cell;
+}
+
 .status-container {
     border: 1px grey solid;
     border-radius: 3px;
-    padding: 10px 20px;
     margin-bottom: 10px;
+    background-color: white;
+}
+
+.status-container h3 {
+    margin: 0;
+    padding: 10px 20px;
+    text-align: center;
+}
+
+#header-collection-status {
+    background-color: rgb(152, 207, 244);
+}
+#header-backlog-status {
+    background-color: rgb(247, 189, 63);
+}
+
+.status-stats {
+    padding: 10px 20px;
+
 }
 
 .details-subsection {
@@ -320,5 +387,4 @@ export default {
 
 #star-icon {
     color: rgb(225, 200, 3);
-}
-</style>
+}</style>

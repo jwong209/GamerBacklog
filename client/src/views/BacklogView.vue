@@ -48,7 +48,7 @@
 
             <div class="cards-area" v-show="isListVisible === false">
                 <backlog-game-card v-for="game in filteredList" v-bind:game="game" v-bind:key="game.id"
-                    v-bind:backlogId="backlogId" v-on:edit-info="editInfo" />
+                    v-bind:backlogId="backlogId" v-bind:collectionId="collectionId" v-on:edit-info="editInfo" />
             </div>
         </div>
 
@@ -67,6 +67,8 @@ import BacklogListItem from '../components/BacklogListItem.vue';
 import ModalBacklog from '../components/ModalBacklog.vue';
 import LoadingSpinner from '../components/LoadingSpinner.vue';
 import FilterOptions from '../components/FilterOptions.vue';
+import CollectionService from '../services/CollectionService';
+import GamesService from '../services/GamesService';
 
 
 export default {
@@ -77,7 +79,10 @@ export default {
             pageTitle: "Backlog",
             pageDescription: "Games that you'll get to later",
             bgImage: 'src/assets/img/pxfuel02.jpg',
+
             backlogId: null,
+            collectionId: null,
+            platforms: [],
 
             showModal: false,
             selectedGameId: null,
@@ -154,7 +159,7 @@ export default {
         // },
         getBacklogGames() {
             this.isLoading = true;
-            this.$store.dispatch('getBacklogGames')
+            return this.$store.dispatch('getBacklogGames')
                 .then((response) => {
                     // this.games = response.data;
                     // this.isLoading = false;
@@ -169,7 +174,7 @@ export default {
                 });
         },
         getBacklogId() {
-            BacklogService.getBacklogId()
+            return BacklogService.getBacklogId()
                 .then((response) => {
                     this.backlogId = response.data;
                     // console.log('This is the GameId:' + this.game.id);
@@ -183,16 +188,51 @@ export default {
             this.selectedGameId = gameId;
             this.showModal = true;
         },
+        getCollectionId() {
+            return CollectionService.getCollectionId()
+                .then((response) => {
+                    this.collectionId = response.data;
+                })
+                .catch((error) => {
+                    console.log('Unable to retrieve collection id');
+                    // alert('Unable to retrieve id');
+                });
+        },
+        getPlatforms() {
+            return GamesService.getPlatforms() //added 'return' so that promise chaining succeeds
+                .then((response) => {
+                    this.platforms = response.data;
+                    console.log('Platforms successfully retrieved');
+                })
+                .catch((error) => {
+                    alert('Unable to fetch platforms');
+                });
+        },
     },
 
     created() {
-        this.getBacklogGames();
-        this.getBacklogId();
+        this.getBacklogId()
+            .then(() => {
+                this.getCollectionId();
+                console.log('collectionId promise with ' + this.collectionId);
+            })
+            .then(() => {
+                this.getPlatforms();
+                console.log('platforms promise')
+            })
+            .finally(() => {
+                this.getBacklogGames();
+                console.log('finally backlogGames promise');
+                console.log('This is the collectionId: ' + this.collectionId);
+                console.log('This is the backlogId: ' + this.backlogId);
+            })
+            .catch((error) => {
+                console.log("Error occurred: " + error);
+                alert("Unable to fetch info. Try reloading the page.");
+            });
     }
 }
 
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

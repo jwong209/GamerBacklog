@@ -151,7 +151,7 @@ export default {
                 metacritic: this.searchMetacritic,
                 page: this.currentPage.toString()
             };
-            gameService.searchGames(params)
+            return gameService.searchGames(params)
                 .then((response) => {
                     this.games = response.data;
                     this.isLoading = false;
@@ -178,7 +178,7 @@ export default {
             this.games = [];
         },
         getPlatforms() {
-            gameService.getPlatforms()
+            return gameService.getPlatforms()
                 .then((response) => {
                     this.platforms = response.data;
                 })
@@ -187,7 +187,7 @@ export default {
                 });
         },
         getGenres() {
-            gameService.getGenres()
+            return gameService.getGenres()
                 .then((response) => {
                     this.genres = response.data;
                 })
@@ -196,7 +196,7 @@ export default {
                 });
         },
         getCollectionId() {
-            CollectionService.getCollectionId()
+            return CollectionService.getCollectionId()
                 .then((response) => {
                     this.collectionId = response.data;
                 })
@@ -205,7 +205,7 @@ export default {
                 });
         },
         getBacklogId() {
-            BacklogService.getBacklogId()
+           return BacklogService.getBacklogId()
                 .then((response) => {
                     this.backlogId = response.data;
                     console.log('This is the backlogId: ' + this.backlog.id);
@@ -224,11 +224,32 @@ export default {
     },
 
     created() {
-        this.getBacklogId();
-        this.getCollectionId();
-        this.getGenres();
-        this.getPlatforms();
-        this.searchGames();
+        // this.getBacklogId();
+        // this.getCollectionId();
+        // this.getGenres();
+        // this.getPlatforms();
+        // this.searchGames();
+
+        this.getBacklogId()
+            .then(() => {
+                this.getCollectionId();
+                console.log('collectionId promise');
+            })
+            .then(() => {
+                this.getGenres();
+                console.log('genres promise');
+            })
+            .then(() => {
+                this.getPlatforms();
+                console.log('platforms promise');
+            })
+            .finally(() => {
+                this.searchGames();
+            })
+            .catch((error) => {
+                console.log("Error occurred: " + error);
+                alert("Unable to fetch info. Try reloading the page.");
+            });
     },
 
     // Template ref is only available after mount hook

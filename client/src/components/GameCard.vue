@@ -5,16 +5,15 @@
             <router-link v-bind:to="{ name: 'game', params: { gameId: gameId } }">
                 <h3>{{ game.name }}</h3>
             </router-link>
-            <p><strong>Released: </strong>{{ game.released }}</p>
-            <p v-if="game.playtime > 0"><strong>Average Playtime: </strong>{{ game.playtime }} hrs</p>
-            <p v-if="game.metacritic > 0"><strong>Metascore: </strong>{{ game.metacritic }} </p>
-            <p><strong>User Rating: </strong>{{ game.rating }} / 5</p>
+            <div class="status-item" v-if="game.playtime > 0"><strong>Average Playtime: </strong>{{ game.playtime }} hrs</div>
+            <div class="status-item" v-if="game.metacritic > 0"><strong>Metascore: </strong>{{ game.metacritic }} </div>
+            <div class="status-item"><strong>User Rating: </strong>{{ game.rating }} / 5</div>
+            <div class="status-item"><strong>Released: </strong>{{ game.released }}</div>
             <!-- <button class="description-button" v-on:click="addToCollection"><i class="fa-solid fa-layer-group"></i> Add to
                 Collection</button>
             <button class="description-button" v-on:click="addToBacklog"><i class="fa-solid fa-gamepad"></i> Add to
                 Backlog</button> -->
 
-           
             <div class="game-options">
                 <button title="Add to collection" class="description-button" v-on:click="addToCollection"><i class="fa-solid fa-layer-group"></i>
                 </button>

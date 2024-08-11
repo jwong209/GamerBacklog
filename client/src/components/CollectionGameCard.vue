@@ -9,12 +9,26 @@
             <!-- <p>Genres: </p> -->
             <!-- <p v-if="game.playtime > 0">Avg. Playtime: {{ game.playtime }} hrs</p> -->
             <!-- <p v-if="game.metacritic > 0">Metacritic: {{ game.metacritic }} </p> -->
-            <p v-if="collectionGame.status"><strong>Status:</strong> {{ collectionGame?.status }}</p>
-            <p v-if="collectionGame.format"><strong>Format:</strong> {{ collectionGame?.format }}</p>
-            <p v-if="collectionGame.platform"><strong>Platform:</strong> {{ collectionGame?.platform }}</p>
-            <p v-if="collectionGame?.rating > 0"><strong>Rating:</strong> <i id="star-icon" class="fa-solid fa-star"
-                    v-for="(star, index) in collectionGame?.rating" v-bind:key="index"></i></p>
-            <p v-if="collectionGame.notes"><strong>Notes</strong><br> {{ collectionGame?.notes }}</p>
+            <div class="status-item" v-if="collectionGame?.status">
+                <span><strong>Status:</strong></span> <span>{{ collectionGame?.status }}</span>
+            </div>
+            <div class="status-item" v-if="collectionGame?.format">
+                <strong>Format:</strong> {{ collectionGame?.format }}
+            </div>
+            <div class="status-item" v-if="collectionGame?.platform">
+                <strong>Platform:</strong> {{ collectionGame?.platform }}
+            </div>
+
+            <div class="status-item" v-if="collectionGame?.rating > 0">
+                <span><strong>Rating:</strong></span>
+                <span><i id="star-icon" class="fa-solid fa-star" v-for="(star, index) in collectionGame?.rating"
+                        v-bind:key="index"></i></span>
+            </div>
+            <div v-if="collectionGame?.notes">
+                <strong>Notes:</strong> 
+                <br>
+                <div class="card-status-notes">{{ collectionGame?.notes }}</div>
+            </div>
 
             <div class="game-options">
                 <button title="Edit Info" v-on:click="editInfo(game.id)">
@@ -52,8 +66,11 @@ export default {
 
     props: ['game', 'collectionId', 'backlogId'],
 
-    methods: {
+    computed: {
+        
+    },
 
+    methods: {
         // removeFromCollection() {
         //     CollectionService.removeGameFromCollection(this.collectionId, this.gameId)
         //         .then((response) => {
@@ -115,6 +132,4 @@ export default {
 #star-icon {
     color: rgb(225, 200, 3);
 }
-
-
 </style>
