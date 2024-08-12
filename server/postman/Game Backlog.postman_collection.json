@@ -21,12 +21,12 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8080/login",
+					"raw": "http://localhost:9000/login",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
-					"port": "8080",
+					"port": "9000",
 					"path": [
 						"login"
 					]
@@ -49,12 +49,40 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8080/login",
+					"raw": "http://localhost:9000/login",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
-					"port": "8080",
+					"port": "9000",
+					"path": [
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "login-Hulk",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\": \"peterParker\",\r\n    \"password\": \"password\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:9000/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9000",
 					"path": [
 						"login"
 					]
@@ -69,7 +97,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"username\": \"charlesXavier\",\r\n    \"password\": \"password\"\r\n}",
+					"raw": "{\r\n    \"username\": \"charlesXavier\",\r\n    \"password\": \"password\",\r\n    \"confirmPassword\": \"password\",\r\n    \"role\": \"ROLE_USER\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -77,12 +105,12 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8080/register",
+					"raw": "http://localhost:9000/register",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
-					"port": "8080",
+					"port": "9000",
 					"path": [
 						"register"
 					]
@@ -96,15 +124,36 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8080/games/7",
+					"raw": "http://localhost:9000/games/7",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
-					"port": "8080",
+					"port": "9000",
 					"path": [
 						"games",
 						"7"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get-game-screenshots",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:9000/games/7/screenshots",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9000",
+					"path": [
+						"games",
+						"7",
+						"screenshots"
 					]
 				}
 			},
@@ -116,19 +165,19 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8080/games?name=&platforms=&genres=&metatcritic=",
+					"raw": "http://localhost:9000/games?name=star wars&platforms=&genres=&metatcritic=&page=",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
-					"port": "8080",
+					"port": "9000",
 					"path": [
 						"games"
 					],
 					"query": [
 						{
 							"key": "name",
-							"value": ""
+							"value": "star wars"
 						},
 						{
 							"key": "platforms",
@@ -140,6 +189,10 @@
 						},
 						{
 							"key": "metatcritic",
+							"value": ""
+						},
+						{
+							"key": "page",
 							"value": ""
 						}
 					]
@@ -153,12 +206,12 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8080/platforms",
+					"raw": "http://localhost:9000/platforms",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
-					"port": "8080",
+					"port": "9000",
 					"path": [
 						"platforms"
 					]
@@ -172,12 +225,12 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8080/genres",
+					"raw": "http://localhost:9000/genres",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
-					"port": "8080",
+					"port": "9000",
 					"path": [
 						"genres"
 					]
@@ -201,12 +254,12 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8080/collections/user",
+					"raw": "http://localhost:9000/collections/user",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
-					"port": "8080",
+					"port": "9000",
 					"path": [
 						"collections",
 						"user"
@@ -243,12 +296,12 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8080/collections/user/id",
+					"raw": "http://localhost:9000/collections/user/id",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
-					"port": "8080",
+					"port": "9000",
 					"path": [
 						"collections",
 						"user",
@@ -259,8 +312,62 @@
 			"response": []
 		},
 		{
-			"name": "add-game-to-collection",
+			"name": "get-collection-game",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
 			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJwZXRlclBhcmtlciIsImF1dGgiOiJST0xFX1VTRVIiLCJleHAiOjE3MjMwOTcxMDF9.SonBe0wFuFa8Zdqc4A27MvDfcoFSHA80rtoN_HWeXWslN6f1kCaLzXQVnwdyG_dQAgoK7gxOXdpBna2U8FOtwA",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"collectionId\": 2,\r\n    \"gameId\": 2\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:9000/collections/3/games/2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9000",
+					"path": [
+						"collections",
+						"3",
+						"games",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "add-game-to-collection(old)",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJwZXRlclBhcmtlciIsImF1dGgiOiJST0xFX1VTRVIiLCJleHAiOjE3MjMwOTcxMDF9.SonBe0wFuFa8Zdqc4A27MvDfcoFSHA80rtoN_HWeXWslN6f1kCaLzXQVnwdyG_dQAgoK7gxOXdpBna2U8FOtwA",
+							"type": "string"
+						}
+					]
+				},
 				"method": "POST",
 				"header": [],
 				"body": {
@@ -273,17 +380,97 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8080/collections/3/games/28",
+					"raw": "http://localhost:9000/collections/3/games/28",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
-					"port": "8080",
+					"port": "9000",
 					"path": [
 						"collections",
 						"3",
 						"games",
 						"28"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "add-game-to-collection(new)",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJwZXRlclBhcmtlciIsImF1dGgiOiJST0xFX1VTRVIiLCJleHAiOjE3MjMwOTcxMDF9.SonBe0wFuFa8Zdqc4A27MvDfcoFSHA80rtoN_HWeXWslN6f1kCaLzXQVnwdyG_dQAgoK7gxOXdpBna2U8FOtwA",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"collectionId\": 3,\r\n    \"gameId\": 2,\r\n    \"status\": \"Unplayed\",\r\n    \"format\": \"Digital\",\r\n    \"platform\": \"Playstation 5\",\r\n    \"rating\": 2,\r\n    \"notes\": \"\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:9000/collections/user",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9000",
+					"path": [
+						"collections",
+						"user"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "update-collection-game",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJwZXRlclBhcmtlciIsImF1dGgiOiJST0xFX1VTRVIiLCJleHAiOjE3MjMwOTcxMDF9.SonBe0wFuFa8Zdqc4A27MvDfcoFSHA80rtoN_HWeXWslN6f1kCaLzXQVnwdyG_dQAgoK7gxOXdpBna2U8FOtwA",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"collectionId\": 3,\r\n    \"gameId\": 2,\r\n    \"status\": \"Unplayed\",\r\n    \"format\": \"Digital\",\r\n    \"platform\": \"Playstation 5\",\r\n    \"rating\": 2,\r\n    \"notes\": \"\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:9000/collections/3/games/2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9000",
+					"path": [
+						"collections",
+						"3",
+						"games",
+						"2"
 					]
 				}
 			},
@@ -314,12 +501,12 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8080/collections/3/games/8",
+					"raw": "http://localhost:9000/collections/3/games/8",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
-					"port": "8080",
+					"port": "9000",
 					"path": [
 						"collections",
 						"3",
@@ -346,12 +533,12 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8080/backlogs/user",
+					"raw": "http://localhost:9000/backlogs/user",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
-					"port": "8080",
+					"port": "9000",
 					"path": [
 						"backlogs",
 						"user"
@@ -371,7 +558,7 @@
 					"bearer": [
 						{
 							"key": "token",
-							"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzdGV2ZVJvZ2VycyIsImF1dGgiOiJST0xFX1VTRVIiLCJleHAiOjE3MTYyNDY5NjJ9.H21sVxaynuLhdP48-u7-Z7X1nsLghyyWSK9Da8kCl1Mf2mfi6inD_vz_7NYsbEjYK0LoKttKCdFHms4wtjlUpA",
+							"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJwZXRlclBhcmtlciIsImF1dGgiOiJST0xFX1VTRVIiLCJleHAiOjE3MjI0NzQzNDV9.EOK-ubAHlD76ci9loEMnNvsci7q5xHjsyZTjZdVh6bV6DulwprQmT4tWrd7yyFwdslKEhSIWTBW9t8HwsvBpiA",
 							"type": "string"
 						}
 					]
@@ -388,14 +575,14 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8080/collections/user/id",
+					"raw": "http://localhost:9000/backlogs/user/id",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
-					"port": "8080",
+					"port": "9000",
 					"path": [
-						"collections",
+						"backlogs",
 						"user",
 						"id"
 					]
@@ -404,9 +591,22 @@
 			"response": []
 		},
 		{
-			"name": "add-game-to-backlog",
+			"name": "get-backlog-game",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
 			"request": {
-				"method": "POST",
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJwZXRlclBhcmtlciIsImF1dGgiOiJST0xFX1VTRVIiLCJleHAiOjE3MjI3Mzg4NzZ9.qypj5oUe04A25b_dk0JvPexAXQEAUYt4Lfp0r8xAetkMebeBGVG1N5FQj85EJHGURS-IBjLxs1v-mamKZjxxUQ",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
 				"header": [],
 				"body": {
 					"mode": "raw",
@@ -418,17 +618,97 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8080/backlogs/2/games/2",
+					"raw": "http://localhost:9000/backlogs/3/games/902",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
-					"port": "8080",
+					"port": "9000",
+					"path": [
+						"backlogs",
+						"3",
+						"games",
+						"902"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "add-game-to-backlog",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzdGV2ZVJvZ2VycyIsImF1dGgiOiJST0xFX1VTRVIiLCJleHAiOjE3MjI3NDI0NTl9.E2pZeOEynkJOyZdJsOaUbnDJmbMP1RyE2MCjVOJliRnanLtb7A-fRtIZ948yCmEdTysdhhDClq0yBwphWdV6Ug",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"backlogId\": 3,\r\n    \"gameId\": 24,\r\n    \"progress\": \"testing again\",\r\n    \"priority\": 2\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:9000/backlogs/user",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9000",
+					"path": [
+						"backlogs",
+						"user"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "update-backlog-game",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzdGV2ZVJvZ2VycyIsImF1dGgiOiJST0xFX1VTRVIiLCJleHAiOjE3MjI3NDY1Mzd9.b_iIQ8Js9-j40COlehmGLkQhjtmpxtQGa6T-QO6hvUtggW2YMlZJ5b9VBjmSfWbMcRiHQj1d4buloXhnOQs4jw",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"backlogId\": 2,\r\n    \"gameId\": 201,\r\n    \"progress\": \"I updated this entry to higher priority\",\r\n    \"priority\": 5\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:9000/backlogs/2/games/201",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9000",
 					"path": [
 						"backlogs",
 						"2",
 						"games",
-						"2"
+						"201"
 					]
 				}
 			},
@@ -449,12 +729,12 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8080/backlogs/2/games/4",
+					"raw": "http://localhost:9000/backlogs/2/games/4",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
-					"port": "8080",
+					"port": "9000",
 					"path": [
 						"backlogs",
 						"2",

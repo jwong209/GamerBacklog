@@ -35,8 +35,6 @@
 
                     </div>
 
-
-
                     <!-- <div class="status-stats">
                         <p>Status: {{ currentCollectionGame?.status }}</p>
                         <p>Format: {{ currentCollectionGame?.format }}</p>
@@ -77,12 +75,23 @@
 
         <div class="game-details-right">
             <h1 id="game-title">{{ game?.name }}</h1>
-            <div class="details-subsection" id="details-stats">
-                <div v-if="game.metacritic > 0"><strong>Metacritic score: </strong> {{ game.metacritic }}</div>
-                <div><strong><i class="fa-solid fa-stopwatch"></i> Average playtime: </strong> {{ game.playtime }} hrs</div>
-            </div>
-            <div class="details-subsection">
 
+            <div class="details-subsection" id="important-stats">
+                <div class="important-stats-item" v-if="game.metacritic > 0">
+                    <img src="../assets/icons/icons8-metascore-48.png">
+                    <div>
+                        <strong>Metacritic score </strong><br> {{ game.metacritic }}
+                    </div>
+                </div>
+                <div class="important-stats-item">
+                    <i class="fa-regular fa-hourglass-half" id="stopwatch-icon"></i>
+                    <div>
+                        <strong>Average playtime</strong><br> {{ game.playtime }} hrs
+                    </div>
+                </div>
+            </div>
+
+            <div class="details-subsection">
                 <div>
                     <h2>Details</h2>
                     <p>{{ game?.description_raw }}</p>
@@ -298,8 +307,27 @@ table td {
 
 }
 
+#important-stats {
+    background-color: rgb(219, 219, 242);
+    border: 2px rgb(173, 175, 214) solid;
+    display: flex;
+    column-gap: 1rem;
+    justify-content: space-evenly;
+}
+
+#stopwatch-icon {
+    font-size: 35px;
+    color: rgb(64, 45, 131);
+}
+
+.important-stats-item {
+    display: flex;
+    align-items: center;
+    column-gap: 8px;
+}
+
 .details-subsection {
-    padding: 20px 20px;
+    padding: 15px 20px;
     background-color: white;
     margin-bottom: 15px;
     border-radius: 3px;

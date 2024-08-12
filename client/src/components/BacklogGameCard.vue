@@ -39,12 +39,9 @@ export default {
         return {
             gameId: this.game.id,
             backlogGame: null,
-
-            detailsVisible: false,
-
             collectionGame: {
                 "collectionId": this.collectionId,
-                "gameId": this.game.id,
+                "gameId": this.game.id,  // cannot access by gameId, access through the prop 'game'
                 "status": "",
                 "format": "",
                 "platform": "",
@@ -109,7 +106,6 @@ export default {
     },
 
 }
-
 </script>
 
 <style scoped></style>
