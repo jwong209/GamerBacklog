@@ -24,13 +24,18 @@ export default {
     flex-direction: column;
     padding: 20px;
     margin-bottom: 50px;
+    
 }
 
 .inner-container {
-    margin-left: 15%;
+    /* margin-left: 15%; */
+    margin: 0 auto;
+    width: 65%;
+    max-width: 1300px;
 }
 
 p {
     color: white;
     font-size: 1.5rem;
-}</style>
+}
+</style>

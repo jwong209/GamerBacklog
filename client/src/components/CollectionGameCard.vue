@@ -126,10 +126,6 @@ export default {
 </script>
 
 <style scoped>
-#removeButton:hover {
-    cursor: pointer;
-}
-
 #star-icon {
     color: rgb(225, 200, 3);
 }

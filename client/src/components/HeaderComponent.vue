@@ -113,7 +113,10 @@ header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin: 0 15%;
+    /* margin: 0 15%; */
+    width: 65%;
+    max-width: 1300px;
+    margin: 0 auto;
 }
 
 .navbar-links ul {

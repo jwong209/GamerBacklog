@@ -430,11 +430,13 @@ table td {
     display: flex;
     flex-wrap: wrap;
     gap: 10px;
+    margin: 10px;
+    
 }
 
 .screenshot-container {
-    height: 150px;
-    width: 225px;
+    height: 112px;
+    width: 200px;
     background-position: center;
     background-size: cover;
     border-radius: 8px;

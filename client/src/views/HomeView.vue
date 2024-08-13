@@ -64,12 +64,6 @@
     </section>
   </div>
 
-
-
-
-
-
-
   <section id="extra-section">
     <div>
       <h2 class="press-start-2p-regular">Thanks for visiting!</h2>
@@ -162,19 +156,15 @@ section {
   0% {
     transform: rotate(0deg);
   }
-
   20% {
     transform: rotate(-4deg);
   }
-
   50% {
     transform: rotate(0deg);
   }
-
   70% {
     transform: rotate(4deg);
   }
-
   100% {
     transform: rotate(0deg);
   }
@@ -203,7 +193,6 @@ section {
 }
 
 .how-it-works-content {
-
   display: flex;
   justify-content: space-evenly;
   align-items: center;
@@ -322,8 +311,6 @@ section {
     font-size: 1rem;
     line-height: 1.5rem;
   }
-
-
 
 }
 </style>

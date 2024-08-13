@@ -1,8 +1,10 @@
 <template>
     <div class="item-container">
+
         <div class="items-left">
             <div class="game-image-list" :style="{ backgroundImage: `url(${game.background_image})` }"></div>
         </div>
+        
         <div class="items-mid">
             <router-link v-bind:to="{ name: 'game', params: { gameId: gameId } }">
                 <h3>{{ game.name }}</h3>
@@ -41,7 +43,7 @@
             </div>
             <div class="items-right-bottom">
                 <button v-on:click="removeFromBacklog" class="secondary">
-                    Remove from list<i class="fa-solid fa-trash-can" id="removeButton"></i>
+                    Remove from list<i class="fa-solid fa-trash-can"></i>
                 </button>
             </div>
         </div>

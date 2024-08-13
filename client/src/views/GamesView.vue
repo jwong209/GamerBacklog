@@ -139,7 +139,6 @@ export default {
         gameCard,
         GameListItem,
         LoadingSpinner,
-
     },
 
     methods: {
@@ -227,12 +226,6 @@ export default {
     },
 
     created() {
-        // this.getBacklogId();
-        // this.getCollectionId();
-        // this.getGenres();
-        // this.getPlatforms();
-        // this.searchGames();
-
         this.getBacklogId()
             .then(() => {
                 this.getCollectionId();
