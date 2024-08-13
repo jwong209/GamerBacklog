@@ -17,7 +17,7 @@
             <div class="filter-heading">
                 <h4>Metacritic Score</h4>
             </div>
-            <div class="filter-body">
+            <div class="filter-body non-list-item">
                 <form v-on:submit.prevent>
                     <label>Min Score:</label>
                     <input type="number" id="metacritic-input">
@@ -81,23 +81,19 @@
 <style scoped>
 .filter-card {
     width: 210px;
-    border: 1px solid grey;
+    border: 1px rgb(173, 175, 214) solid;
     border-radius: 3px;
     margin-bottom: 10px;
 }
 
 .filter-heading {
-    background-color: rgb(202, 202, 202);
+    background-color: rgb(219, 219, 242);
     padding: 8px;
     border-radius: 3px 3px 0 0;
 }
 
 .filter-heading h4 {
     margin: 0;
-}
-
-.filter-body {
-    padding: 3px 8px 3px 8px;
 }
 
 ul {
@@ -108,10 +104,14 @@ ul {
 
 li {
     width: 100%;
+    padding: 3px 8px 3px 8px;
+}
+.non-list-item {
+    padding: 5px 8px 5px 8px;
 }
 
 li:hover {
-    background-color: rgb(226, 226, 226);
+    background-color: rgb(180, 180, 241);
     cursor: pointer;
 }
 

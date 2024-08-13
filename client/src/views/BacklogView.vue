@@ -2,7 +2,6 @@
     <heading v-bind:pageTitle="pageTitle" v-bind:bgImage="bgImage" v-bind:pageDescription="pageDescription" />
 
     <section>
-
         <div class="section-heading">
             <h2><i class="fa-solid fa-gamepad"></i>Found {{ filteredList.length }} games</h2>
 
@@ -31,7 +30,6 @@
                     </button>
                 </div>
             </div>
-
         </div>
 
         <hr>
@@ -44,7 +42,6 @@
                 <backlog-list-item v-for="game in filteredList" v-bind:game="game" v-bind:key="game.id"
                     v-bind:backlogId="backlogId" />
             </div>
-
 
             <div class="cards-area" v-show="isListVisible === false">
                 <backlog-game-card v-for="game in filteredList" v-bind:game="game" v-bind:key="game.id"

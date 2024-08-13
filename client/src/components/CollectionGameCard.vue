@@ -42,6 +42,7 @@
                 </button>
             </div>
         </div>
+        <i v-if="collectionGame?.status === 'Completed'" class="fa-solid fa-trophy card-notification" ></i>
     </div>
 </template>
 
@@ -132,4 +133,5 @@ export default {
 #star-icon {
     color: rgb(225, 200, 3);
 }
+
 </style>

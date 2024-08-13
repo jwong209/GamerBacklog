@@ -3,36 +3,50 @@
         <div class="game-details-left">
             <div class="image-container" :style="{ backgroundImage: `url(${game?.background_image})` }"></div>
 
-            <div class="list-options">
+            <!-- <div class="list-options">
                 <button v-if="!currentCollectionGame" v-on:click="addToCollection"><i class="fa-solid fa-layer-group"></i>
                     Add to Collection</button>
                 <button v-if="!currentBacklogGame" v-on:click="addToBacklog"><i class="fa-solid fa-gamepad"></i> Add to
                     Backlog</button>
-            </div>
+            </div> -->
 
             <div class="player-status">
-                <div v-if="currentCollectionGame" class="status-container">
+                <div class="status-container">
                     <h3 id="header-backlog-status">Collection Status</h3>
 
-                    <div class="status-stats">
+                    <div class="status-stats" v-if="currentCollectionGame">
                         <table>
                             <tr>
                                 <th>Status:</th>
                                 <td>{{ currentCollectionGame?.status }}</td>
                             </tr>
                             <tr>
-                                <th>Format:</th><td>{{ currentCollectionGame?.format }}</td>
+                                <th>Format:</th>
+                                <td>{{ currentCollectionGame?.format }}</td>
                             </tr>
                             <tr>
-                                <th>Rating:</th><td><i id="star-icon" class="fa-solid fa-star"
-                                    v-for="(star, index) in currentCollectionGame?.rating" v-bind:key="index"></i></td>
+                                <th>Rating:</th>
+                                <td><i id="star-icon" class="fa-solid fa-star"
+                                        v-for="(star, index) in currentCollectionGame?.rating" v-bind:key="index"></i></td>
                             </tr>
                             <tr>
-                                <th>Notes:</th><td>{{ currentCollectionGame?.notes }}</td>
+                                <th>Notes:</th>
+                                <td>{{ currentCollectionGame?.notes }}</td>
                             </tr>
                         </table>
-                        <button><i class="fa-solid fa-pen-to-square"></i> Edit Info</button>
+                        <button class="secondary wide-btn">
+                            Edit Information
+                            <i class="fa-solid fa-pen-to-square"></i>
+                        </button>
 
+                    </div>
+
+                    <div class="status-stats" v-else>
+                        <p>Want to add this game to your Collection?</p>
+                        <button v-if="!currentCollectionGame" v-on:click="addToCollection" class="secondary wide-btn">
+                            Add to Collection
+                            <i class="fa-solid fa-layer-group"></i>
+                        </button>
                     </div>
 
                     <!-- <div class="status-stats">
@@ -45,21 +59,35 @@
                     </div> -->
 
                 </div>
-                <div v-if="currentBacklogGame" class="status-container">
+                <div class="status-container">
                     <h3 id="header-collection-status">Backlog Status</h3>
 
-                    <div class="status-stats">
-    
+                    <div v-if="currentBacklogGame" class="status-stats">
+
                         <table>
                             <tr>
-                                <th>Priority:</th><td>{{ currentBacklogGame?.priority }}</td>
+                                <th>Priority:</th>
+                                <td>{{ currentBacklogGame?.priority }}</td>
                             </tr>
                             <tr>
-                                <th>Progress:</th><td>{{ currentBacklogGame?.progress }}</td>
+                                <th>Progress:</th>
+                                <td>{{ currentBacklogGame?.progress }}</td>
                             </tr>
                         </table>
-                        <button><i class="fa-solid fa-pen-to-square"></i> Edit Info</button>
+                        <button class="secondary">
+                            <div class="wide-btn">
+                                Edit Information<i class="fa-solid fa-pen-to-square"></i>
+                            </div>
+                        </button>
 
+                    </div>
+
+                    <div class="status-stats" v-else>
+                        <p>Want to add this game to your Backlog?</p>
+                        <button v-if="!currentBacklogGame" v-on:click="addToBacklog" class="secondary wide-btn">
+                            Add to Backlog
+                            <i class="fa-solid fa-gamepad"></i> 
+                        </button>
                     </div>
 
                     <!-- <div class="status-stats">
@@ -76,14 +104,14 @@
         <div class="game-details-right">
             <h1 id="game-title">{{ game?.name }}</h1>
 
-            <div class="details-subsection" id="important-stats">
+            <div class="details-subsection" id="important-stats" v-if="(game.metacritic > 0) && (game.playtime > 0)">
                 <div class="important-stats-item" v-if="game.metacritic > 0">
                     <img src="../assets/icons/icons8-metascore-48.png">
                     <div>
                         <strong>Metacritic score </strong><br> {{ game.metacritic }}
                     </div>
                 </div>
-                <div class="important-stats-item">
+                <div class="important-stats-item" v-if="game.playtime > 0">
                     <i class="fa-regular fa-hourglass-half" id="stopwatch-icon"></i>
                     <div>
                         <strong>Average playtime</strong><br> {{ game.playtime }} hrs
@@ -125,11 +153,6 @@
         </div>
 
     </section>
-
-    <dialog>
-        <button>Button 1</button>
-        <button>Button 2</button>
-    </dialog>
 </template>
 
 <script>
@@ -272,11 +295,16 @@ export default {
 </script>
 
 <style scoped>
+.player-status {
+    margin-top: 20px;
+}
+
 table th {
     width: 80px;
     text-align: right;
     vertical-align: top;
 }
+
 table td {
     padding-left: 15px;
     display: table-cell;
@@ -285,7 +313,7 @@ table td {
 .status-container {
     border: 1px grey solid;
     border-radius: 3px;
-    margin-bottom: 10px;
+    margin: 10px auto;
     background-color: white;
 }
 
@@ -295,16 +323,26 @@ table td {
     text-align: center;
 }
 
+.status-container p {
+    text-align: center;
+}
+
 #header-collection-status {
     background-color: rgb(152, 207, 244);
 }
+
 #header-backlog-status {
     background-color: rgb(247, 189, 63);
 }
 
 .status-stats {
     padding: 10px 20px;
+}
 
+.status-stats button {
+    width: 100%;
+    padding: 5px 35px;
+    margin: 5px auto;
 }
 
 #important-stats {
@@ -399,7 +437,7 @@ table td {
     width: 225px;
     background-position: center;
     background-size: cover;
-    /* border-radius: 8px; */
+    border-radius: 8px;
 }
 
 .list-options {
@@ -415,4 +453,5 @@ table td {
 
 #star-icon {
     color: rgb(225, 200, 3);
-}</style>
+}
+</style>

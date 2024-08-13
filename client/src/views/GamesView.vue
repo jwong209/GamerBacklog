@@ -8,10 +8,11 @@
                 <div class="search-form-inputs">
                     <label for="search-title">Title</label>
                     <input name="search-title" type="text" v-model="searchName" placeholder="  Search by Game Title...">
+                </div>
+                <div class="search-form-inputs">
                     <label for="search-metacritic">Metacritic Score</label>
                     <input name="search-metacritic" type="text" v-model="searchMetacritic"
                         placeholder="  Search by Metacritic Score...">
-                    
                 </div>
                 <div class="search-form-inputs">
                     <label for="genre-options">Genre</label>
@@ -21,6 +22,8 @@
                             {{ genre.name }}
                         </option>
                     </select>
+                </div>
+                <div class="search-form-inputs">
                     <label for="platform-options">Platform</label>
                     <select v-model="searchPlatforms" name="platform-options">
                         <option value="">--- All Platforms ---</option>
@@ -68,12 +71,12 @@
         </div>
 
         <div v-show="isListVisible === true">
-            <game-list-item v-for="game in games" v-bind:game="game" v-bind:key="game.id"
-                v-bind:collectionId="collectionId" v-bind:backlogId="backlogId" />
+            <game-list-item v-for="game in games" v-bind:game="game" v-bind:key="game.id" v-bind:collectionId="collectionId"
+                v-bind:backlogId="backlogId" />
         </div>
         <div class="cards-area" v-show="isListVisible === false">
-            <game-card v-for="game in games" v-bind:game="game" v-bind:key="game.id"
-                v-bind:collectionId="collectionId" v-bind:backlogId="backlogId" v-on:open-options="openDialogModal" />
+            <game-card v-for="game in games" v-bind:game="game" v-bind:key="game.id" v-bind:collectionId="collectionId"
+                v-bind:backlogId="backlogId" v-on:open-options="openDialogModal" />
         </div>
 
         <!-- Pagination buttons -->
@@ -205,7 +208,7 @@ export default {
                 });
         },
         getBacklogId() {
-           return BacklogService.getBacklogId()
+            return BacklogService.getBacklogId()
                 .then((response) => {
                     this.backlogId = response.data;
                     console.log('This is the backlogId: ' + this.backlog.id);
@@ -270,8 +273,9 @@ export default {
 }
 
 #game-search-form {
-    background-color: rgb(200, 200, 200);
-    border-radius: 5px;
+    background-color: rgb(219, 219, 242);
+    border-radius: 3px;
+    border: 1px rgb(173, 175, 214) solid;
     padding: 15px;
     display: flex;
     flex-direction: column;
@@ -280,21 +284,31 @@ export default {
 
 #input-area {
     display: flex;
+    flex-wrap: wrap;
     column-gap: 15px;
+    margin: 15px;
+}
+
+#input-area label {
+    font-weight: bold;
+    font-size: large;
 }
 
 #game-search-form input {
-    width: 500px;
+    width: 275px;
+}
+
+#game-search-form select {
+    padding: 3px;
 }
 
 .search-form-inputs {
-    border: 1px dotted purple;
     display: flex;
     flex-direction: column;
 }
 
 #search-controls {
-    margin: 10px auto;
+    margin: 10px;
 }
 
 #search-controls button {

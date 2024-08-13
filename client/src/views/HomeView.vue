@@ -7,61 +7,64 @@
       <h1 class="press-start-2p-regular">Welcome to PlayQ</h1>
 
       <div>
-        <h2>Track the games you own, games you wish to play, and games in your backlog.</h2>
+        <h2>Track the games you own, games you wish to play, and games you wish to tackle in the future.</h2>
         <router-link v-bind:to="{ name: 'register' }"><button class="primary">Sign Up</button></router-link>
       </div>
     </div>
   </section>
 
-  <section id="how-it-works-section">
 
-    <!-- <h2 id="how-it-works-header"><i class="fa-brands fa-space-awesome"></i> How it works</h2> -->
 
-    <div id="how-it-works-area">
-      <h2>PlayQ is a place to virtually track your game collection. Keep your backlog updated, rate the games you've
-        played and add those upcoming to your wishlist. </h2>
+  <div id="main-content">
+    <section id="how-it-works-section">
 
-      <div class="how-it-works-content">
+      <div id="how-it-works-area">
+        <h2>PlayQ is the spot to track your game collection, keep your backlog updated, and add those upcoming to your wishlist. </h2>
 
-        <div class="how-it-works-text-container">
-          <h3>Heading</h3>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore
-            et dolore magna aliqua.</p>
+        <div class="how-it-works-content">
+
+          <div class="how-it-works-text-container">
+            <h3>Heading</h3>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore
+              et dolore magna aliqua.</p>
+          </div>
+
+          <div class="how-it-works-image-container">
+            <img src="../assets/img/stylized_fun_3d_render_of_a_gaming_headset._simple_style-removebg-preview.png" alt="">
+          </div>
         </div>
 
-        <div class="how-it-works-image-container">
-          <img src="../assets/img/stylized_fun_3d_render_of_a_gaming_headset._simple_style-removebg-preview.png" alt="">
+        <div class="how-it-works-content">
+          <div class="how-it-works-image-container">
+            <img
+              src="../assets/img/stylized_fun_3d_render_of_a_retro_style_game_controller._directional_pad_on_left_side_and_4_b_1-removebg-preview.png"
+              alt="">
+          </div>
+          <div class="how-it-works-text-container">
+            <h3>Heading</h3>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore
+              et dolore magna aliqua.</p>
+          </div>
+        </div>
+
+        <div class="how-it-works-content">
+          <div class="how-it-works-text-container">
+            <h3>Heading</h3>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore
+              et dolore magna aliqua.</p>
+          </div>
+
+          <div class="how-it-works-image-container">
+            <img
+              src="../assets/img/stylized_fun_3d_render_of_a_retro_style_game_controller._directional_pad_on_left_side_and_4_b_2-removebg-preview.png"
+              alt="">
+          </div>
         </div>
       </div>
+    </section>
+  </div>
 
-      <div class="how-it-works-content">
-        <div class="how-it-works-image-container">
-          <img
-            src="../assets/img/stylized_fun_3d_render_of_a_retro_style_game_controller._directional_pad_on_left_side_and_4_b_1-removebg-preview.png"
-            alt="">
-        </div>
-        <div class="how-it-works-text-container">
-          <h3>Heading</h3>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore
-            et dolore magna aliqua.</p>
-        </div>
-      </div>
 
-      <div class="how-it-works-content">
-        <div class="how-it-works-text-container">
-          <h3>Heading</h3>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore
-            et dolore magna aliqua.</p>
-        </div>
-
-        <div class="how-it-works-image-container">
-          <img
-            src="../assets/img/stylized_fun_3d_render_of_a_retro_style_game_controller._directional_pad_on_left_side_and_4_b_2-removebg-preview.png"
-            alt="">
-        </div>
-      </div>
-    </div>
-  </section>
 
 
 
@@ -98,21 +101,30 @@ export default {
 
 </script>
 
-<style>
+<style scoped>
+section {
+  margin: 0 auto;
+}
+
+#main-content {
+  background-image: linear-gradient(rgba(45, 33, 101, 0.8), rgba(41, 21, 74, 0.8)), url('../assets/img/george-flowers-blYe0BupDuQ-unsplash.jpg');
+  background-size: cover;
+  background-position: top;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+
 /* ----------------------  HERO SECTION  ---------------------- */
 #hero-section {
-  background-image: linear-gradient(rgba(29, 8, 97, 0.8), rgba(126, 96, 216, 0.8)), url('../assets/img/lorenzo-herrera-p0j-mE6mGo4-unsplash.jpg');
+  background-image: linear-gradient(rgba(56, 31, 138, 0.9), rgba(140, 64, 191, 0.8)), url('../assets/img/lorenzo-herrera-p0j-mE6mGo4-unsplash.jpg');
   width: 100%;
   max-width: none;
-  /* height: 500px; */
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  /* background-attachment: fixed; */
   background-color: #1b1625;
   display: flex;
   justify-content: center;
-  /* column-gap: 5rem; */
   color: white;
   border: none;
   box-shadow: none;
@@ -124,7 +136,7 @@ export default {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  width: 60%;
+  width: 50%;
 }
 
 #hero-img {
@@ -168,13 +180,15 @@ export default {
   }
 }
 
+
 /* ----------------------  HOW IT WORKS SECTION  ---------------------- */
 #how-it-works-area {
-  background-image: linear-gradient(rgba(24, 13, 58, 0.9), rgba(19, 14, 34, 0.9)), url('../assets/img/george-flowers-blYe0BupDuQ-unsplash.jpg');
-  background-size: cover;
+  /* background-image: linear-gradient(rgba(24, 13, 58, 0.9), rgba(19, 14, 34, 0.9)), url('../assets/img/george-flowers-blYe0BupDuQ-unsplash.jpg'); */
+  background-color: rgba(5, 5, 41, 0.6);
+  /* background-size: cover;
   background-position: top;
   background-repeat: no-repeat;
-  background-attachment: fixed;
+  background-attachment: fixed; */
   color: white;
   padding: 30px;
   border-radius: 10px;
@@ -200,7 +214,7 @@ export default {
 }
 
 .how-it-works-image-container {
-  width: 40%;
+  width: 30%;
   text-align: center;
 }
 
@@ -225,20 +239,20 @@ export default {
 
 /* ----------------------  THANKS FOR VISITING SECTION  ---------------------- */
 #extra-section {
-  background-image: linear-gradient(rgba(14, 5, 46, 0.8), rgba(7, 3, 19, 0.8)), url('../assets/img/pxfuel.jpg');
+  /* background-image: linear-gradient(rgba(14, 5, 46, 0.8), rgba(7, 3, 19, 0.8)), url('../assets/img/pxfuel.jpg'); */
   width: 100%;
   max-width: none;
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
   /* background-attachment: fixed; */
-  background-color: #1b1625;
+  background-color: #1d1448;
   display: flex;
   justify-content: center;
   color: white;
   margin-bottom: 0;
   border-radius: 0;
-  padding: 5rem 10rem;
+  padding: 2.5rem 10rem;
 }
 
 /* ---------------------------------  MOBILE SETTINGS  --------------------------------- */
@@ -253,60 +267,60 @@ export default {
     display: none;
   }
 
-  
+
   #hero-section {
     padding: 1.5rem;
   }
-  
+
   #hero-text {
     width: 100%;
   }
-  
+
   #hero-img {
     width: 100%;
     display: none;
   }
-  
+
   #how-it-works-section {
-      padding: 0;
+    padding: 0;
   }
 
   #how-it-works-header {
-      margin-left: 10px;
+    margin-left: 10px;
   }
 
   #how-it-works-section:first-child {
-      margin-left: 10px;
-      border: 1px blue solid;
+    margin-left: 10px;
+    border: 1px blue solid;
   }
 
   #how-it-works-area {
-      border-radius: 0;
+    border-radius: 0;
   }
 
-  #how-it-works-area > h2 {
-      font-size: 1.5rem;
-      width: 100%;
-      text-align: center;
-      margin: 10px auto;
-      color: rgb(57, 213, 249);
+  #how-it-works-area>h2 {
+    font-size: 1.5rem;
+    width: 100%;
+    text-align: center;
+    margin: 10px auto;
+    color: rgb(57, 213, 249);
   }
 
   .how-it-works-text-container {
-      width: 100%;
+    width: 100%;
   }
 
   .how-it-works-image-container {
-      display: none;
+    display: none;
   }
 
   .how-it-works-content h3 {
-      font-size: 1.3rem;
+    font-size: 1.3rem;
   }
 
   #how-it-works-area p {
-      font-size: 1rem;
-      line-height: 1.5rem;
+    font-size: 1rem;
+    line-height: 1.5rem;
   }
 
 

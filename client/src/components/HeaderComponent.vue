@@ -181,6 +181,12 @@ header {
     text-decoration: none;
 }
 
+#search-bar button {
+    color: white;
+    background-color: rgb(56, 64, 170);
+    border: 1px rgb(56, 64, 170) solid;
+}
+
 .nav-darkmode i {
     font-size: 20px;
     cursor: pointer;
@@ -195,20 +201,16 @@ header {
     30% {
         transform: scale(1.2);
     }
-
     40%,
     60% {
         transform: rotate(-20deg) scale(1.2);
     }
-
     50% {
         transform: rotate(20deg) scale(1.2);
     }
-
     70% {
         transform: rotate(0deg) scale(1.2);
     }
-
     100% {
         transform: scale(1);
     }

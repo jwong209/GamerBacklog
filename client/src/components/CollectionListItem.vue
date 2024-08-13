@@ -13,10 +13,12 @@
         <div class="items-right">
             <div class="items-right-top">
                 <button class="description-button" v-on:click="addGameToBacklog">Add to Backlog</button>
-                <button>Edit Info</button>
+                <button>Edit information</button>
             </div>
             <div class="items-right-bottom">
-                <button id="removeButton" v-on:click="removeFromCollection"><i class="fa-solid fa-trash-can"  ></i> Delete</button>
+                <button id="removeButton" v-on:click="removeFromCollection">
+                    <i class="fa-solid fa-trash-can"  ></i> Remove from list
+                </button>
             </div>
 
         </div>

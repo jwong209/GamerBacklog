@@ -36,12 +36,13 @@
 
         <div class="items-right">
             <div class="items-right-top">
-                <button>Edit Info</button>
-                <button>Add to Collection</button>
+                <button class="secondary">Edit information <i class="fa-solid fa-pen-to-square"></i></button>
+                <button class="secondary">Add to Collection <i class="fa-solid fa-layer-group"></i></button>
             </div>
             <div class="items-right-bottom">
-                <button v-on:click="removeFromBacklog"><i class="fa-solid fa-trash-can" id="removeButton"></i>
-                    Remove from list</button>
+                <button v-on:click="removeFromBacklog" class="secondary">
+                    Remove from list<i class="fa-solid fa-trash-can" id="removeButton"></i>
+                </button>
             </div>
         </div>
     </div>

@@ -25,8 +25,8 @@
                 </button>
                 <button><i class="fa-solid fa-trash-can" v-on:click="removeGameFromBacklog" id="removeButton"></i></button>
             </div>
-
         </div>
+        <i v-if="backlogGame?.priority === 5" class="fa-solid fa-gamepad card-notification" ></i>
     </div>
 </template>
 
@@ -108,4 +108,6 @@ export default {
 }
 </script>
 
-<style scoped></style>
+<style scoped>
+
+</style>
