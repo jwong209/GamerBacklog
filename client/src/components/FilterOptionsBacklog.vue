@@ -3,13 +3,17 @@
 
         <div class="filter-card">
             <div class="filter-heading">
-                <h4>Format</h4>
+                <h4>Priority</h4>
             </div>
-            <div class="filter-body">
-                <ul>
-                    <li>Digital</li>
-                    <li>Physical</li>
-                </ul>
+            <div class="filter-body non-list-item">
+                <select id="priority" name="priority">
+                  <option value="3">-----</option>
+                  <option value="1">1 (Low)</option>
+                  <option value="2">2</option>
+                  <option value="3">3 (Medium)</option>
+                  <option value="4">4</option>
+                  <option value="5">5 (High)</option>
+                </select>
             </div>
         </div>
 
@@ -126,6 +130,11 @@ li {
 li:hover {
     background-color: rgb(180, 180, 241);
     cursor: pointer;
+}
+
+#priority {
+    /* width: 50px; */
+    margin-left: 5px;
 }
 
 

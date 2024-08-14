@@ -8,16 +8,20 @@
                     <ul>
                         <li><h3>Social</h3></li>
                         <hr>
-                        <li><a href="#">LinkedIn</a></li>
-                        <li><a href="#">GitHub</a></li>
+                        <li>LinkedIn</li>
+                        <li>GitHub</li>
+                        <!-- <li><a href="#">LinkedIn</a></li>
+                        <li><a href="#">GitHub</a></li> -->
                     </ul>
                 </div>
                 <div class="footer-links">
                     <ul>
                         <li><h3>Information</h3></li>
                         <hr>
-                        <li><a href="#">About</a></li>
-                        <li><a href="#">Contact Us</a></li>
+                        <li>About</li>
+                        <li>Contact Us</li>
+                        <!-- <li><a href="#">About</a></li>
+                        <li><a href="#">Contact Us</a></li> -->
                     </ul>
                 </div>
             </div>

@@ -4,24 +4,27 @@
       <div class="modal" role="dialog" aria-labelledby="modalTitle" aria-describedby="modalDescription">
         <header class="modal-header" id="modalTitle">
           <slot name="header">Edit Backlog Status</slot>
-          <button type="button" class="btn-close" @click="close" aria-label="Close modal">x</button>
+          <button type="button" class="btn-close" @click="close" aria-label="Close modal"><i class="fa-regular fa-circle-xmark"></i></button>
         </header>
 
         <section class="modal-body" id="modalDescription">
           <slot name="body">
             <form v-on:submit.prevent="updateBacklogGame">
               <div id="form-top">
-                <label for="priority-form">Priority: </label>
-                <select id="priority-form" name="priority-form" v-model="backlogGame.priority">
-                  <option value="3">-----</option>
-                  <option value="1">1 (Low)</option>
-                  <option value="2">2</option>
-                  <option value="3">3 (Medium)</option>
-                  <option value="4">4</option>
-                  <option value="5">5 (High)</option>
-                </select>
+                <div class="backlog-status-item">
+                  <label for="priority-form"><strong>Priority: </strong></label><br>
+                
+                  <select id="priority-form" name="priority-form" v-model="backlogGame.priority">
+                    <option value="3">-----</option>
+                    <option value="1">1 (Low)</option>
+                    <option value="2">2</option>
+                    <option value="3">3 (Medium)</option>
+                    <option value="4">4</option>
+                    <option value="5">5 (High)</option>
+                  </select>
+                </div>
 
-                <label>Progress: </label>
+                <label><strong>Progress:</strong> </label>
                 <textarea v-model="backlogGame.progress" type="text" placeholder="Enter progress notes">
               </textarea>
               </div>
@@ -31,7 +34,6 @@
 
                 <button type="submit" value="Submit" class="primary">Submit</button>
               </div>
-
 
               <!-- <input type="reset" value="Reset"> -->
             </form>
@@ -121,7 +123,7 @@ export default {
 .modal-header {
   position: relative;
   border-bottom: 1px solid #7c7c7c;
-  color: #000000;
+  color: white;
   justify-content: space-between;
 }
 
@@ -133,15 +135,17 @@ export default {
 .modal-body {
   position: relative;
   padding: 15px;
+  width: 100%;
 }
-
-
 
 section {
   margin: 0;
   padding: 0;
 }
 
+.backlog-status-item {
+  margin-bottom: 10px;
+}
 
 #form-top {
   display: flex;
@@ -169,15 +173,11 @@ textarea {
   padding: 10px;
   cursor: pointer;
   font-weight: bold;
-  color: #4AAE9B;
+  color: #1b1ba6;
   background: transparent;
 }
-
-.btn-green {
-  color: white;
-  background: #4AAE9B;
-  border: 1px solid #4AAE9B;
-  border-radius: 2px;
+.btn-close i {
+  font-size: 25px;
 }
 
 .modal-fade-enter,
@@ -189,8 +189,6 @@ textarea {
 .modal-fade-leave-active {
   transition: opacity .5s ease;
 }
-
-
 
 .dark-mode {
 

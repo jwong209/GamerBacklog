@@ -3,13 +3,6 @@
         <div class="game-details-left">
             <div class="image-container" :style="{ backgroundImage: `url(${game?.background_image})` }"></div>
 
-            <!-- <div class="list-options">
-                <button v-if="!currentCollectionGame" v-on:click="addToCollection"><i class="fa-solid fa-layer-group"></i>
-                    Add to Collection</button>
-                <button v-if="!currentBacklogGame" v-on:click="addToBacklog"><i class="fa-solid fa-gamepad"></i> Add to
-                    Backlog</button>
-            </div> -->
-
             <div class="player-status">
                 <div class="status-container">
                     <h3 id="header-backlog-status">Collection Status</h3>
@@ -35,8 +28,10 @@
                             </tr>
                         </table>
                         <button class="secondary wide-btn">
-                            Edit Information
-                            <i class="fa-solid fa-pen-to-square"></i>
+                            Edit Information<i class="fa-solid fa-pen-to-square"></i>
+                        </button>
+                        <button class="secondary wide-btn">
+                            Remove from Collection<i class="fa-solid fa-trash-can"></i>
                         </button>
 
                     </div>
@@ -48,7 +43,6 @@
                             <i class="fa-solid fa-layer-group"></i>
                         </button>
                     </div>
-
                     <!-- <div class="status-stats">
                         <p>Status: {{ currentCollectionGame?.status }}</p>
                         <p>Format: {{ currentCollectionGame?.format }}</p>
@@ -79,6 +73,9 @@
                                 Edit Information<i class="fa-solid fa-pen-to-square"></i>
                             </div>
                         </button>
+                        <button class="secondary wide-btn">
+                            Remove from Backlog<i class="fa-solid fa-trash-can"></i>
+                        </button>
 
                     </div>
 
@@ -89,7 +86,6 @@
                             <i class="fa-solid fa-gamepad"></i> 
                         </button>
                     </div>
-
                     <!-- <div class="status-stats">
                         <p>Priority: {{ currentBacklogGame?.priority }}</p>
                         <p>Progress: {{ currentBacklogGame?.progress }}</p>
@@ -246,7 +242,8 @@ export default {
                     console.log('This is the CollectionId:' + this.collectionId);
                 })
                 .catch((error) => {
-                    alert('Unable to retrieve collection id');
+                    console.log('Unable to retrieve collection id');
+                    // alert('Unable to retrieve collection id');
                 });
         },
         getBacklogId() {
@@ -257,7 +254,8 @@ export default {
                     console.log('This is the backlogId: ' + this.backlogId);
                 })
                 .catch((error) => {
-                    alert('Unable to retrieve backlogId');
+                    console.log('Unable to retrieve backlogId');
+                    // alert('Unable to retrieve backlogId');
                 });
         },
         getCollectionGame() {
@@ -266,7 +264,8 @@ export default {
                     this.currentCollectionGame = response.data;
                 })
                 .catch((error) => {
-                    alert('Unable to retrieve collection status info');
+                    console.log('Unable to retrieve collection status info');
+                    // alert('Unable to retrieve collection status info');
                 });
         },
         getBacklogGame() {
@@ -275,7 +274,8 @@ export default {
                     this.currentBacklogGame = response.data;
                 })
                 .catch((error) => {
-                    alert('Unable to retrieve backlog status info');
+                    console.log('Unable to retrieve backlog status info');
+                    // alert('Unable to retrieve backlog status info');
                 });
         }
 
@@ -431,7 +431,6 @@ table td {
     flex-wrap: wrap;
     gap: 10px;
     margin: 10px;
-    
 }
 
 .screenshot-container {

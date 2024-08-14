@@ -163,6 +163,25 @@ section h2 i {
   width: 500px;
 }
 
+/* ----------------------  DISPLAY CONTROLS  ---------------------- */
+.display-option {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.display-option i {
+  font-size: 1.25rem;
+}
+
+.display-button {
+  width: 50px;
+  padding: 4px 0px 1px 0px;
+  cursor: pointer;
+  /* background-color: rgb(219, 219, 242); */
+}
+
+
 /* ----------------------  CARDS DISPLAY AREA  ---------------------- */
 .cards-area {
   display: flex;
@@ -302,6 +321,7 @@ section h2 i {
   padding: 10px 20px 20px;
   width: 50%;
   border-radius: 3px;
+  margin: 0 10px;
 }
 
 .items-mid th {

@@ -258,12 +258,6 @@ export default {
 </script>
 
 <style scoped>
-.display-button {
-    width: 50px;
-    padding: 4px 0px 1px 12px;
-    cursor: pointer;
-
-}
 
 #game-search-form {
     background-color: rgb(219, 219, 242);
@@ -309,15 +303,7 @@ export default {
     width: 120px;
 }
 
-.display-option {
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-}
 
-.display-option i {
-    font-size: 1.5rem;
-}
 
 .pagination {
     display: flex;

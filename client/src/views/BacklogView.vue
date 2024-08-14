@@ -35,7 +35,7 @@
         <hr>
 
         <div class="display-area">
-            <filter-options />
+            <filter-options-backlog />
             <loading-spinner v-if="isLoading && filteredList.length === 0" v-bind:spin="isLoading" />
 
             <div class="list-area" v-show="isListVisible === true">
@@ -63,9 +63,9 @@ import BacklogGameCard from '../components/BacklogGameCard.vue';
 import BacklogListItem from '../components/BacklogListItem.vue';
 import ModalBacklog from '../components/ModalBacklog.vue';
 import LoadingSpinner from '../components/LoadingSpinner.vue';
-import FilterOptions from '../components/FilterOptions.vue';
 import CollectionService from '../services/CollectionService';
 import GamesService from '../services/GamesService';
+import FilterOptionsBacklog from '../components/FilterOptionsBacklog.vue';
 
 
 export default {
@@ -74,7 +74,7 @@ export default {
             isLoading: true,
             isListVisible: false,
             pageTitle: "Backlog",
-            pageDescription: "Games that you'll get to later",
+            pageDescription: "Keep tabs on the games that you'll get to later",
             bgImage: 'src/assets/img/pxfuel02.jpg',
 
             backlogId: null,
@@ -95,7 +95,7 @@ export default {
         BacklogListItem,
         ModalBacklog,
         LoadingSpinner,
-        FilterOptions,
+        FilterOptionsBacklog,
 
     },
 

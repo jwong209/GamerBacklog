@@ -4,7 +4,7 @@
       <div class="modal" role="dialog" aria-labelledby="modalTitle" aria-describedby="modalDescription">
         <header class="modal-header" id="modalTitle">
           <slot name="header">Edit Collection Status</slot>
-          <button type="button" class="btn-close" @click="close" aria-label="Close modal">x</button>
+          <button type="button" class="btn-close" @click="close" aria-label="Close modal"><i class="fa-regular fa-circle-xmark"></i></button>
         </header>
 
         <section class="modal-body" id="modalDescription">
@@ -180,6 +180,7 @@ export default {
 .modal-body {
   position: relative;
   padding: 15px;
+  width: 100%;
 }
 
 section {
@@ -196,12 +197,14 @@ section {
   top: 0;
   right: 0;
   border: none;
-  font-size: 20px;
   padding: 10px;
   cursor: pointer;
   font-weight: bold;
-  color: orange;
+  color: #1b1ba6;
   background: transparent;
+}
+.btn-close i {
+  font-size: 25px;
 }
 
 #form-top {
@@ -219,13 +222,6 @@ section {
 textarea {
   height: 80px;
   width: 350px
-}
-
-.btn-green {
-  color: white;
-  background: #4AAE9B;
-  border: 1px solid #4AAE9B;
-  border-radius: 2px;
 }
 
 .modal-fade-enter,
