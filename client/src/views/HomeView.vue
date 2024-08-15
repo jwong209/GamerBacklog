@@ -19,12 +19,12 @@
     <section id="how-it-works-section">
 
       <div id="how-it-works-area">
-        <h2>PlayQ is the spot to track your game collection, keep your backlog updated, and add those upcoming to your wishlist. </h2>
+        <h2>Game management made simple so you spend less time deciding and more time gaming. </h2>
 
         <div class="how-it-works-content">
 
           <div class="how-it-works-text-container">
-            <h3>Heading</h3>
+            <h3>Collection</h3>
             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore
               et dolore magna aliqua.</p>
           </div>
@@ -41,8 +41,8 @@
               alt="">
           </div>
           <div class="how-it-works-text-container">
-            <h3>Heading</h3>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore
+            <h3>Backlog</h3>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do incididunt ut labore
               et dolore magna aliqua.</p>
           </div>
         </div>
@@ -50,8 +50,7 @@
         <div class="how-it-works-content">
           <div class="how-it-works-text-container">
             <h3>Heading</h3>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore
-              et dolore magna aliqua.</p>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod.</p>
           </div>
 
           <div class="how-it-works-image-container">

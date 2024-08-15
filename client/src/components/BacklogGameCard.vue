@@ -53,6 +53,8 @@ export default {
 
     props: ['game', 'collectionId', 'backlogId'],
 
+    emits: ['edit-info'],
+
     methods: {
         // removeFromBacklog() {
         //     BacklogService.removeGameFromBacklog(this.backlogId, this.gameId)
@@ -67,7 +69,10 @@ export default {
         removeGameFromBacklog() {
             this.$store.dispatch('removeGameFromBacklog', { backlogId: this.backlogId, currentGameId: this.gameId })
                 .then((response) => {
-                    alert('Successfully removed game from backlog');
+                    // alert('Successfully removed game from backlog');
+
+                    // maybe try to emit gameRemovedSuccess with message, reassign message in parent 
+                    this.$emit('gameRemovedSuccess');
                 })
                 .catch((error) => {
                     alert('Unable to delete from Backlog');
@@ -83,7 +88,7 @@ export default {
                     console.log('Successfully retrieved backlog info');
                 })
                 .catch((error) => {
-                    console.log('Unable to get backlog information');
+                    console.log('BCard unable to get backlog information');
                     // alert('Unable to get backlog information');
                 });
         },

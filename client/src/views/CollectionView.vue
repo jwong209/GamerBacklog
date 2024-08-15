@@ -52,8 +52,8 @@
 
     </section>
 
-    <modal-collection v-if="showModal" v-bind:selectedGameId="selectedGameId" v-bind:collectionId="collectionId" v-bind:platforms="platforms" v-on:close="showModal = false" />
-    
+    <modal-collection v-if="showModal" v-bind:selectedGameId="selectedGameId" v-bind:collectionId="collectionId"
+        v-bind:platforms="platforms" v-on:close="showModal = false" />
 </template>
 
 <script>
@@ -149,7 +149,6 @@ export default {
             return this.$store.dispatch('getCollectionGames')  //added 'return' so that promise chaining succeeds
                 .then((response) => {
                     // this.games = response.data;
-                    // this.isLoading = false;
                     console.log('CollectionGames successfully retrieved');
                 })
                 .catch((error) => {
@@ -171,7 +170,7 @@ export default {
                 });
         },
         getCollectionId() {
-            return CollectionService.getCollectionId() //added 'return' so that promise chaining succeeds
+           return CollectionService.getCollectionId() //added 'return' so that promise chaining succeeds
                 .then((response) => {
                     this.collectionId = response.data;
                     console.log('This is the CollectionId:' + this.collectionId);
@@ -196,7 +195,23 @@ export default {
                 });
         },
 
+
+
     },
+
+    // watch: {
+    //     collectionId(newVal, oldVal) {
+    //         if (newVal) {
+    //             this.getCollectionGames()
+    //                 .then(() => {
+    //                     console.log('Collection games fetched successfully');
+    //                 })
+    //                 .catch(() => {
+    //                     console.error('Failed to fetch collection games');
+    //                 });
+    //         }
+    //     }
+    // },
 
     created() {
         // this.getCollectionGames();
@@ -207,7 +222,7 @@ export default {
         this.getCollectionId() // Promise chaining
             .then(() => {
                 this.getBacklogId();
-                console.log('backlogId promise with ' + this.backlogId);
+                console.log('backlogId promise');
             })
             .then(() => {
                 this.getPlatforms();
@@ -222,8 +237,8 @@ export default {
                 alert("Unable to fetch info. Try reloading the page.");
             });
 
-    }, 
-    
+    },
+
 }
 </script>
 

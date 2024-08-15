@@ -45,7 +45,7 @@
 
             <div class="cards-area" v-show="isListVisible === false">
                 <backlog-game-card v-for="game in filteredList" v-bind:game="game" v-bind:key="game.id"
-                    v-bind:backlogId="backlogId" v-bind:collectionId="collectionId" v-on:edit-info="editInfo" />
+                    v-bind:backlogId="backlogId" v-bind:collectionId="collectionId" v-on:edit-info="editInfo" v-on:gameRemovedSuccess="() => debounceInstance()" />
             </div>
         </div>
 
@@ -54,6 +54,12 @@
     <modal-backlog v-if="showModal" v-bind:selectedGameId="selectedGameId" v-bind:backlogId="backlogId"
         v-on:close="showModal = false" />
 
+
+    <button @click="() => debounceInstance()">Notification</button>
+
+    <div ref="notification" :class="['notification', { visible: showNotification }]">
+        <p>Awesome 🏆</p>
+    </div>
 </template>
 
 <script>
@@ -66,6 +72,9 @@ import LoadingSpinner from '../components/LoadingSpinner.vue';
 import CollectionService from '../services/CollectionService';
 import GamesService from '../services/GamesService';
 import FilterOptionsBacklog from '../components/FilterOptionsBacklog.vue';
+
+
+const DEBOUNCE_DELAY_MS = 200;
 
 
 export default {
@@ -86,6 +95,9 @@ export default {
 
             searchedName: '',
             sortBySelection: '',
+
+            showNotification: false,
+            debounceInstance: this.debounce(DEBOUNCE_DELAY_MS)
         }
     },
 
@@ -103,8 +115,8 @@ export default {
         filteredList() {
             let filteredGames = this.$store.getters.retrieveBacklogGames;
 
-             // ----------------- FILTER Conditions  -----------------
-             if (this.searchedName != "") {
+            // ----------------- FILTER Conditions  -----------------
+            if (this.searchedName != "") {
                 filteredGames = filteredGames.filter((game) => game.name.toLowerCase().includes(this.searchedName.toLowerCase()));
             }
 
@@ -127,12 +139,12 @@ export default {
                     const nameA = a.name.toLowerCase();
                     const nameB = b.name.toLowerCase();
                     if (nameA < nameB) {
-                        return -1;        
+                        return -1;
                     }
                     if (nameA > nameB) {
-                        return 1;         
+                        return 1;
                     }
-                    return 0;           
+                    return 0;
                 }).reverse();
             }
 
@@ -160,7 +172,7 @@ export default {
                 .then((response) => {
                     // this.games = response.data;
                     // this.isLoading = false;
-                    
+
                 })
                 .catch((error) => {
                     // this.isLoading = false;
@@ -205,6 +217,19 @@ export default {
                     alert('Unable to fetch platforms');
                 });
         },
+        debounce(debounceDelayMs) {
+            let timerId = null;
+
+            return () => {
+                if (timerId) clearTimeout(timerId);
+                timerId = setTimeout(() => this.showNotification = true, debounceDelayMs);
+            }
+        },
+
+
+        
+
+
     },
 
     created() {
@@ -217,7 +242,7 @@ export default {
                 this.getPlatforms();
                 console.log('platforms promise')
             })
-            .finally(() => {
+            .then(() => {
                 this.getBacklogGames();
                 console.log('finally backlogGames promise');
                 console.log('For collectionGame, this is the collectionId: ' + this.collectionId);
@@ -227,9 +252,57 @@ export default {
                 console.log("Error occurred: " + error);
                 alert("Unable to fetch info. Try reloading the page.");
             });
+    },
+
+    mounted() {
+        const notificationRef = this.$refs["notification"];
+        notificationRef.addEventListener("animationend", (event) => {
+            if (event.animationName === "moveout") {
+                this.showNotification = false;
+            }
+        });
     }
 }
 
 </script>
 
-<style scoped></style>
+<style scoped>
+.notification {
+  position: fixed;
+  top: -2rem;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  padding: 5px;
+  width: fit-content;
+  background-color: #cba8cb77;
+}
+
+.visible {
+  /*         name    duration delay timing function direction*/
+  animation: movein  0.5s           ease            forwards,
+             moveout 0.5s     2s    ease            forwards;
+}
+
+@keyframes movein {
+  from {
+    top: -2rem;
+    opacity: 0;
+  }
+  to {
+    top: 2rem;
+    opacity: 1;
+  }
+}
+
+@keyframes moveout {
+  from {
+    top: 2rem;
+    opacity: 1;
+  }
+  to {
+    top: -2rem;
+    opacity: 0;
+  }
+}
+</style>

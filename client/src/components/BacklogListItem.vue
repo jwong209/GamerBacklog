@@ -76,6 +76,8 @@ export default {
 
     props: ['game', 'backlogId', 'collectionId'],
 
+    emits: ['edit-info'],
+
     methods: {
         // removeFromBacklog() {
         //     BacklogService.removeGameFromBacklog(this.backlogId, this.gameId)
@@ -106,7 +108,8 @@ export default {
                     console.log('Successfully retrieved backlog info');
                 })
                 .catch((error) => {
-                    alert('Unable to get backlog information');
+                    console.log('BListItem unable to get backlog information');
+                    // alert('Unable to get backlog information');
                 });
         },
         addGameToCollection() {

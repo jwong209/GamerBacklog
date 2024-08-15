@@ -39,7 +39,7 @@
         <div class="items-right">
             <div class="items-right-top">
                 <button class="secondary" v-on:click="addGameToBacklog">Add to Backlog<i class="fa-solid fa-gamepad"></i></button>
-                <button class="secondary">Edit information <i class="fa-solid fa-pen-to-square"></i></button>
+                <button v-on:click="editInfo(game.id)" class="secondary">Edit information <i class="fa-solid fa-pen-to-square"></i></button>
             </div>
             <div class="items-right-bottom">
                 <button v-on:click="removeFromCollection" class="secondary">
@@ -72,6 +72,8 @@ export default {
     },
 
     props: ['game', 'collectionId', 'backlogId'],
+
+    emits: ['edit-info'],
 
     methods: {
 

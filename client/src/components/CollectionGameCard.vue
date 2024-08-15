@@ -67,6 +67,8 @@ export default {
 
     props: ['game', 'collectionId', 'backlogId'],
 
+    emits: ['edit-info'],
+
     computed: {
         
     },
