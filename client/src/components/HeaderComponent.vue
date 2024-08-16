@@ -99,7 +99,6 @@ export default {
 <style>
 header {
     background-color: #6666ff;
-    /* position: fixed;   */
     width: 100%;
     top: 0;
     z-index: 1000;

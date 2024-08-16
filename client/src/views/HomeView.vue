@@ -79,17 +79,6 @@ export default {
     }
   },
 
-  components: {
-  },
-
-  methods: {
-
-  },
-
-  created() {
-
-  }
-
 }
 
 </script>
@@ -115,6 +104,8 @@ section {
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
+  background-attachment: fixed;
+
   background-color: #1b1625;
   display: flex;
   justify-content: center;

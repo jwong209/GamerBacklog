@@ -256,6 +256,29 @@ export default {
                 console.log("Error occurred: " + error);
                 alert("Unable to fetch info. Try reloading the page.");
             });
+
+        // Promise.all([
+        //     this.getBacklogId(),
+        //     this.getCollectionId(),
+        //     this.getPlatforms(),
+        //     this.getBacklogGames()
+        // ])
+        //     .then(([backlogIdResponse, collectionIdResponse, platformsResponse]) => {
+        //         this.backlogId = backlogIdResponse.data;
+        //         this.collectionId = collectionIdResponse.data;
+        //         this.platforms = platformsResponse.data;
+               
+        //     })
+        //     .then(backlogGamesResponse => {
+        //         this.games = backlogGamesResponse.data;
+
+        //         console.log('For collectionGame, this is the collectionId: ' + this.collectionId);
+        //         console.log('For collectionGame, this is the backlogId: ' + this.backlogId);
+        //     })
+        //     .catch((error) => {
+        //         console.log("Error occurred: " + error);
+        //         alert("Unable to fetch info. Try reloading the page.");
+        //     });
     },
 
     mounted() {

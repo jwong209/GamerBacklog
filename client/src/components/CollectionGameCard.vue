@@ -25,7 +25,7 @@
                         v-bind:key="index"></i></span>
             </div>
             <div v-if="collectionGame?.notes">
-                <strong>Notes:</strong> 
+                <strong>Notes:</strong>
                 <br>
                 <div class="card-status-notes">{{ collectionGame?.notes }}</div>
             </div>
@@ -44,7 +44,7 @@
                 </button>
             </div>
         </div>
-        <i v-if="collectionGame?.status === 'Completed'" class="fa-solid fa-trophy card-notification" ></i>
+        <i v-if="collectionGame?.status === 'Completed'" class="fa-solid fa-trophy card-notification"></i>
     </div>
 </template>
 
@@ -69,10 +69,10 @@ export default {
 
     props: ['game', 'collectionId', 'backlogId'],
 
-    emits: ['edit-info'],
+    emits: ['edit-info', 'gameRemovedSuccess', 'gameAddedSuccess'],
 
     computed: {
-        
+
     },
 
     methods: {
@@ -86,10 +86,17 @@ export default {
         //             alert('Unable to delete from Collection');
         //         });
         // },
+        emitFunction() {
+            this.$emit('gameRemovedSuccess', { popupText: 'Game successfully removed from Collection.' });
+            console.log('emitting...');
+        },
+
         removeGameFromCollection() {
-            this.$emit('gameRemovedSuccess', { popupText:'Game successfully removed from Collection.' });
             this.$store.dispatch('removeGameFromCollection', { collectionId: this.collectionId, currentGameId: this.gameId })
                 .then((response) => {
+                    // this.$emit('gameRemovedSuccess', { popupText: 'Game successfully removed from Collection.' });
+                    this.emitFunction();
+
                     console.log('Successfully deleted game from collection');
                     // alert('Successfully removed game from collection');
                 })
@@ -98,7 +105,7 @@ export default {
                 });
         },
         addGameToBacklog() {
-            this.$emit('gameAddedSuccess', { popupText:'Game successfully added to Backlog.' });
+            this.$emit('gameAddedSuccess', { popupText: 'Game successfully added to Backlog.' });
 
             BacklogService.addGameToBacklog(this.backlogGame)
                 .then((response) => {
@@ -124,7 +131,7 @@ export default {
         },
 
         testing() {
-            this.$emit('testingButtonOK', {popupText: ' Testing this popup'});
+            this.$emit('testingButtonOK', { popupText: ' Testing this popup' });
         }
 
     },
@@ -140,5 +147,4 @@ export default {
 #star-icon {
     color: rgb(225, 200, 3);
 }
-
 </style>

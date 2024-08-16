@@ -51,7 +51,6 @@
                     v-on:gameRemovedSuccess="handleNotification"
                     v-on:gameAddedSuccess="handleNotification"
                     />
-
             </div>
         </div>
 
@@ -224,7 +223,9 @@ export default {
         },
         handleNotification(payload) {
             this.popupText = payload.popupText;
+            console.log('popText:' + this.popupText);
             this.debounceInstance();
+           
         },
 
         

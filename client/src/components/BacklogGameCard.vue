@@ -107,7 +107,7 @@ export default {
         },
         // testing
         testing() {
-            this.$emit('testingButtonOK', {popupText: ' Testing this popup'});
+            this.$emit('testingButtonOK', {popupText: 'Hello, Tech Elevator'});
         }
 
     },
