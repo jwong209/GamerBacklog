@@ -58,6 +58,7 @@
                     <option value="3">3</option>
                     <option value="2">2</option>
                     <option value="1">1</option>
+                    <!-- apparently icons cannot appear in <option> -->
                   </select>
                 </div>
 
@@ -113,9 +114,11 @@ export default {
       this.$emit('close');
     },
     updateCollectionGame() {
+      this.$emit('updateGameSuccess', { popupText:'Game status updated.' });
+
       CollectionService.updateCollectionGame(this.collectionId, this.selectedGameId, this.collectionGame)
         .then((response) => {
-          alert('Successfully updated collection status');
+          // alert('Successfully updated collection status');
           this.close();
         })
         .catch((error) => {

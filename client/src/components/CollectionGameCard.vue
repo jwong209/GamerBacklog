@@ -37,6 +37,8 @@
                 <button title="Add to Backlog" class="description-button" v-on:click="addGameToBacklog">
                     <i class="fa-solid fa-gamepad"></i>
                 </button>
+                <button v-on:click="testing"><i class="fa-solid fa-heart"></i></button>
+
                 <button title="Remove from list" v-on:click="removeGameFromCollection">
                     <i class="fa-solid fa-trash-can"></i>
                 </button>
@@ -85,20 +87,23 @@ export default {
         //         });
         // },
         removeGameFromCollection() {
+            this.$emit('gameRemovedSuccess', { popupText:'Game successfully removed from Collection.' });
             this.$store.dispatch('removeGameFromCollection', { collectionId: this.collectionId, currentGameId: this.gameId })
                 .then((response) => {
                     console.log('Successfully deleted game from collection');
-                    alert('Successfully removed game from collection');
+                    // alert('Successfully removed game from collection');
                 })
                 .catch((error) => {
                     alert('Unable to delete from Collection');
                 });
         },
         addGameToBacklog() {
+            this.$emit('gameAddedSuccess', { popupText:'Game successfully added to Backlog.' });
+
             BacklogService.addGameToBacklog(this.backlogGame)
                 .then((response) => {
                     console.log('Added game to backlog');
-                    alert('Successfully added to backlog');
+                    // alert('Successfully added to backlog');
                 })
                 .catch((error) => {
                     alert('Unable to add game to backlog');
@@ -116,6 +121,10 @@ export default {
                     console.log('Unable to get collection information');
                     // alert('Unable to get collection information');
                 });
+        },
+
+        testing() {
+            this.$emit('testingButtonOK', {popupText: ' Testing this popup'});
         }
 
     },

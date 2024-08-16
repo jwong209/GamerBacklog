@@ -45,7 +45,12 @@
 
             <div class="cards-area" v-show="isListVisible === false">
                 <collection-game-card v-for="game in filteredList" v-bind:game="game" v-bind:key="game.id"
-                    v-bind:backlogId="backlogId" v-bind:collectionId="collectionId" v-on:edit-info="editInfo" />
+                    v-bind:backlogId="backlogId" v-bind:collectionId="collectionId" 
+                    v-on:edit-info="editInfo" 
+                    v-on:testingButtonOK="handleNotification" 
+                    v-on:gameRemovedSuccess="handleNotification"
+                    v-on:gameAddedSuccess="handleNotification"
+                    />
 
             </div>
         </div>
@@ -53,7 +58,11 @@
     </section>
 
     <modal-collection v-if="showModal" v-bind:selectedGameId="selectedGameId" v-bind:collectionId="collectionId"
-        v-bind:platforms="platforms" v-on:close="showModal = false" />
+        v-bind:platforms="platforms" v-on:close="showModal = false" v-on:updateGameSuccess="handleNotification" />
+
+    <div ref="notification" :class="['notification', { visible: showNotification }]">
+        <p><i class="fa-solid fa-circle-check"></i> {{ messagePopup }}</p>
+    </div>
 </template>
 
 <script>
@@ -68,6 +77,8 @@ import LoadingSpinner from '../components/LoadingSpinner.vue';
 import FilterOptions from '../components/FilterOptions.vue';
 import GamesService from '../services/GamesService';
 
+
+const DEBOUNCE_DELAY_MS = 200;
 
 export default {
     data() {
@@ -88,7 +99,11 @@ export default {
             searchedName: '',
             sortBySelection: '',
 
-            dialogRef: null
+            dialogRef: null,
+
+            showNotification: false,
+            debounceInstance: this.debounce(DEBOUNCE_DELAY_MS),
+            popupText: '',
         }
     },
     components: {
@@ -140,6 +155,10 @@ export default {
 
             return filteredGames;
         },
+        messagePopup() {
+            let currentPopupText = this.popupText;
+            return currentPopupText;
+        }
 
     },
 
@@ -170,7 +189,7 @@ export default {
                 });
         },
         getCollectionId() {
-           return CollectionService.getCollectionId() //added 'return' so that promise chaining succeeds
+            return CollectionService.getCollectionId() //added 'return' so that promise chaining succeeds
                 .then((response) => {
                     this.collectionId = response.data;
                     console.log('This is the CollectionId:' + this.collectionId);
@@ -195,7 +214,20 @@ export default {
                 });
         },
 
+        debounce(debounceDelayMs) {
+            let timerId = null;
 
+            return () => {
+                if (timerId) clearTimeout(timerId);
+                timerId = setTimeout(() => this.showNotification = true, debounceDelayMs);
+            }
+        },
+        handleNotification(payload) {
+            this.popupText = payload.popupText;
+            this.debounceInstance();
+        },
+
+        
 
     },
 
@@ -239,7 +271,69 @@ export default {
 
     },
 
+    mounted() {
+        const notificationRef = this.$refs["notification"];
+        notificationRef.addEventListener("animationend", (event) => {
+            console.log('Animation ended:', event.animationName);
+            if (event.animationName.includes("moveout")) {
+                console.log('Setting showNotification to false');
+                this.showNotification = false;
+            }
+            console.log('showNotification: ' + this.showNotification);
+        });
+    }
+
 }
 </script>
 
-<style scoped></style>
+<style scoped>
+/* ----- NOTIFICATION ----- */
+.notification {
+    position: fixed;
+    top: -2rem;
+    left: 50%;
+    transform: translate(-50%, -55%);
+
+    padding: 5px 30px;
+    width: fit-content;
+    background-color: #120ab077;
+    color: white;
+    border-radius: 10px;
+    border: 2px solid rgb(107, 74, 215);
+}
+
+.notification i {
+    color: greenyellow;
+}
+
+
+.visible {
+    /*         name    duration delay timing function direction*/
+    animation: movein 0.5s ease forwards,
+        moveout 0.5s 2s ease forwards;
+}
+
+@keyframes movein {
+    from {
+        top: -4rem;
+        opacity: 0;
+    }
+
+    to {
+        top: 4rem;
+        opacity: 1;
+    }
+}
+
+@keyframes moveout {
+    from {
+        top: 4rem;
+        opacity: 1;
+    }
+
+    to {
+        top: -4rem;
+        opacity: 0;
+    }
+}
+</style>

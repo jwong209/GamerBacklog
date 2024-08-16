@@ -23,6 +23,7 @@
                 <button title="Add to collection" class="description-button" v-on:click="addGameToCollection"><i
                         class="fa-solid fa-layer-group"></i>
                 </button>
+                <button v-on:click="testing"><i class="fa-solid fa-heart"></i></button>
                 <button><i class="fa-solid fa-trash-can" v-on:click="removeGameFromBacklog" id="removeButton"></i></button>
             </div>
         </div>
@@ -53,7 +54,7 @@ export default {
 
     props: ['game', 'collectionId', 'backlogId'],
 
-    emits: ['edit-info'],
+    emits: ['edit-info', 'gameRemovedSuccess', 'testingButtonOK'],
 
     methods: {
         // removeFromBacklog() {
@@ -67,16 +68,16 @@ export default {
         //         });
         // },
         removeGameFromBacklog() {
+            this.$emit('gameRemovedSuccess', { popupText:'Game successfully removed from Backlog.' });
             this.$store.dispatch('removeGameFromBacklog', { backlogId: this.backlogId, currentGameId: this.gameId })
-                .then((response) => {
-                    // alert('Successfully removed game from backlog');
-
-                    // maybe try to emit gameRemovedSuccess with message, reassign message in parent 
-                    this.$emit('gameRemovedSuccess');
-                })
-                .catch((error) => {
-                    alert('Unable to delete from Backlog');
-                });
+            .then((response) => {
+                // alert('Successfully removed game from backlog');
+                
+                // maybe try to emit gameRemovedSuccess with message, reassign message in parent 
+            })
+            .catch((error) => {
+                alert('Unable to delete from Backlog');
+            });
         },
         editInfo() {
             this.$emit('edit-info', { gameId: this.gameId, backlogId: this.backlogId });
@@ -93,14 +94,20 @@ export default {
                 });
         },
         addGameToCollection() {
+            this.$emit('gameAddedSuccess', { popupText:'Game successfully added to Collection.' });
+
             CollectionService.addGameToCollection(this.collectionGame)
                 .then((response) => {
                     // console.log('Added game to collection with collectionId: ' + this.collectionId);
-                    alert('Successfully added to collection');
+                    // alert('Successfully added to collection');
                 })
                 .catch((error) => {
                     alert('Unable to add game to collection');
                 });
+        },
+        // testing
+        testing() {
+            this.$emit('testingButtonOK', {popupText: ' Testing this popup'});
         }
 
     },

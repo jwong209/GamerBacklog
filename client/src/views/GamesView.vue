@@ -76,7 +76,10 @@
         </div>
         <div class="cards-area" v-show="isListVisible === false">
             <game-card v-for="game in games" v-bind:game="game" v-bind:key="game.id" v-bind:collectionId="collectionId"
-                v-bind:backlogId="backlogId" v-on:open-options="openDialogModal" />
+                v-bind:backlogId="backlogId" v-on:open-options="openDialogModal" 
+                v-on:testingButtonOK="handleNotification"
+                v-on:gameRemovedSuccess="handleNotification" 
+                v-on:gameAddedSuccess="handleNotification" />
         </div>
 
         <!-- Pagination buttons -->
@@ -89,13 +92,8 @@
         </div>
     </section>
 
-    <dialog ref="dialogTemplateRef">
-        <button>Button 1</button>
-        <button>Button 2</button>
-    </dialog>
-    <div v-if="isOptionsVisible" id="add-options">
-        <button>Button 1</button>
-        <button>Button 2</button>
+    <div ref="notification" :class="['notification', { visible: showNotification }]">
+        <p><i class="fa-solid fa-circle-check"></i> {{ messagePopup }}</p>
     </div>
 </template>
 
@@ -107,6 +105,8 @@ import Heading from '../components/HeadingComponent.vue';
 import CollectionService from '../services/CollectionService';
 import BacklogService from '../services/BacklogService';
 import LoadingSpinner from '../components/LoadingSpinner.vue';
+
+const DEBOUNCE_DELAY_MS = 200;
 
 
 export default {
@@ -131,6 +131,10 @@ export default {
 
             dialogRef: null,
             isOptionsVisible: false,
+
+            showNotification: false,
+            debounceInstance: this.debounce(DEBOUNCE_DELAY_MS),
+            popupText: '',
         }
     },
 
@@ -139,6 +143,13 @@ export default {
         gameCard,
         GameListItem,
         LoadingSpinner,
+    },
+
+    computed: {
+        messagePopup() {
+            let currentPopupText = this.popupText;
+            return currentPopupText;
+        }
     },
 
     methods: {
@@ -221,6 +232,18 @@ export default {
         },
         closeDialogModal() {
             this.dialogRef?.close();
+        },
+        debounce(debounceDelayMs) {
+            let timerId = null;
+
+            return () => {
+                if (timerId) clearTimeout(timerId);
+                timerId = setTimeout(() => this.showNotification = true, debounceDelayMs);
+            }
+        },
+        handleNotification(payload) {
+            this.popupText = payload.popupText;
+            this.debounceInstance();
         }
 
     },
@@ -252,13 +275,22 @@ export default {
     // https://vuejs.org/guide/essentials/template-refs.html
     mounted() {
         this.dialogRef = this.$refs.dialogTemplateRef;
+
+        const notificationRef = this.$refs["notification"];
+        notificationRef.addEventListener("animationend", (event) => {
+            console.log('Animation ended:', event.animationName);
+            if (event.animationName.includes("moveout")) {
+                console.log('Setting showNotification to false');
+                this.showNotification = false;
+            }
+            console.log('showNotification: ' + this.showNotification);
+        });
     }
 }
 
 </script>
 
 <style scoped>
-
 #game-search-form {
     background-color: rgb(219, 219, 242);
     border-radius: 3px;
@@ -348,6 +380,56 @@ dialog::backdrop {
 
     to {
         opacity: 1;
+    }
+}
+
+/* ----- NOTIFICATION ----- */
+.notification {
+    position: fixed;
+    top: -2rem;
+    left: 50%;
+    transform: translate(-50%, -55%);
+
+    padding: 5px 30px;
+    width: fit-content;
+    background-color: #120ab077;
+    color: white;
+    border-radius: 10px;
+    border: 2px solid rgb(107, 74, 215);
+}
+
+.notification i {
+    color: greenyellow;
+}
+
+
+.visible {
+    /*         name    duration delay timing function direction*/
+    animation: movein 0.5s ease forwards,
+        moveout 0.5s 2s ease forwards;
+}
+
+@keyframes movein {
+    from {
+        top: -4rem;
+        opacity: 0;
+    }
+
+    to {
+        top: 4rem;
+        opacity: 1;
+    }
+}
+
+@keyframes moveout {
+    from {
+        top: 4rem;
+        opacity: 1;
+    }
+
+    to {
+        top: -4rem;
+        opacity: 0;
     }
 }
 </style>

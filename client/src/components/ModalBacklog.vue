@@ -77,16 +77,17 @@ export default {
       this.$emit('close');
     },
     updateBacklogGame() {
+      this.$emit('updateGameSuccess', { popupText:'Game status updated.' });
+
       BacklogService.updateBacklogGame(this.backlogId, this.selectedGameId, this.backlogGame)
         .then((response) => {
-          alert('Successfully updated backlog status');
+          // alert('Successfully updated backlog status');
           this.close();
         })
         .catch((error) => {
           alert('Unable to update backlog status');
         });
     },
-
 
   }
 };

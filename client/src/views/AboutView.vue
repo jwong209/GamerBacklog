@@ -12,24 +12,28 @@
     </section>
 
 
-    <button type="button" class="btn" @click="showModal">Open Modal!</button>
-    <modal-backlog v-show="isModalVisible" @close="closeModal" />
-    <dialog ref="dialogTemplateRef">
-        <button>Button 1</button>
-        <button>Button 2</button>
-    </dialog>
-  
 
-    <section id="contact-form-section">
+
+    <!-- <section id="contact-form-section">
         <form>
             <input type="text">
         </form>
-    </section>
+    </section> -->
+
+        <div ref="notification" :class="['notification', { visible: showNotification }]">
+            <p>Awesome 🏆</p>
+        </div>
+
+        <p>showNotification = {{ showNotification }}</p>
+        <button @click="() => debounceInstance()">Notification</button>
+    
 </template>
 
 <script>
 import Heading from '../components/HeadingComponent.vue';
-import ModalBacklog from '../components/ModalBacklog.vue';
+
+const DEBOUNCE_DELAY_MS = 200;
+
 
 export default {
     data() {
@@ -37,11 +41,14 @@ export default {
             pageTitle: "About Us",
             bgImage: 'src/assets/img/george-flowers-blYe0BupDuQ-unsplash.jpg',
             isModalVisible: false,
+
+            showNotification: false,
+            debounceInstance: this.debounce(DEBOUNCE_DELAY_MS)
         }
     },
     components: {
         Heading,
-        ModalBacklog,
+
     },
 
     methods: {
@@ -50,8 +57,26 @@ export default {
         },
         closeModal() {
             this.isModalVisible = false;
-        }
-    }
+        },
+
+        debounce(debounceDelayMs) {
+       let timerId = null;
+      
+       return () => {
+         if(timerId) clearTimeout(timerId);
+         timerId = setTimeout(() => this.showNotification = true, debounceDelayMs);
+       }
+     },
+    },
+
+    mounted() {
+    const notificationRef = this.$refs["notification"];
+    notificationRef.addEventListener("animationend", (event) => {
+      if (event.animationName === "moveout") {
+        this.showNotification = false;
+      }
+    });
+  }
 }
 
 
@@ -77,5 +102,45 @@ export default {
 #contact-form-section form {
     width: 80%;
     border: 1px blue solid;
+}
+
+
+.notification {
+  position: fixed;
+  top: -2rem;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  padding: 5px;
+  width: fit-content;
+  background-color: #cba8cb77;
+}
+
+.visible {
+  /*         name    duration delay timing function direction*/
+  animation: movein  0.5s           ease            forwards,
+             moveout 0.5s     2s    ease            forwards;
+}
+
+@keyframes movein {
+  from {
+    top: -2rem;
+    opacity: 0;
+  }
+  to {
+    top: 2rem;
+    opacity: 1;
+  }
+}
+
+@keyframes moveout {
+  from {
+    top: 2rem;
+    opacity: 1;
+  }
+  to {
+    top: -2rem;
+    opacity: 0;
+  }
 }
 </style>

@@ -19,7 +19,8 @@
                 </button>
                 <button title="Add to backlog" class="description-button" v-on:click="addToBacklog"><i class="fa-solid fa-gamepad"></i>
                 </button>
-                <!-- <button v-on:click="$emit('open-options')" id="add-to-btn">Add to...</button> -->
+                <button v-on:click="testing"><i class="fa-solid fa-heart"></i></button>
+
             </div>
         </div>
     </div>
@@ -57,10 +58,12 @@ export default {
 
     methods: {
         addToCollection() {
+            this.$emit('gameAddedSuccess', { popupText:'Game successfully added to Collection.' });
+
             CollectionService.addGameToCollection(this.collectionGame)
                 .then((response) => {
                     console.log('Successfully added game with id ' + this.gameId);
-                    alert('Successfully added to collection');
+                    // alert('Successfully added to collection');
                 })
                 .catch((error) => {
                     alert('Unable to add to collection');
@@ -68,27 +71,26 @@ export default {
         },
         addToBacklog() {
             console.log(this.backlogGame);
+            this.$emit('gameAddedSuccess', { popupText:'Game successfully added to Backlog.' });
+
 
             BacklogService.addGameToBacklog(this.backlogGame)
                 .then((response) => {
                     console.log('Added game to backlog');
-                    alert('Successfully added to backlog');
+                    // alert('Successfully added to backlog');
 
                 })
                 .catch((error) => {
                     alert('Unable to add game to backlog');
                 });
         },
+        testing() {
+            this.$emit('testingButtonOK', {popupText: ' Testing this popup'});
+        }
 
     },
 
-    created() {
-
-    }
-
-
 }
-
 </script>
 
 <style scoped>

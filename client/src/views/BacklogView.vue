@@ -45,20 +45,19 @@
 
             <div class="cards-area" v-show="isListVisible === false">
                 <backlog-game-card v-for="game in filteredList" v-bind:game="game" v-bind:key="game.id"
-                    v-bind:backlogId="backlogId" v-bind:collectionId="collectionId" v-on:edit-info="editInfo" v-on:gameRemovedSuccess="() => debounceInstance()" />
+                    v-bind:backlogId="backlogId" v-bind:collectionId="collectionId" v-on:edit-info="editInfo"
+                    v-on:testingButtonOK="handleNotification" v-on:gameRemovedSuccess="handleNotification"
+                    v-on:gameAddedSuccess="handleNotification" />
             </div>
         </div>
 
     </section>
 
     <modal-backlog v-if="showModal" v-bind:selectedGameId="selectedGameId" v-bind:backlogId="backlogId"
-        v-on:close="showModal = false" />
-
-
-    <button @click="() => debounceInstance()">Notification</button>
+        v-on:close="showModal = false" v-on:updateGameSuccess="handleNotification" />
 
     <div ref="notification" :class="['notification', { visible: showNotification }]">
-        <p>Awesome 🏆</p>
+        <p><i class="fa-solid fa-circle-check"></i> {{ messagePopup }}</p>
     </div>
 </template>
 
@@ -75,7 +74,6 @@ import FilterOptionsBacklog from '../components/FilterOptionsBacklog.vue';
 
 
 const DEBOUNCE_DELAY_MS = 200;
-
 
 export default {
     data() {
@@ -97,7 +95,8 @@ export default {
             sortBySelection: '',
 
             showNotification: false,
-            debounceInstance: this.debounce(DEBOUNCE_DELAY_MS)
+            debounceInstance: this.debounce(DEBOUNCE_DELAY_MS),
+            popupText: '',
         }
     },
 
@@ -149,6 +148,10 @@ export default {
             }
 
             return filteredGames;
+        },
+        messagePopup() {
+            let currentPopupText = this.popupText;
+            return currentPopupText;
         }
     },
 
@@ -225,9 +228,10 @@ export default {
                 timerId = setTimeout(() => this.showNotification = true, debounceDelayMs);
             }
         },
-
-
-        
+        handleNotification(payload) {
+            this.popupText = payload.popupText;
+            this.debounceInstance();
+        }
 
 
     },
@@ -257,9 +261,12 @@ export default {
     mounted() {
         const notificationRef = this.$refs["notification"];
         notificationRef.addEventListener("animationend", (event) => {
-            if (event.animationName === "moveout") {
+            console.log('Animation ended:', event.animationName);
+            if (event.animationName.includes("moveout")) {
+                console.log('Setting showNotification to false');
                 this.showNotification = false;
             }
+            console.log('showNotification: ' + this.showNotification);
         });
     }
 }
@@ -267,42 +274,53 @@ export default {
 </script>
 
 <style scoped>
+/* ----- NOTIFICATION ----- */
 .notification {
-  position: fixed;
-  top: -2rem;
-  left: 50%;
-  transform: translate(-50%, -50%);
+    position: fixed;
+    top: -2rem;
+    left: 50%;
+    transform: translate(-50%, -55%);
 
-  padding: 5px;
-  width: fit-content;
-  background-color: #cba8cb77;
+    padding: 5px 30px;
+    width: fit-content;
+    background-color: #120ab077;
+    color: white;
+    border-radius: 10px;
+    border: 2px solid rgb(107, 74, 215);
 }
 
+.notification i {
+    color: greenyellow;
+}
+
+
 .visible {
-  /*         name    duration delay timing function direction*/
-  animation: movein  0.5s           ease            forwards,
-             moveout 0.5s     2s    ease            forwards;
+    /*         name    duration delay timing function direction*/
+    animation: movein 0.5s ease forwards,
+        moveout 0.5s 2s ease forwards;
 }
 
 @keyframes movein {
-  from {
-    top: -2rem;
-    opacity: 0;
-  }
-  to {
-    top: 2rem;
-    opacity: 1;
-  }
+    from {
+        top: -4rem;
+        opacity: 0;
+    }
+
+    to {
+        top: 4rem;
+        opacity: 1;
+    }
 }
 
 @keyframes moveout {
-  from {
-    top: 2rem;
-    opacity: 1;
-  }
-  to {
-    top: -2rem;
-    opacity: 0;
-  }
+    from {
+        top: 4rem;
+        opacity: 1;
+    }
+
+    to {
+        top: -4rem;
+        opacity: 0;
+    }
 }
 </style>
