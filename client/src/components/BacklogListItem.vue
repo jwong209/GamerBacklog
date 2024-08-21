@@ -126,7 +126,17 @@ export default {
     },
 
     created() {
-        this.getBacklogGame();
+        if (this.backlogId) {
+            this.getBacklogGame();
+        }
+    }, 
+
+    watch: {
+        backlogGame(newVal, oldVal) {
+            if (newVal && !oldVal) {
+                this.getBacklogGame();
+            }
+        }
     }
 }
 </script>

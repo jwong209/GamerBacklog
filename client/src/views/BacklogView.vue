@@ -40,7 +40,7 @@
 
             <div class="list-area" v-show="isListVisible === true">
                 <backlog-list-item v-for="game in filteredList" v-bind:game="game" v-bind:key="game.id"
-                    v-bind:backlogId="backlogId" />
+                    v-bind:backlogId="backlogId" v-bind:collectionId="collectionId"/>
             </div>
 
             <div class="cards-area" v-show="isListVisible === false">

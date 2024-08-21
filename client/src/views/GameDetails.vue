@@ -1,7 +1,7 @@
 <template>
     <section class="game-details-section">
         <div class="game-details-left">
-            <div class="image-container" :style="{ backgroundImage: `url(${game?.background_image})` }"></div>
+            <div class="image-container" :style="{ backgroundImage: `url(${game.background_image})` }"></div>
 
             <div class="player-status">
                 <div class="status-container">
@@ -20,7 +20,8 @@
                             <tr>
                                 <th>Rating:</th>
                                 <td><i id="star-icon" class="fa-solid fa-star"
-                                        v-for="(star, index) in currentCollectionGame?.rating" v-bind:key="index"></i></td>
+                                        v-for="(star, index) in currentCollectionGame.rating" v-bind:key="index"></i></td>
+                                <!-- v-for="(star, index) in currentCollectionGame?.rating" v-bind:key="index"></i></td> -->
                             </tr>
                             <tr>
                                 <th>Notes:</th>
@@ -83,7 +84,7 @@
                         <p>Want to add this game to your Backlog?</p>
                         <button v-if="!currentBacklogGame" v-on:click="addToBacklog" class="secondary wide-btn">
                             Add to Backlog
-                            <i class="fa-solid fa-gamepad"></i> 
+                            <i class="fa-solid fa-gamepad"></i>
                         </button>
                     </div>
                     <!-- <div class="status-stats">
@@ -149,12 +150,23 @@
         </div>
 
     </section>
+
+    <div ref="notification" :class="['notification', { visible: showNotification }]">
+        <!-- <p>Awesome 🏆</p> -->
+        <p><i class="fa-solid fa-circle-check"></i> {{ messagePopup }}</p>
+
+    </div>
+
+    <!-- <button @click="() => debounceInstance()">Notification</button> -->
+    <!-- <button @click="() => debounceInstance()">Notification</button> -->
 </template>
 
 <script>
 import GamesService from '../services/GamesService';
 import CollectionService from '../services/CollectionService';
 import BacklogService from '../services/BacklogService';
+
+const DEBOUNCE_DELAY_MS = 200;
 
 export default {
     data() {
@@ -187,6 +199,10 @@ export default {
             currentCollectionId: null,
             currentBacklogGame: null,
             currentCollectionGame: null,
+
+            showNotification: false,
+            debounceInstance: this.debounce(DEBOUNCE_DELAY_MS),
+            messagePopup: "",
         }
     },
 
@@ -227,6 +243,7 @@ export default {
             BacklogService.addGameToBacklog(this.backlogGame)
                 .then((response) => {
                     console.log('Added game to backlog');
+                    // this.messagePopup = 'Game added to Backlog.'
                     alert('Successfully added to backlog');
                 })
                 .catch((error) => {
@@ -277,7 +294,15 @@ export default {
                     console.log('Unable to retrieve backlog status info');
                     // alert('Unable to retrieve backlog status info');
                 });
-        }
+        },
+        debounce(debounceDelayMs) {
+            let timerId = null;
+
+            return () => {
+                if (timerId) clearTimeout(timerId);
+                timerId = setTimeout(() => this.showNotification = true, debounceDelayMs);
+            }
+        },
 
     },
 
@@ -290,6 +315,13 @@ export default {
     mounted() {
         this.getBacklogGame();
         this.getCollectionGame();
+
+        const notificationRef = this.$refs["notification"];
+        notificationRef.addEventListener("animationend", (event) => {
+            if (event.animationName === "moveout") {
+                this.showNotification = false;
+            }
+        });
     }
 }
 </script>
@@ -454,5 +486,55 @@ table td {
 
 #star-icon {
     color: rgb(225, 200, 3);
+}
+
+/* ----- NOTIFICATION ----- */
+.notification {
+    position: fixed;
+    top: -2rem;
+    left: 50%;
+    transform: translate(-50%, -55%);
+
+    padding: 5px 30px;
+    width: fit-content;
+    background-color: #120ab077;
+    color: white;
+    border-radius: 10px;
+    border: 2px solid rgb(107, 74, 215);
+}
+
+.notification i {
+    color: greenyellow;
+}
+
+
+.visible {
+    /*         name    duration delay timing function direction*/
+    animation: movein 0.5s ease forwards,
+        moveout 0.5s 2s ease forwards;
+}
+
+@keyframes movein {
+    from {
+        top: -4rem;
+        opacity: 0;
+    }
+
+    to {
+        top: 4rem;
+        opacity: 1;
+    }
+}
+
+@keyframes moveout {
+    from {
+        top: 4rem;
+        opacity: 1;
+    }
+
+    to {
+        top: -4rem;
+        opacity: 0;
+    }
 }
 </style>

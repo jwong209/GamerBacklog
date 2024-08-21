@@ -92,10 +92,10 @@ export default {
         },
 
         removeGameFromCollection() {
+            this.$emit('gameRemovedSuccess', { popupText: 'Game successfully removed from Collection.' });
             this.$store.dispatch('removeGameFromCollection', { collectionId: this.collectionId, currentGameId: this.gameId })
                 .then((response) => {
-                    // this.$emit('gameRemovedSuccess', { popupText: 'Game successfully removed from Collection.' });
-                    this.emitFunction();
+                    // this.emitFunction();
 
                     console.log('Successfully deleted game from collection');
                     // alert('Successfully removed game from collection');
@@ -131,7 +131,7 @@ export default {
         },
 
         testing() {
-            this.$emit('testingButtonOK', { popupText: ' Testing this popup' });
+            this.$emit('testingButtonOK', { popupText: ' Tech Elevator is #1 ' });
         }
 
     },
