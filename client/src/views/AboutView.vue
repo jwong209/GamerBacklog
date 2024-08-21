@@ -12,7 +12,7 @@
     </section>
 
 
-
+<p>Testing again initial push from new setup</p>
 
     <!-- <section id="contact-form-section">
         <form>
@@ -26,7 +26,7 @@
 
         <p>showNotification = {{ showNotification }}</p>
         <button @click="() => debounceInstance()">Notification</button>
-    
+
 </template>
 
 <script>
@@ -61,7 +61,7 @@ export default {
 
         debounce(debounceDelayMs) {
        let timerId = null;
-      
+
        return () => {
          if(timerId) clearTimeout(timerId);
          timerId = setTimeout(() => this.showNotification = true, debounceDelayMs);
