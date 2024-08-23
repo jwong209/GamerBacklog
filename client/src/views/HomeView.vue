@@ -65,7 +65,7 @@
 
   <section id="extra-section">
     <div>
-      <h2 class="press-start-2p-regular">Thanks for visiting!</h2>
+      <h2 class="press-start-2p-regular glow">Thanks for visiting!</h2>
     </div>
   </section>
 </template>
@@ -75,7 +75,6 @@
 export default {
   data() {
     return {
-
     }
   },
 

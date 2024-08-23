@@ -52,6 +52,21 @@ h3 {
   font-size: 1.1rem;
 }
 
+.glow {
+  color: #fff;
+  -webkit-animation: glow 1s ease-in-out infinite alternate;
+  -moz-animation: glow 1s ease-in-out infinite alternate;
+  animation: glow 2s ease-in-out infinite alternate;
+}
+@-webkit-keyframes glow {
+  from {
+      text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #9d15c7, 0 0 40px #9d15c7, 0 0 50px #9d15c7, 0 0 60px #9d15c7, 0 0 70px #9d15c7;
+  }
+  to {
+      text-shadow: 0 0 20px #fff, 0 0 30px #3542f5, 0 0 40px #3542f5, 0 0 50px #3542f5, 0 0 60px #3542f5, 0 0 70px #3542f5, 0 0 80px #3542f5;
+  }
+}
+
 /* ----------------------  BUTTONS  ---------------------- */
 button {
   cursor: pointer;

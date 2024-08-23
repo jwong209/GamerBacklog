@@ -44,7 +44,7 @@
                     </button>
                     <i class="fa-solid fa-bars" v-if="isMobile" v-on:click="$emit('open-nav-menu')"></i>
                     <!-- <button v-if="isMobile" v-on:click="$emit('open-nav-menu')"><i class="fa-solid fa-bars" ></i></button> -->
-                    
+
                 </div>
             </nav>
         </div>
@@ -250,9 +250,6 @@ header {
     #greetings-mess {
         display: none;
     }
-
-
-
 
 }
 </style>
